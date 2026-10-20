@@ -1,0 +1,10 @@
+|  Welcome to JShell -- Version 21.0.12.1
+|  For an introduction type: /help intro
+
+jshell>  
+jshell>  
+jshell>  COST=10 median hash+verify ms=315
+COST=11 median hash+verify ms=499
+COST=12 median hash+verify ms=941
+
+jshell>  |  Goodbye

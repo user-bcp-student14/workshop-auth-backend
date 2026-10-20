@@ -1,0 +1,6 @@
+MEDICION FINAL: diff main --unified=0 + archivos src/main/java no rastreados completos.
+Cruce paquete/sourcefile/line del XML JaCoCo; ejecutable mi+ci>0, cubierta ci>0.
+MODIFICADAS=182/186 (97.85%)
+REPORTE=evidencias\h07-jacoco.xml
+COMANDO=mvn -B -ntp clean verify quarkus:build; EXIT_CODE=0
+JUNIT=51; FALLAS=0; ERRORES=0; OMITIDAS=0; PROD=5/5

@@ -1,0 +1,5 @@
+CONSULTA=https://api.osv.dev/v1/querybatch
+DEPENDENCIAS=243
+ALERTAS=0
+EXPECTATIVA=0
+EXIT_CODE=0

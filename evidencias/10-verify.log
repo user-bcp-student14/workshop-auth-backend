@@ -1,0 +1,90 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24142 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] 
+[INFO] ---------------< com.bcp.workshop:workshop-auth-backend >---------------
+[INFO] Building workshop-auth-backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ workshop-auth-backend ---
+[INFO] argLine set to -javaagent:C:\\Users\\Usuario\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\Usuario\\Documents\\T67269-edinson-remigio\\reqflow-workspace\\workshop-auth-backend\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ workshop-auth-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ workshop-auth-backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ workshop-auth-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 10 source files with javac [debug release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ workshop-auth-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 15:58:14,602 INFO  [io.quarkus] (main) workshop-auth-backend 0.1.0 on JVM (powered by Quarkus 3.27.4) started in 15.549s. Listening on: http://127.0.0.1:8081
+2026-10-19 15:58:14,612 INFO  [io.quarkus] (main) Profile test activated. 
+2026-10-19 15:58:14,613 INFO  [io.quarkus] (main) Installed features: [cdi, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 16.22 s -- in com.bcp.workshop.auth.AuthResourceTest
+[INFO] Running com.bcp.workshop.auth.CorsTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.354 s -- in com.bcp.workshop.auth.CorsTest
+[INFO] Running com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.148 s -- in com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Running com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.024 s -- in com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Running com.bcp.workshop.auth.CorsConfigurationTest
+2026-10-19 15:58:27,117 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,119 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,119 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,119 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,119 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,121 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,123 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,124 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,125 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,130 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,132 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,135 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,147 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,147 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,182 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,183 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.084 s -- in com.bcp.workshop.auth.CorsConfigurationTest
+[INFO] Running com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.552 s -- in com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Running com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.064 s -- in com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Running com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 15:58:29,968 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+2026-10-19 15:58:29,974 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.252 s -- in com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 15:58:30,178 INFO  [io.quarkus] (main) workshop-auth-backend stopped in 0.084s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 19, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.1:jar (default-jar) @ workshop-auth-backend ---
+[INFO] Building jar: C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\workshop-auth-backend-0.1.0.jar
+[INFO] 
+[INFO] --- jacoco:0.8.12:report (report) @ workshop-auth-backend ---
+[INFO] Loading execution data file C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\jacoco.exec
+[INFO] Analyzed bundle 'workshop-auth-backend' with 13 classes
+[WARNING] Classes in bundle 'workshop-auth-backend' do not match with execution data. For report generation the same class files must be used as at runtime.
+[WARNING] Execution data for class com/bcp/workshop/auth/LegacyDatabase does not match.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:06 min
+[INFO] Finished at: 2026-10-19T15:58:35-05:00
+[INFO] ------------------------------------------------------------------------

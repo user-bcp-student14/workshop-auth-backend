@@ -1,0 +1,201 @@
+Pruebas adicionales del contrato de endpoints
+Fecha: 2026-10-19T16:50:19.0927390-05:00
+Directorio: C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend
+Comando: mvn -B -ntp test -Dtest=AuthResourceTest,EndpointContractTest,EndpointFailureTest
+[INFO] Scanning for projects...
+[INFO] Loaded 24142 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] 
+[INFO] ---------------< com.bcp.workshop:workshop-auth-backend >---------------
+[INFO] Building workshop-auth-backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ workshop-auth-backend ---
+[INFO] argLine set to -javaagent:C:\\Users\\Usuario\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\Usuario\\Documents\\T67269-edinson-remigio\\reqflow-workspace\\workshop-auth-backend\\target\\jacoco.exec,exclclassloader=*QuarkusClassLoader
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ workshop-auth-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ workshop-auth-backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ workshop-auth-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 13 source files with javac [debug release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ workshop-auth-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.bcp.workshop.auth.EndpointFailureTest
+2026-10-19 16:50:55,597 INFO  [io.quarkus] (main) workshop-auth-backend 0.1.0 on JVM (powered by Quarkus 3.27.4) started in 8.079s. Listening on: http://127.0.0.1:8081
+2026-10-19 16:50:55,599 INFO  [io.quarkus] (main) Profile test activated. 
+2026-10-19 16:50:55,599 INFO  [io.quarkus] (main) Installed features: [cdi, jacoco, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+2026-10-19 16:50:56,692 INFO  [io.sma.health] (vert.x-eventloop-thread-0) SRHCK01001: Reporting health down status: {"status":"DOWN","checks":[{"name":"synthetic-down","status":"DOWN"}]}
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.792 s -- in com.bcp.workshop.auth.EndpointFailureTest
+[INFO] Running com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 16:50:58,089 INFO  [io.quarkus] (main) workshop-auth-backend stopped in 0.061s
+2026-10-19 16:50:58,736 ERROR [com.bcp.wor.aut.LegacyDatabase] (main) Credential storage initialization failed: java.sql.SQLException: No suitable driver found for jdbc:sqlite:C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\auth-test-7189600710173591850\test.db
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:708)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:253)
+	at com.bcp.workshop.auth.LegacyDatabase.initialize(LegacyDatabase.java:44)
+	at com.bcp.workshop.auth.LegacyDatabase_Bean.doCreate(Unknown Source)
+	at com.bcp.workshop.auth.LegacyDatabase_Bean.create(Unknown Source)
+	at com.bcp.workshop.auth.LegacyDatabase_Bean.create(Unknown Source)
+	at io.quarkus.arc.impl.AbstractSharedContext.createInstanceHandle(AbstractSharedContext.java:119)
+	at io.quarkus.arc.impl.AbstractSharedContext$1.get(AbstractSharedContext.java:38)
+	at io.quarkus.arc.impl.AbstractSharedContext$1.get(AbstractSharedContext.java:35)
+	at io.quarkus.arc.generator.Default_jakarta_enterprise_context_ApplicationScoped_ContextInstances.c2(Unknown Source)
+	at io.quarkus.arc.generator.Default_jakarta_enterprise_context_ApplicationScoped_ContextInstances.computeIfAbsent(Unknown Source)
+	at io.quarkus.arc.impl.AbstractSharedContext.get(AbstractSharedContext.java:35)
+	at io.quarkus.arc.impl.ClientProxies.getApplicationScopedDelegate(ClientProxies.java:23)
+	at com.bcp.workshop.auth.LegacyDatabase_ClientProxy.arc$delegate(Unknown Source)
+	at com.bcp.workshop.auth.LegacyDatabase_ClientProxy.arc_contextualInstance(Unknown Source)
+	at com.bcp.workshop.auth.LegacyDatabase_Observer_Synthetic_OK5kTYnW3L_CrsTpmukASrSO8AU.notify(Unknown Source)
+	at io.quarkus.arc.impl.EventImpl$Notifier.notifyObservers(EventImpl.java:365)
+	at io.quarkus.arc.impl.EventImpl$Notifier.notify(EventImpl.java:347)
+	at io.quarkus.arc.impl.EventImpl.fire(EventImpl.java:81)
+	at io.quarkus.arc.runtime.ArcRecorder.fireLifecycleEvent(ArcRecorder.java:163)
+	at io.quarkus.arc.runtime.ArcRecorder.handleLifecycleEvents(ArcRecorder.java:114)
+	at io.quarkus.runner.recorded.LifecycleEventsBuildStep$startupEvent1144526294.deploy_0(Unknown Source)
+	at io.quarkus.runner.recorded.LifecycleEventsBuildStep$startupEvent1144526294.deploy(Unknown Source)
+	at io.quarkus.runner.ApplicationImpl.doStart(Unknown Source)
+	at io.quarkus.runtime.Application.start(Application.java:101)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.runner.bootstrap.StartupActionImpl.run(StartupActionImpl.java:357)
+	at io.quarkus.test.junit.QuarkusTestExtension.doJavaStart(QuarkusTestExtension.java:233)
+	at io.quarkus.test.junit.QuarkusTestExtension.ensureStarted(QuarkusTestExtension.java:643)
+	at io.quarkus.test.junit.QuarkusTestExtension.beforeAll(QuarkusTestExtension.java:688)
+	at org.junit.jupiter.engine.descriptor.CallbackSupport.lambda$invokeBeforeCallbacks$0(CallbackSupport.java:34)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.CallbackSupport.invokeBeforeCallbacks(CallbackSupport.java:34)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.invokeBeforeAllCallbacks(ClassBasedTestDescriptor.java:434)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.before(ClassBasedTestDescriptor.java:243)
+	at org.junit.jupiter.engine.descriptor.ClassBasedTestDescriptor.before(ClassBasedTestDescriptor.java:87)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:154)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:161)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:230)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:204)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:172)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:101)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:64)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:150)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:63)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:109)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:91)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39)
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+[ERROR] Tests run: 6, Failures: 0, Errors: 1, Skipped: 5, Time elapsed: 0.757 s <<< FAILURE! -- in com.bcp.workshop.auth.AuthResourceTest
+[ERROR] com.bcp.workshop.auth.AuthResourceTest.logsInTrainerWithoutClient -- Time elapsed: 0.002 s <<< ERROR!
+java.lang.RuntimeException: java.lang.RuntimeException: Failed to start quarkus
+	at io.quarkus.test.junit.QuarkusTestExtension.throwBootFailureException(QuarkusTestExtension.java:669)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptTestClassConstructor(QuarkusTestExtension.java:764)
+	at java.base/java.util.Optional.orElseGet(Optional.java:364)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+Caused by: java.lang.RuntimeException: Failed to start quarkus
+	at io.quarkus.runner.ApplicationImpl.doStart(Unknown Source)
+	at io.quarkus.runtime.Application.start(Application.java:101)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.runner.bootstrap.StartupActionImpl.run(StartupActionImpl.java:357)
+	at io.quarkus.test.junit.QuarkusTestExtension.doJavaStart(QuarkusTestExtension.java:233)
+	at io.quarkus.test.junit.QuarkusTestExtension.ensureStarted(QuarkusTestExtension.java:643)
+	at io.quarkus.test.junit.QuarkusTestExtension.beforeAll(QuarkusTestExtension.java:688)
+	... 1 more
+Caused by: java.lang.IllegalStateException: Credential storage initialization failed
+	at com.bcp.workshop.auth.LegacyDatabase.initialize(LegacyDatabase.java:50)
+	at com.bcp.workshop.auth.LegacyDatabase_Bean.doCreate(Unknown Source)
+	at com.bcp.workshop.auth.LegacyDatabase_Bean.create(Unknown Source)
+	at com.bcp.workshop.auth.LegacyDatabase_Bean.create(Unknown Source)
+	at io.quarkus.arc.impl.AbstractSharedContext.createInstanceHandle(AbstractSharedContext.java:119)
+	at io.quarkus.arc.impl.AbstractSharedContext$1.get(AbstractSharedContext.java:38)
+	at io.quarkus.arc.impl.AbstractSharedContext$1.get(AbstractSharedContext.java:35)
+	at io.quarkus.arc.generator.Default_jakarta_enterprise_context_ApplicationScoped_ContextInstances.c2(Unknown Source)
+	at io.quarkus.arc.generator.Default_jakarta_enterprise_context_ApplicationScoped_ContextInstances.computeIfAbsent(Unknown Source)
+	at io.quarkus.arc.impl.AbstractSharedContext.get(AbstractSharedContext.java:35)
+	at io.quarkus.arc.impl.ClientProxies.getApplicationScopedDelegate(ClientProxies.java:23)
+	at com.bcp.workshop.auth.LegacyDatabase_ClientProxy.arc$delegate(Unknown Source)
+	at com.bcp.workshop.auth.LegacyDatabase_ClientProxy.arc_contextualInstance(Unknown Source)
+	at com.bcp.workshop.auth.LegacyDatabase_Observer_Synthetic_OK5kTYnW3L_CrsTpmukASrSO8AU.notify(Unknown Source)
+	at io.quarkus.arc.impl.EventImpl$Notifier.notifyObservers(EventImpl.java:365)
+	at io.quarkus.arc.impl.EventImpl$Notifier.notify(EventImpl.java:347)
+	at io.quarkus.arc.impl.EventImpl.fire(EventImpl.java:81)
+	at io.quarkus.arc.runtime.ArcRecorder.fireLifecycleEvent(ArcRecorder.java:163)
+	at io.quarkus.arc.runtime.ArcRecorder.handleLifecycleEvents(ArcRecorder.java:114)
+	at io.quarkus.runner.recorded.LifecycleEventsBuildStep$startupEvent1144526294.deploy_0(Unknown Source)
+	at io.quarkus.runner.recorded.LifecycleEventsBuildStep$startupEvent1144526294.deploy(Unknown Source)
+	... 8 more
+Caused by: java.sql.SQLException: No suitable driver found for jdbc:sqlite:C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\auth-test-7189600710173591850\test.db
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:708)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:253)
+	at com.bcp.workshop.auth.LegacyDatabase.initialize(LegacyDatabase.java:44)
+	... 28 more
+
+[INFO] Running com.bcp.workshop.auth.EndpointContractTest
+[WARNING] Tests run: 10, Failures: 0, Errors: 0, Skipped: 10, Time elapsed: 0.024 s -- in com.bcp.workshop.auth.EndpointContractTest
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   AuthResourceTest.logsInTrainerWithoutClient � Runtime java.lang.RuntimeException: Failed to start quarkus
+[INFO] 
+[ERROR] Tests run: 19, Failures: 0, Errors: 1, Skipped: 15
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  38.211 s
+[INFO] Finished at: 2026-10-19T16:50:59-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project workshop-auth-backend: 
+[ERROR] 
+[ERROR] See C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+Codigo de salida: 1
