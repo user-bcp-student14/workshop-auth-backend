@@ -12,6 +12,7 @@ import static org.hamcrest.Matchers.*;
 class EndpointContractTest {
     private static final String LOGIN = "/auth/login";
     private static final String HEALTH = "/q/health";
+    private static final String JWKS = "/auth/.well-known/jwks.json";
 
     @Test
     void rejectsAbsentAndNullLoginBodies() {
@@ -71,6 +72,21 @@ class EndpointContractTest {
     void rejectsUnsupportedLoginContentType() {
         given().contentType("text/plain").accept("application/json").body("test")
                 .post(LOGIN).then().statusCode(415).body(is(""));
+    }
+
+    @Test
+    void publishesOnlyTheCurrentPublicSigningKey() {
+        given().accept("application/json").get(JWKS).then().statusCode(200)
+                .contentType("application/json")
+                .header("Cache-Control", containsString("max-age=300"))
+                .body("keys.size()", is(1))
+                .body("keys[0].kty", is("RSA"))
+                .body("keys[0].use", is("sig"))
+                .body("keys[0].alg", is("RS256"))
+                .body("keys[0].kid", not(isEmptyOrNullString()))
+                .body("keys[0].n", not(isEmptyOrNullString()))
+                .body("keys[0].e", not(isEmptyOrNullString()))
+                .body("keys[0].d", nullValue());
     }
 
     @Test

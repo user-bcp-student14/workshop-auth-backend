@@ -25,8 +25,8 @@ Definir en el entorno del proceso (sin guardar secretos en Git):
 | Variable | Uso |
 |---|---|
 | `AUTH_TOKEN_PRIVATE_KEY_PATH` | Archivo PEM PKCS#8 de clave privada RSA, minimo 2048 bits; proteger permisos. |
-| `AUTH_TOKEN_ISSUER` | Identificador acordado del emisor. |
-| `AUTH_TOKEN_AUDIENCE` | Identificador acordado del consumidor. |
+| `AUTH_TOKEN_ISSUER` | Identificador del emisor; para la API del workshop usar `workshop-auth-backend`. |
+| `AUTH_TOKEN_AUDIENCE` | Identificador del consumidor; para la API del workshop usar `workshop-requirements-api`. |
 | `AUTH_CORS_ORIGINS` | Origenes HTTP(S) exactos separados por coma, sin rutas ni wildcard. |
 
 No hay valores de produccion por defecto para estos cuatro parametros. Una
@@ -39,6 +39,12 @@ hash+verificacion dio medianas de 315/499/941 ms para costes 10/11/12;
 se eligio 12 priorizando resistencia al cracking. Son mediciones de desarrollo,
 no un SLA de produccion. Las pruebas usan coste 4 para velocidad y no configuran
 credenciales reales.
+
+El emisor publica su clave RSA publica actual en
+`GET http://127.0.0.1:8080/auth/.well-known/jwks.json`. La respuesta incluye
+el `kid` del JWT y nunca publica la clave privada. El endpoint esta destinado
+a consumidores servidor-a-servidor. En contenedores, configurar en la API la
+URL alcanzable del servicio auth mediante `AUTH_JWKS_URL`.
 
 Para una base vacia, aprovisionar explicitamente una cuenta STUDENT con
 `AUTH_BOOTSTRAP_USERNAME` y `AUTH_BOOTSTRAP_PASSWORD`. Deben configurarse juntas.
@@ -84,6 +90,7 @@ El contrato y los cambios autorizados se detallan en [ENDPOINTS.md](docs/ENDPOIN
 ## Endpoints
 
 - `POST /auth/login`
+- `GET /auth/.well-known/jwks.json`
 - `GET /q/health`
 
 ## Propósito de la rama `main`

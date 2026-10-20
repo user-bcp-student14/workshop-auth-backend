@@ -124,16 +124,50 @@ adicionales del cuerpo de login):
 | sub | string | user.username. |
 | role | string | user.role; no se publica un claim groups por codigo de la aplicacion. |
 | iss | string | Emisor configurado por el operador. |
-| aud | string | Audiencia configurada, emitida como string en la captura actual; el consumidor debe comparar el valor exacto, no una coincidencia parcial. |
+| aud | string | Audiencia configurada, emitida como string; el consumidor debe comparar el valor exacto, no una coincidencia parcial. Para la API del workshop es `workshop-requirements-api`. |
 | iat | integer | Instante de emision, segundos Unix UTC. |
 | exp | integer | iat + 3600, segundos Unix UTC. |
 
 La libreria puede incorporar otros metadatos JWT; no se exige al cliente
-rechazar claims adicionales. El algoritmo de firma se fija en RS256.
+rechazar claims adicionales. El algoritmo de firma se fija en RS256. El
+header JOSE incluye `kid`, derivado del thumbprint SHA-256 de los miembros
+publicos RSA `e`, `kty` y `n` publicados por el JWKS.
 
 Evidencia: [LoginResponse.java:5](../src/main/java/com/bcp/workshop/auth/LoginResponse.java#L5),
 [AuthResource.java:34](../src/main/java/com/bcp/workshop/auth/AuthResource.java#L34)
 y [TokenService.java:50](../src/main/java/com/bcp/workshop/auth/TokenService.java#L50).
+
+## GET /auth/.well-known/jwks.json
+
+Publica la clave RSA publica que corresponde al `kid` de los JWT vigentes.
+No requiere autenticacion y responde HTTP 200 con `application/json`:
+
+```json
+{
+  "keys": [
+    {
+      "kty": "RSA",
+      "use": "sig",
+      "alg": "RS256",
+      "kid": "<thumbprint-publico>",
+      "n": "<modulo-base64url>",
+      "e": "<exponente-base64url>"
+    }
+  ]
+}
+```
+
+La respuesta incluye `Cache-Control: public, max-age=300` y solo parametros
+publicos; nunca contiene `d` ni otros parametros privados. El endpoint se
+destina a consumidores servidor-a-servidor y no reemplaza la configuracion
+CORS del login.
+
+Para validar un JWT, el consumidor debe seleccionar la clave por `kid`,
+permitir unicamente RS256 y comprobar firma, expiracion, issuer y audience
+exactos. El issuer recomendado para este workshop es
+`workshop-auth-backend`; para `workshop-requirements-api`, la audience es
+`workshop-requirements-api`. En contenedores, configurar la URL interna
+alcanzable del servicio auth.
 
 ### 5. Respuestas de error
 
