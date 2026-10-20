@@ -1,0 +1,826 @@
+Evidencias posteriores a la implementacion H-01 a H-04
+Fecha: 2026-10-19T15:59:21.2875912-05:00
+Comando: mvn -B -ntp clean verify
+Entorno: JDK 21; SQLite temporal y claves RSA generadas solo para pruebas.
+
+Apache Maven 3.10.0 (c43a36b8d67be7e0805a411bc0898af1a51f5472)
+Maven home: C:\ProgramData\chocolatey\lib\maven\apache-maven-3.10.0
+Java version: 21.0.12.1, vendor: Eclipse Adoptium, runtime: C:\Program Files\Eclipse Adoptium\jdk-21.0.12.101-hotspot
+Default locale: es_PE, platform encoding: UTF-8, time zone: America/Lima
+OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
+[INFO] Scanning for projects...
+[INFO] Loaded 24142 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] 
+[INFO] ---------------< com.bcp.workshop:workshop-auth-backend >---------------
+[INFO] Building workshop-auth-backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ workshop-auth-backend ---
+[INFO] Deleting C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ workshop-auth-backend ---
+[INFO] argLine set to -javaagent:C:\\Users\\Usuario\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\Usuario\\Documents\\T67269-edinson-remigio\\reqflow-workspace\\workshop-auth-backend\\target\\jacoco.exec,exclclassloader=*QuarkusClassLoader
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ workshop-auth-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 11 source files with javac [debug release 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ workshop-auth-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 10 source files with javac [debug release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ workshop-auth-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+2026-10-19 15:59:56,606 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.quarkus:quarkus-jacoco:pom:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:56,619 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.quarkus:quarkus-jacoco:pom:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:58,239 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.quarkus:quarkus-jacoco-parent:pom:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:58,246 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.quarkus:quarkus-jacoco-parent:pom:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:58,326 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.jacoco:org.jacoco.core:pom:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:58,334 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.jacoco:org.jacoco.core:pom:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:58,420 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.jacoco:org.jacoco.build:pom:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:58,424 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.jacoco:org.jacoco.build:pom:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:58,504 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.ow2.asm:asm-bom:pom:9.8 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:58,507 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.ow2.asm:asm-bom:pom:9.8 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:58,593 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.jacoco:org.jacoco.report:pom:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:58,601 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.jacoco:org.jacoco.report:pom:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:58,679 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.jacoco:org.jacoco.agent:pom:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:58,685 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.jacoco:org.jacoco.agent:pom:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:59,456 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-9) Artifact io.quarkus:quarkus-jacoco:jar:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:59,458 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-5) Artifact org.jacoco:org.jacoco.core:jar:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:59,465 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-9) Artifact io.quarkus:quarkus-jacoco:jar:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:59,466 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-11) Artifact org.jacoco:org.jacoco.report:jar:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:59,473 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-11) Artifact org.jacoco:org.jacoco.report:jar:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:59,471 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-2) Artifact org.jacoco:org.jacoco.agent:jar:runtime:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:59,470 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-5) Artifact org.jacoco:org.jacoco.core:jar:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:59,469 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-3) Artifact org.jacoco:org.jacoco.agent:jar:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:59,491 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-2) Artifact org.jacoco:org.jacoco.agent:jar:runtime:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:59:59,698 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-3) Artifact org.jacoco:org.jacoco.agent:jar:0.8.13 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+[INFO] Running com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 16:00:15,377 INFO  [io.quarkus] (main) workshop-auth-backend 0.1.0 on JVM (powered by Quarkus 3.27.4) started in 12.855s. Listening on: http://127.0.0.1:8081
+2026-10-19 16:00:15,378 INFO  [io.quarkus] (main) Profile test activated. 
+2026-10-19 16:00:15,379 INFO  [io.quarkus] (main) Installed features: [cdi, jacoco, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.411 s -- in com.bcp.workshop.auth.AuthResourceTest
+[INFO] Running com.bcp.workshop.auth.CorsTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.280 s -- in com.bcp.workshop.auth.CorsTest
+[INFO] Running com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.201 s -- in com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Running com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.032 s -- in com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Running com.bcp.workshop.auth.CorsConfigurationTest
+2026-10-19 16:00:22,522 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:00:22,523 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:00:22,523 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:00:22,523 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:00:22,524 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:00:22,524 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:00:22,525 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:00:22,525 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:00:22,525 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:00:22,526 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:00:22,526 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:00:22,527 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:00:22,527 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:00:22,527 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:00:22,528 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:00:22,530 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.037 s -- in com.bcp.workshop.auth.CorsConfigurationTest
+[INFO] Running com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.597 s -- in com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Running com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.061 s -- in com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Running com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 16:00:24,517 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+2026-10-19 16:00:24,521 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.660 s -- in com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 16:00:24,960 INFO  [io.quarkus] (main) workshop-auth-backend stopped in 0.071s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 19, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.1:jar (default-jar) @ workshop-auth-backend ---
+[INFO] Building jar: C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\workshop-auth-backend-0.1.0.jar
+[INFO] 
+[INFO] --- jacoco:0.8.12:report (report) @ workshop-auth-backend ---
+[INFO] Loading execution data file C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\jacoco.exec
+[INFO] Analyzed bundle 'workshop-auth-backend' with 12 classes
+[INFO] 
+[INFO] --- jacoco:0.8.12:check (check) @ workshop-auth-backend ---
+[INFO] Loading execution data file C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\jacoco.exec
+[INFO] Analyzed bundle 'workshop-auth-backend' with 12 classes
+[INFO] All coverage checks have been met.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:00 min
+[INFO] Finished at: 2026-10-19T16:00:27-05:00
+[INFO] ------------------------------------------------------------------------
+Codigo de salida: 0
+
+Reverificacion con cobertura y casos adicionales de bootstrap, fallo de persistencia y rollback.
+Fecha: 2026-10-19T16:02:54.4863144-05:00
+Comando: mvn -B -ntp clean verify
+[INFO] Scanning for projects...
+[INFO] Loaded 24142 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] 
+[INFO] ---------------< com.bcp.workshop:workshop-auth-backend >---------------
+[INFO] Building workshop-auth-backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ workshop-auth-backend ---
+[INFO] Deleting C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ workshop-auth-backend ---
+[INFO] argLine set to -javaagent:C:\\Users\\Usuario\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\Usuario\\Documents\\T67269-edinson-remigio\\reqflow-workspace\\workshop-auth-backend\\target\\jacoco.exec,exclclassloader=*QuarkusClassLoader
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ workshop-auth-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 11 source files with javac [debug release 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ workshop-auth-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 10 source files with javac [debug release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ workshop-auth-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 16:03:44,158 INFO  [io.quarkus] (main) workshop-auth-backend 0.1.0 on JVM (powered by Quarkus 3.27.4) started in 13.250s. Listening on: http://127.0.0.1:8081
+2026-10-19 16:03:44,163 INFO  [io.quarkus] (main) Profile test activated. 
+2026-10-19 16:03:44,163 INFO  [io.quarkus] (main) Installed features: [cdi, jacoco, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.85 s -- in com.bcp.workshop.auth.AuthResourceTest
+[INFO] Running com.bcp.workshop.auth.CorsTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.240 s -- in com.bcp.workshop.auth.CorsTest
+[INFO] Running com.bcp.workshop.auth.LegacyDatabaseTest
+2026-10-19 16:03:52,052 ERROR [com.bcp.wor.aut.LegacyDatabase] (main) Credential storage initialization failed: java.sql.SQLException: No suitable driver found for jdbc:unavailable:test
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:708)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:253)
+	at com.bcp.workshop.auth.LegacyDatabase.initialize(LegacyDatabase.java:44)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+	at com.bcp.workshop.auth.LegacyDatabaseTest.failsInitializationExplicitlyAndPreservesDocumentedLookupFailure(LegacyDatabaseTest.java:67)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptTestMethod(QuarkusTestExtension.java:849)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:161)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:152)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:91)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:87)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$4(TestMethodTestDescriptor.java:221)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:217)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:159)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:70)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:157)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:161)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:161)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:230)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:204)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:172)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:101)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:64)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:150)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:63)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:109)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:91)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39)
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+2026-10-19 16:03:52,056 ERROR [com.bcp.wor.aut.LegacyDatabase] (main) Credential lookup failed: java.sql.SQLException: No suitable driver found for jdbc:unavailable:test
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:708)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:253)
+	at com.bcp.workshop.auth.LegacyDatabase.findByUsername(LegacyDatabase.java:55)
+	at com.bcp.workshop.auth.LegacyDatabaseTest.failsInitializationExplicitlyAndPreservesDocumentedLookupFailure(LegacyDatabaseTest.java:68)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptTestMethod(QuarkusTestExtension.java:849)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:161)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:152)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:91)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:87)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$4(TestMethodTestDescriptor.java:221)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:217)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:159)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:70)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:157)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:161)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:161)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:230)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:204)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:172)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:101)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:64)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:150)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:63)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:109)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:91)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39)
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+[ERROR] Tests run: 4, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.351 s <<< FAILURE! -- in com.bcp.workshop.auth.LegacyDatabaseTest
+[ERROR] com.bcp.workshop.auth.LegacyDatabaseTest.provisionsOnlyExplicitAccountsAndDoesNotResetExistingCredentials -- Time elapsed: 0.090 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.nio.file.Path.resolve(String)" because "this.directory" is null
+	at com.bcp.workshop.auth.LegacyDatabaseTest.provisionsOnlyExplicitAccountsAndDoesNotResetExistingCredentials(LegacyDatabaseTest.java:49)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptTestMethod(QuarkusTestExtension.java:849)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] com.bcp.workshop.auth.LegacyDatabaseTest.failsInitializationExplicitlyAndPreservesDocumentedLookupFailure -- Time elapsed: 0.081 s <<< ERROR!
+java.lang.NullPointerException: Cannot invoke "java.nio.file.Path.resolve(String)" because "this.directory" is null
+	at com.bcp.workshop.auth.LegacyDatabaseTest.failsInitializationExplicitlyAndPreservesDocumentedLookupFailure(LegacyDatabaseTest.java:69)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptTestMethod(QuarkusTestExtension.java:849)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	Suppressed: java.sql.SQLException: No suitable driver found for jdbc:unavailable:test
+		at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:708)
+		at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:253)
+		at com.bcp.workshop.auth.LegacyDatabase.initialize(LegacyDatabase.java:44)
+		at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+		at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+		at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+		at com.bcp.workshop.auth.LegacyDatabaseTest.failsInitializationExplicitlyAndPreservesDocumentedLookupFailure(LegacyDatabaseTest.java:67)
+		... 5 more
+	Suppressed: java.sql.SQLException: No suitable driver found for jdbc:unavailable:test
+		at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:708)
+		at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:253)
+		at com.bcp.workshop.auth.LegacyDatabase.findByUsername(LegacyDatabase.java:55)
+		at com.bcp.workshop.auth.LegacyDatabaseTest.failsInitializationExplicitlyAndPreservesDocumentedLookupFailure(LegacyDatabaseTest.java:68)
+		... 5 more
+
+[INFO] Running com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.035 s -- in com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Running com.bcp.workshop.auth.CorsConfigurationTest
+2026-10-19 16:03:52,131 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:03:52,132 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:03:52,132 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:03:52,133 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:03:52,133 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:03:52,134 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:03:52,135 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:03:52,135 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:03:52,135 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:03:52,136 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:03:52,136 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:03:52,137 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:03:52,137 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:03:52,137 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:03:52,138 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:03:52,139 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.023 s -- in com.bcp.workshop.auth.CorsConfigurationTest
+[INFO] Running com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.946 s -- in com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Running com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.064 s -- in com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Running com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 16:03:55,274 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+2026-10-19 16:03:55,282 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.282 s -- in com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 16:03:55,571 INFO  [io.quarkus] (main) workshop-auth-backend stopped in 0.081s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   LegacyDatabaseTest.failsInitializationExplicitlyAndPreservesDocumentedLookupFailure:69 NullPointer Cannot invoke "java.nio.file.Path.resolve(String)" because "this.directory" is null
+[ERROR]   LegacyDatabaseTest.provisionsOnlyExplicitAccountsAndDoesNotResetExistingCredentials:49 NullPointer Cannot invoke "java.nio.file.Path.resolve(String)" because "this.directory" is null
+[INFO] 
+[ERROR] Tests run: 21, Failures: 0, Errors: 2, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  58.065 s
+[INFO] Finished at: 2026-10-19T16:03:56-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project workshop-auth-backend: 
+[ERROR] 
+[ERROR] See C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+Codigo de salida: 1
+
+Fecha: 2026-10-19T16:04:34.8834337-05:00
+Reverificacion final: fixtures unitarios separados de QuarkusTest para evitar inyeccion TempDir nula.
+Comando: mvn -B -ntp clean verify
+[INFO] Scanning for projects...
+[INFO] Loaded 24142 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] 
+[INFO] ---------------< com.bcp.workshop:workshop-auth-backend >---------------
+[INFO] Building workshop-auth-backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ workshop-auth-backend ---
+[INFO] Deleting C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ workshop-auth-backend ---
+[INFO] argLine set to -javaagent:C:\\Users\\Usuario\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\Usuario\\Documents\\T67269-edinson-remigio\\reqflow-workspace\\workshop-auth-backend\\target\\jacoco.exec,exclclassloader=*QuarkusClassLoader
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ workshop-auth-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 11 source files with javac [debug release 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ workshop-auth-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 11 source files with javac [debug release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ workshop-auth-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 16:05:16,122 INFO  [io.quarkus] (main) workshop-auth-backend 0.1.0 on JVM (powered by Quarkus 3.27.4) started in 11.565s. Listening on: http://127.0.0.1:8081
+2026-10-19 16:05:16,128 INFO  [io.quarkus] (main) Profile test activated. 
+2026-10-19 16:05:16,128 INFO  [io.quarkus] (main) Installed features: [cdi, jacoco, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.641 s -- in com.bcp.workshop.auth.AuthResourceTest
+[INFO] Running com.bcp.workshop.auth.CorsTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.251 s -- in com.bcp.workshop.auth.CorsTest
+[INFO] Running com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.153 s -- in com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Running com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.023 s -- in com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Running com.bcp.workshop.auth.CorsConfigurationTest
+2026-10-19 16:05:22,999 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:05:23,000 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:05:23,001 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:05:23,001 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:05:23,002 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:05:23,003 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:05:23,003 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:05:23,003 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:05:23,005 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:05:23,005 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:05:23,006 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:05:23,006 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:05:23,007 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:05:23,007 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:05:23,008 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 16:05:23,009 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.030 s -- in com.bcp.workshop.auth.CorsConfigurationTest
+[INFO] Running com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.633 s -- in com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Running com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.067 s -- in com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Running com.bcp.workshop.auth.RepositoryLifecycleTest
+2026-10-19 16:05:23,864 ERROR [com.bcp.wor.aut.LegacyDatabase] (main) Credential storage initialization failed: java.sql.SQLException: No suitable driver found for jdbc:unavailable:test
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:708)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:253)
+	at com.bcp.workshop.auth.LegacyDatabase.initialize(LegacyDatabase.java:44)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:53)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:35)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3128)
+	at com.bcp.workshop.auth.RepositoryLifecycleTest.failsInitializationExplicitlyAndPreservesDocumentedLookupFailure(RepositoryLifecycleTest.java:50)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:787)
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:478)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:161)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:152)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:91)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:87)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$4(TestMethodTestDescriptor.java:221)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:217)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:159)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:70)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:157)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:161)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:161)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:230)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:204)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:172)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:101)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:64)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:150)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:63)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:109)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:91)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39)
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+2026-10-19 16:05:23,869 ERROR [com.bcp.wor.aut.LegacyDatabase] (main) Credential lookup failed: java.sql.SQLException: No suitable driver found for jdbc:unavailable:test
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:708)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:253)
+	at com.bcp.workshop.auth.LegacyDatabase.findByUsername(LegacyDatabase.java:55)
+	at com.bcp.workshop.auth.RepositoryLifecycleTest.failsInitializationExplicitlyAndPreservesDocumentedLookupFailure(RepositoryLifecycleTest.java:51)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:787)
+	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:478)
+	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:161)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:152)
+	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:91)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:93)
+	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:87)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$4(TestMethodTestDescriptor.java:221)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:217)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:159)
+	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:70)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:157)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:161)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:161)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:230)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:204)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:172)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:101)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:64)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:150)
+	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:63)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:109)
+	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:91)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39)
+	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38)
+	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60)
+	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168)
+	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.179 s -- in com.bcp.workshop.auth.RepositoryLifecycleTest
+[INFO] Running com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 16:05:25,970 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+2026-10-19 16:05:25,974 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.138 s -- in com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 16:05:26,131 INFO  [io.quarkus] (main) workshop-auth-backend stopped in 0.059s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 21, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.1:jar (default-jar) @ workshop-auth-backend ---
+[INFO] Building jar: C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\workshop-auth-backend-0.1.0.jar
+[INFO] 
+[INFO] --- jacoco:0.8.12:report (report) @ workshop-auth-backend ---
+[INFO] Loading execution data file C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\jacoco.exec
+[INFO] Analyzed bundle 'workshop-auth-backend' with 12 classes
+[INFO] 
+[INFO] --- jacoco:0.8.12:check (check) @ workshop-auth-backend ---
+[INFO] Loading execution data file C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\jacoco.exec
+[INFO] Analyzed bundle 'workshop-auth-backend' with 12 classes
+[INFO] All coverage checks have been met.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  49.958 s
+[INFO] Finished at: 2026-10-19T16:05:27-05:00
+[INFO] ------------------------------------------------------------------------
+Codigo de salida: 0
+Cobertura de lineas ejecutables agregadas/modificadas (git diff + archivos nuevos)
+AuthResource.java: 16/16 = 100.00%
+AuthService.java: 8/8 = 100.00%
+CredentialMigration.java: 49/51 = 96.08%
+LegacyDatabase.java: 36/36 = 100.00%
+StoredCredentials.java: 1/1 = 100.00%
+PasswordHasher.java: 11/13 = 84.62%
+CorsConfiguration.java: 19/19 = 100.00%
+LoginResponse.java: 4/4 = 100.00%
+TokenService.java: 26/26 = 100.00%
+TOTAL MODIFICADO: 170/174 = 97.70%; minimo 85%
+GLOBAL BRANCH: 85/96 = 88.54%
+GLOBAL LINE: 182/186 = 97.85%
+Pruebas de arranque: cada variable obligatoria ausente debe impedir el inicio.
+Sin AUTH_CORS_ORIGINS : exit=1
+Failed to load config value of type class java.lang.String for: auth.cors.origins
+
+Sin AUTH_TOKEN_PRIVATE_KEY_PATH : exit=1
+Failed to load config value of type class java.lang.String for: auth.token.private-key-path
+
+Sin AUTH_TOKEN_ISSUER : exit=1
+Failed to load config value of type class java.lang.String for: auth.token.issuer
+
+Sin AUTH_TOKEN_AUDIENCE : exit=1
+Failed to load config value of type class java.lang.String for: auth.token.audience
+
+EVIDENCIA H-01 A H-04 - 2026-10-19
+
+Todos los comandos se ejecutaron dentro de workshop-auth-backend con JDK 21.
+No se uso la base local ni claves reales. La suite final incluye pruebas
+unitarias y pruebas HTTP con @QuarkusTest.
+
+ANTES DE CAMBIAR PRODUCCION
+Comando: mvn -B -ntp test
+Archivo: 02-antes.log
+Resultado: 12 pruebas, 4 fallos de regresion esperados, 0 errores.
+El intento inicial 01-antes.log fallo por una tabla ausente en el fixture.
+Se corrigio solo el fixture y se repitio antes de modificar produccion.
+
+H-01
+Caracterizacion antes: AuthResourceTest (5/5) y findsOnlyExactCredentials pasan.
+Correccion antes: rejectsSqlSyntaxAsCredentials FALLA; devuelve otra identidad.
+Cambio: SQL preparado, despues busqueda por username y verificacion en servicio.
+Diff inicial: H-01.diff. Refinamiento para hashes incluido en H-02.diff.
+Comando despues: mvn -B -ntp test -Dtest=AuthResourceTest,LegacyDatabaseTest
+Resultado despues: 7/7; caracterizacion y regresion pasan.
+Archivo: 03-h01-despues.log.
+
+H-02
+Caracterizacion antes: login sintetico de estudiante y entrenador, forma de
+respuesta, errores y claves incorrectas/espacios pasan en AuthResourceTest.
+Correccion antes: storesHashesInsteadOfPlaintextColumn FALLA por columna ausente.
+Cambio: BCrypt con salt sobre Base64(SHA-256), migracion transaccional versionada,
+repositorio/servicio/seguridad/DTO separados y aprovisionamiento explicito.
+Diff: H-02.diff. Calibracion: 05-bcrypt-calibracion.log.
+Comando despues: mvn -B -ntp test -Dtest=AuthResourceTest,LegacyDatabaseTest,PasswordStorageTest,PasswordHasherTest,CredentialMigrationTest
+Resultado despues: 13/13; conserva caracterizacion HTTP, verifica hash, esquema,
+idempotencia de migracion, reinicio y rollback sin perdida de cuenta.
+Archivo: 07-h02-despues.log.
+06-h02-despues.log conserva un intento fallido por registro JDBC del classloader;
+se corrigio el fixture unitario, no se desactivo ninguna prueba.
+
+H-03
+Caracterizacion antes: characterizesLegacyFormatWithoutRecordingSecret pasa.
+Correccion antes: signedTokenMustNotContainEmbeddedSecret FALLA (1 segmento, no 3).
+Cambio autorizado: JWT RS256 con claims, clave externa y expiracion comun.
+El formato legado se caracterizo antes de retirarlo; no se conserva como
+expectativa posterior porque el usuario autorizo sustituirlo por JWT.
+Diff: H-03.diff.
+Comando despues: mvn -B -ntp test -Dtest=AuthResourceTest,TokenServiceTest
+Resultado despues: 7/7. Misma respuesta HTTP y validacion; nueva caracterizacion
+JWT con firma independiente JCA, claims, alteracion de rol, clave incorrecta,
+limite de expiracion, issuer/audience y configuracion invalida.
+Archivo: 08-h03-despues.log.
+
+H-04
+Caracterizacion antes: characterizesPreflight pasa para un origen sintetico.
+Correccion antes: deniesUnknownOrigin FALLA (el origen ajeno recibe permiso).
+Cambio autorizado: allowlist externa obligatoria, POST/OPTIONS y sin secreto
+en Java; validacion de origenes, claves, issuer y audience al arrancar.
+Diff: H-04.diff.
+Resultado despues: CorsTest 3/3 y CorsConfigurationTest 1/1 pasan en la suite.
+Cuatro arranques separados, cada uno sin una variable obligatoria, terminan
+con codigo 1. Archivo: 12-startup-missing.log.
+No se presupone un codigo 403: se verifica ausencia de permiso CORS para
+origen ajeno y que DELETE no aparece entre los metodos permitidos.
+
+RESULTADO FINAL
+Comando: mvn -B -ntp clean verify
+Archivo: ..\evidencias_test_post.txt (la ultima ejecucion es la definitiva).
+21 pruebas, 0 fallos, 0 errores, 0 omitidas. BUILD SUCCESS, exit 0.
+Pruebas adicionales: bootstrap idempotente, ausencia de credenciales automaticas,
+rechazo de configuracion incompleta y fallo de almacenamiento con logging.
+Los mensajes ERROR de estos casos negativos son intencionales.
+El archivo tambien conserva una ejecucion fallida por TempDir nulo en
+QuarkusTest; se separaron los casos unitarios y se repitio sin omitir pruebas.
+JaCoCo: gate LINE >= 85%, sin clases excluidas del reporte.
+Codigo agregado/modificado: 170/174 lineas ejecutables, 97.70%.
+Global: 182/186 lineas, 97.85%; ramas 85/96, 88.54%.
+Medicion: cobertura-modificada.txt, contrastada con git diff y archivos nuevos.
+
+LECTURA DE DIFFS
+Los diffs H-02/H-03/H-04 son cortes por archivos respecto al Git inicial y
+contienen contexto compartido cuando dos hallazgos afectan el mismo archivo;
+no son parches independientes para aplicar uno encima de otro.
+H-01.diff conserva el cambio exacto del primer paso.
+pruebas.diff contiene la suite final; implementacion-completa.diff contiene
+todos los cambios Java, propiedades, Maven y README, incluidos archivos nuevos.
+
+LIMITES
+No se ejecutaron workflows remotos CodeQL/Dependency Review ni auditoria SCA
+completa. Sus configuraciones no cambiaron.
+No se verificaron consumidores externos ni se migraron datos del desarrollador.
+La activacion requiere claves/origenes reales aportados por el operador,
+coordinacion de consumidores y respaldo/restauracion de SQLite.
+Los estados se mantienen exclusivamente en ..\HALLAZGOS.md.

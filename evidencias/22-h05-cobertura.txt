@@ -1,0 +1,9 @@
+H-05: cobertura incremental de las cuatro clases de produccion de este item.
+Metodo: diff --no-index --unified=0 contra snapshot previo, dos clases nuevas completas; cruce XML JaCoCo (mi+ci>0, cubierta ci>0).
+src\main\java\com\bcp\workshop\auth\CredentialStorageException.java 2/2
+src\main\java\com\bcp\workshop\auth\AuthResource.java 1/1
+src\main\java\com\bcp\workshop\auth\LegacyDatabase.java 1/1
+src\main\java\com\bcp\workshop\auth\AuthExceptionMapper.java 6/6
+MODIFICADAS=10/10 (100.00%)
+GLOBAL=186/190
+COMANDO=mvn -B -ntp clean verify; EXIT_CODE=0; GATE=0.85 intacto

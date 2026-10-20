@@ -1,0 +1,411 @@
+diff --git a/HALLAZGOS.md b/HALLAZGOS.md
+index 0b980db..23d074f 100644
+--- a/HALLAZGOS.md
++++ b/HALLAZGOS.md
+@@ -15,7 +15,7 @@ errores H-05 aprobada posteriormente.
+ | H-04 | Configuracion: secreto fijo y CORS permisivo | Vulnerabilidad | La configuracion fija impedia rotar secretos y admitia cualquier origen. Resuelto con archivo externo de clave, issuer/audience y allowlist obligatorios por entorno, validacion al arranque y CORS POST/OPTIONS. Ausencia de cada variable impide arrancar; origen no permitido no recibe permiso CORS. | [application.properties:5](src/main/resources/application.properties#L5), [application.properties:13](src/main/resources/application.properties#L13), [CorsConfiguration.java:19](src/main/java/com/bcp/workshop/auth/CorsConfiguration.java#L19), [TokenService.java:34](src/main/java/com/bcp/workshop/auth/TokenService.java#L34) | media | Resuelto |
+ | H-05 | Errores: respuesta con detalles internos | Vulnerabilidad | Resuelto: 500 generico sin detalles; SQLException se propaga como CredentialStorageException y ya no produce 401. Log unico de clase/stack sin mensajes sensibles; EndpointFailureTest, RepositoryLifecycleTest y AuthResourceTest verdes (39 pruebas); [diff propio](evidencias/H-05.diff), [antes](evidencias/20-h05-regresion-antes.log), [despues](evidencias/21-h05-despues.log). | [AuthExceptionMapper.java:15](src/main/java/com/bcp/workshop/auth/AuthExceptionMapper.java#L15), [LegacyDatabase.java:67](src/main/java/com/bcp/workshop/auth/LegacyDatabase.java#L67) | media | Resuelto |
+ | H-06 | SCA: Quarkus 3.27.4 y Commons Text 1.9 declarados | Sugerencia | Resuelto: BOM 3.27.6 y Text 1.14.0 administrado, sin nuevas dependencias ni supresiones; [SCA](evidencias/31-h06-sca.md) compara 49 coincidencias antes con 0 despues, sin afirmar ausencia global de CVE. LoginResponseTest y matriz HTTP/JWT/migracion verdes (41 pruebas y 5 prod); [diff propio](evidencias/H-06.diff), [resultado](evidencias/28-h06-despues.log). | [pom.xml:13](pom.xml#L13), [pom.xml:57](pom.xml#L57), [LoginResponseTest.java](src/test/java/com/bcp/workshop/auth/LoginResponseTest.java) | media | Resuelto |
+-| H-07 | Clean code: Resource mezcla responsabilidades | Refactor | La separacion minima necesaria para H-02/H-03 introdujo servicio, repositorio, seguridad y DTO; elimino anidamiento y duplicacion de duracion. La revision integral del Resource y sus errores no se cierra fuera de alcance; requiere reevaluar el hallazgo completo. | [AuthResource.java:24](src/main/java/com/bcp/workshop/auth/AuthResource.java#L24), [AuthResource.java:35](src/main/java/com/bcp/workshop/auth/AuthResource.java#L35), [AuthService.java:17](src/main/java/com/bcp/workshop/auth/AuthService.java#L17) | baja | Pendiente |
++| H-07 | Clean code: Resource mezcla responsabilidades | Refactor | Resuelto: Resource solo valida/adapta HTTP; AuthService.login orquesta autenticacion/emision y LoginResponse conserva el mapeo; errores reutilizan H-05. AuthServiceTest verifica emision unica, identidad almacenada y cero emisiones ante rechazo/fallo; 51 pruebas verdes, [diff propio](evidencias/H-07.diff), [antes](evidencias/34-h07-arquitectura-antes.log), [despues](evidencias/35-h07-despues.log). | [AuthResource.java:29](src/main/java/com/bcp/workshop/auth/AuthResource.java#L29), [AuthService.java:19](src/main/java/com/bcp/workshop/auth/AuthService.java#L19), [AuthServiceTest.java](src/test/java/com/bcp/workshop/auth/AuthServiceTest.java) | baja | Resuelto |
+ 
+ Todos los casos de RETO.md tienen evidencia en este repositorio; ninguno se
+ omite. H-06 confirma las versiones, no la explotabilidad de un advisory.
+@@ -48,7 +48,8 @@ su fila y marcarse como **No encontrado**, explicando el motivo.
+    mensajes y precedencia 400 y decision 401 para credenciales invalidas;
+    delega errores inesperados al mapper generico aprobado en H-05.
+ 2. [AuthService](src/main/java/com/bcp/workshop/auth/AuthService.java) consulta
+-   identidad y hash por username en el repositorio y verifica la contrasena.
++   identidad y hash por username en el repositorio, verifica la contrasena y
++   orquesta emision y mapeo de respuesta de login, fuera del Resource.
+ 3. [LegacyDatabase](src/main/java/com/bcp/workshop/auth/LegacyDatabase.java)
+    inicializa/migra SQLite al arrancar y usa consultas parametrizadas.
+    AUTH_DB_URL conserva su default; el aprovisionamiento es explicito.
+@@ -75,3 +76,6 @@ su fila y marcarse como **No encontrado**, explicando el motivo.
+   SCA por coordenadas de todo el arbol: 49 coincidencias antes, 0 despues;
+   [inventario y limites](evidencias/31-h06-sca.md),
+   [cobertura global 97.89%](evidencias/32-h06-cobertura.txt).
++- H-07: caracterizacion previa 33/33; prueba arquitectonica previa falla;
++  despues 51/51 y 5 prod, con [cobertura incremental 100% y global 97.95%](evidencias/36-h07-cobertura.txt).
++  Contratos no modificados respecto al cierre H-05; quality gates intactos.
+diff --git a/docs/TESTING.md b/docs/TESTING.md
+index d93379e..ca70de2 100644
+--- a/docs/TESTING.md
++++ b/docs/TESTING.md
+@@ -264,6 +264,52 @@ produccion y no tiene denominador incremental propio.
+ aserciones del framework para aceptar una regresion. Cero alertas de esta
+ consulta no equivale a ausencia global de vulnerabilidades.
+ 
++## H-07: ownership de autenticacion y emision
++
++[AuthServiceTest.java](../src/test/java/com/bcp/workshop/auth/AuthServiceTest.java)
++registra llamadas al repositorio, verificador y emisor sin nuevas librerias:
++autenticacion valida emite una sola vez con la identidad almacenada (no la
++entrada); usuario ausente, password incorrecta o error de datos nunca emiten.
++La validacion HTTP precede al servicio. Tambien cubre error de firma y el
++DTO exacto. Tres pruebas adicionales invocan directamente el servicio.
++
++Antes del refactor se ejecutaron seis caracterizaciones de orquestacion
++contra el adaptador existente, junto con la matriz HTTP/DTO/JWT. La prueba
++estructural detecto TokenService en el Resource; despues comprueba que
++pertenece al servicio. No se usa esa comprobacion estructural como sustituto
++de los contadores y resultados funcionales.
++
++| fase | comando / comprobacion | salida | resultado real |
++|---|---|---|---|
++| Caracterizacion antes | Selector JUnit exacto reproducido debajo | 0 | 33 pruebas pasan, incluida la forma 500 de H-05. |
++| Correccion antes | `mvn -B -ntp "-Dtest=AuthServiceTest#assignsTokenOrchestrationToServiceNotHttpAdapter" test` | 1 | 1 fallo esperado: el Resource aun posee el emisor. |
++| Caracterizacion y correccion despues | `mvn -B -ntp clean verify quarkus:build` | 0 | 51 pruebas, 0 fallos/errores/omitidas; JaCoCo pasa. |
++| Contrato prod despues | `& .\src\test\powershell\EndpointProdTest.ps1 -JavaExecutable "$env:JAVA_HOME\bin\java.exe"` | 0 | Las mismas 5 comprobaciones pasan. |
++
++Comando exacto de caracterizacion previa, en el directorio/entorno indicados:
++
++```powershell
++mvn -B -ntp "-Dtest=AuthResourceTest,EndpointContractTest,EndpointFailureTest,TokenServiceTest,LoginResponseTest,AuthServiceTest#emitsExactlyOnceWithStoredIdentityAfterSuccessfulVerification+doesNotVerifyOrEmitForAnAbsentAccount+doesNotEmitWhenPasswordVerificationFails+doesNotReachBusinessLogicBeforeValidationSucceeds+preservesGenericFailureAndDoesNotEmitWhenStorageFails+preservesGenericFailureWhenTokenIssuanceFails" test
++```
++
++Evidencia: [antes](../evidencias/33-h07-caracterizacion-antes.log),
++[regresion roja](../evidencias/34-h07-arquitectura-antes.log),
++[despues](../evidencias/35-h07-despues.log),
++[prod](../evidencias/37-h07-prod-despues.log),
++[diff propio](../evidencias/H-07.diff).
++Cobertura incremental **16/16 = 100%**, global **191/195 = 97.95%**,
++calculada con hunks agregados frente al snapshot anterior al item y XML JaCoCo,
++igual que el metodo explicado arriba; [medicion](../evidencias/36-h07-cobertura.txt),
++[reporte XML](../evidencias/h07-jacoco.xml). No se excluyeron clases.
++
++Resource conserva unicamente validacion/adaptacion HTTP y delegacion de errores
++al mapper H-05. AuthService.login orquesta verificacion y emision;
++LoginResponse.from sigue siendo el unico mapeo/escape de identidad.
++No se duplican duracion, mapeo ni armado de respuestas de rechazo. Solo se
++adapto el constructor de los dobles, sin cambiar expectativas.
++ENDPOINTS conserva el mismo SHA-256 desde el cierre H-05:
++`43EC9A109AF50E99BC566D3E11EF40DE938D41B7F0185CB4E4473DBC84FF4220`.
++
+ ## Documentos consultados
+ 
+ [ENDPOINTS.md](ENDPOINTS.md), [REGLAS.md](../REGLAS.md),
+diff --git a/src/main/java/com/bcp/workshop/auth/AuthResource.java b/src/main/java/com/bcp/workshop/auth/AuthResource.java
+index 393b273..ff7d9d1 100644
+--- a/src/main/java/com/bcp/workshop/auth/AuthResource.java
++++ b/src/main/java/com/bcp/workshop/auth/AuthResource.java
+@@ -13,11 +13,15 @@ import java.util.Map;
+ @Consumes(MediaType.APPLICATION_JSON)
+ @Produces(MediaType.APPLICATION_JSON)
+ public class AuthResource {
++    private static final String MESSAGE_FIELD = "message";
++    private static final String REQUEST_REQUIRED = "Request is null";
++    private static final String USERNAME_REQUIRED = "Username is required";
++    private static final String PASSWORD_REQUIRED = "Password is required";
++    private static final String INVALID_CREDENTIALS = "Invalid user %s or password";
++
+     @Inject
+     AuthService service;
+     @Inject
+-    TokenService tokens;
+-    @Inject
+     AuthExceptionMapper errors;
+ 
+     @POST
+@@ -26,28 +30,34 @@ public class AuthResource {
+         try {
+             String validationMessage = validate(request);
+             if (validationMessage != null) {
+-                return Response.status(Response.Status.BAD_REQUEST).entity(Map.of("message", validationMessage)).build();
++                return reject(Response.Status.BAD_REQUEST, validationMessage);
+             }
+-            UserRecord user = service.authenticate(request.username, request.password);
+-            if (user == null) {
+-                return Response.status(Response.Status.UNAUTHORIZED)
+-                        .entity(Map.of("message", "Invalid user " + request.username + " or password")).build();
+-            }
+-            return Response.ok(LoginResponse.from(user, tokens.create(user), TokenService.LIFETIME_SECONDS)).build();
++            return responseFor(service.login(request.username, request.password), request.username);
+         } catch (Exception error) {
+             return errors.toResponse(error);
+         }
+     }
+ 
++    private Response responseFor(LoginResponse login, String username) {
++        if (login == null) {
++            return reject(Response.Status.UNAUTHORIZED, INVALID_CREDENTIALS.formatted(username));
++        }
++        return Response.ok(login).build();
++    }
++
++    private Response reject(Response.Status status, String message) {
++        return Response.status(status).entity(Map.of(MESSAGE_FIELD, message)).build();
++    }
++
+     private String validate(LoginRequest request) {
+         if (request == null) {
+-            return "Request is null";
++            return REQUEST_REQUIRED;
+         }
+         if (request.username == null || request.username.trim().isEmpty()) {
+-            return "Username is required";
++            return USERNAME_REQUIRED;
+         }
+         if (request.password == null || request.password.trim().isEmpty()) {
+-            return "Password is required";
++            return PASSWORD_REQUIRED;
+         }
+         return null;
+     }
+diff --git a/src/main/java/com/bcp/workshop/auth/AuthService.java b/src/main/java/com/bcp/workshop/auth/AuthService.java
+index a558b63..209b2f9 100644
+--- a/src/main/java/com/bcp/workshop/auth/AuthService.java
++++ b/src/main/java/com/bcp/workshop/auth/AuthService.java
+@@ -7,11 +7,21 @@ import jakarta.inject.Inject;
+ public class AuthService {
+     private final LegacyDatabase repository;
+     private final PasswordHasher hasher;
++    private final TokenService tokens;
+ 
+     @Inject
+-    public AuthService(LegacyDatabase repository, PasswordHasher hasher) {
++    public AuthService(LegacyDatabase repository, PasswordHasher hasher, TokenService tokens) {
+         this.repository = repository;
+         this.hasher = hasher;
++        this.tokens = tokens;
++    }
++
++    public LoginResponse login(String username, String password) {
++        UserRecord user = authenticate(username, password);
++        if (user == null) {
++            return null;
++        }
++        return LoginResponse.from(user, tokens.create(user), TokenService.LIFETIME_SECONDS);
+     }
+ 
+     public UserRecord authenticate(String username, String password) {
+diff --git a/src/test/java/com/bcp/workshop/auth/AuthResourceTest.java b/src/test/java/com/bcp/workshop/auth/AuthResourceTest.java
+index 72dd1ac..a22a18d 100644
+--- a/src/test/java/com/bcp/workshop/auth/AuthResourceTest.java
++++ b/src/test/java/com/bcp/workshop/auth/AuthResourceTest.java
+@@ -100,7 +100,7 @@ class AuthResourceTest {
+             assertEquals(400, response.getStatus());
+             assertEquals(Map.of("message", "Request is null"), response.getEntity());
+         }
+-        resource.service = new AuthService(null, null) {
++        resource.service = new AuthService(null, null, null) {
+             @Override
+             public UserRecord authenticate(String username, String password) {
+                 throw new IllegalStateException("Synthetic failure");
+diff --git a/src/test/java/com/bcp/workshop/auth/EndpointFailureTest.java b/src/test/java/com/bcp/workshop/auth/EndpointFailureTest.java
+index c8256ba..c0aaebb 100644
+--- a/src/test/java/com/bcp/workshop/auth/EndpointFailureTest.java
++++ b/src/test/java/com/bcp/workshop/auth/EndpointFailureTest.java
+@@ -76,7 +76,7 @@ class EndpointFailureTest {
+     @ApplicationScoped
+     public static class FailingAuthService extends AuthService {
+         public FailingAuthService() {
+-            super(null, null);
++            super(null, null, null);
+         }
+ 
+         @Override
+diff --git a/src/test/java/com/bcp/workshop/auth/AuthServiceTest.java b/src/test/java/com/bcp/workshop/auth/AuthServiceTest.java
+new file mode 100644
+index 0000000..fab577e
+--- /dev/null
++++ b/src/test/java/com/bcp/workshop/auth/AuthServiceTest.java
+@@ -0,0 +1,198 @@
++package com.bcp.workshop.auth;
++
++import org.junit.jupiter.api.BeforeAll;
++import org.junit.jupiter.api.Test;
++
++import java.security.KeyPairGenerator;
++import java.security.PrivateKey;
++import java.sql.SQLException;
++import java.time.Clock;
++import java.util.Arrays;
++import java.util.Map;
++import java.util.Optional;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++class AuthServiceTest {
++    private static final UserRecord STORED_USER = new UserRecord(42, "stored-user", "<Stored>", "TRAINER");
++    private static final String INPUT_USERNAME = "requested-user";
++    private static final String INPUT_PASSWORD = "isolated-test-password";
++    private static final String STORED_HASH = "isolated-test-hash";
++    private static final String ISSUED_TOKEN = "isolated-test-token";
++    private static PrivateKey signingKey;
++
++    @BeforeAll
++    static void createIsolatedSigningKey() throws Exception {
++        KeyPairGenerator generator = KeyPairGenerator.getInstance("RSA");
++        generator.initialize(2048);
++        signingKey = generator.generateKeyPair().getPrivate();
++    }
++
++    @Test
++    void emitsExactlyOnceWithStoredIdentityAfterSuccessfulVerification() {
++        Scenario scenario = new Scenario();
++        try (var response = scenario.resource.login(validRequest())) {
++            assertEquals(200, response.getStatus());
++            assertEquals(new LoginResponse(ISSUED_TOKEN, TokenService.LIFETIME_SECONDS,
++                    new LoginResponse.UserResponse(STORED_USER.username(), "&lt;Stored&gt;", STORED_USER.role()),
++                    "authenticated-with-legacy-flow"), response.getEntity());
++        }
++        assertEquals(1, scenario.lookups);
++        assertEquals(1, scenario.verifications);
++        assertEquals(1, scenario.emissions);
++    }
++
++    @Test
++    void doesNotVerifyOrEmitForAnAbsentAccount() {
++        Scenario scenario = new Scenario();
++        scenario.credentials = null;
++        assertRejected(scenario);
++        assertEquals(1, scenario.lookups);
++        assertEquals(0, scenario.verifications);
++        assertEquals(0, scenario.emissions);
++    }
++
++    @Test
++    void doesNotEmitWhenPasswordVerificationFails() {
++        Scenario scenario = new Scenario();
++        scenario.passwordMatches = false;
++        assertRejected(scenario);
++        assertEquals(1, scenario.verifications);
++        assertEquals(0, scenario.emissions);
++    }
++
++    @Test
++    void doesNotReachBusinessLogicBeforeValidationSucceeds() {
++        Scenario scenario = new Scenario();
++        try (var response = scenario.resource.login(new LoginRequest())) {
++            assertEquals(400, response.getStatus());
++            assertEquals(Map.of("message", "Username is required"), response.getEntity());
++        }
++        assertEquals(0, scenario.lookups);
++        assertEquals(0, scenario.verifications);
++        assertEquals(0, scenario.emissions);
++    }
++
++    @Test
++    void preservesGenericFailureAndDoesNotEmitWhenStorageFails() {
++        Scenario scenario = new Scenario();
++        scenario.lookupFailure = new CredentialStorageException(new SQLException("isolated-storage-error"));
++        assertServerError(scenario);
++        assertEquals(0, scenario.verifications);
++        assertEquals(0, scenario.emissions);
++    }
++
++    @Test
++    void preservesGenericFailureWhenTokenIssuanceFails() {
++        Scenario scenario = new Scenario();
++        scenario.signingFailure = new IllegalStateException("isolated-signing-error");
++        assertServerError(scenario);
++        assertEquals(1, scenario.verifications);
++        assertEquals(1, scenario.emissions);
++    }
++
++    @Test
++    void assignsTokenOrchestrationToServiceNotHttpAdapter() {
++        assertFalse(Arrays.stream(AuthResource.class.getDeclaredFields())
++                .anyMatch(field -> field.getType() == TokenService.class));
++        assertTrue(Arrays.stream(AuthService.class.getDeclaredFields())
++                .anyMatch(field -> field.getType() == TokenService.class));
++    }
++
++    @Test
++    void serviceReturnsTheCompletePublicLoginWithoutAnHttpResource() {
++        Scenario scenario = new Scenario();
++        LoginResponse login = scenario.service.login(INPUT_USERNAME, INPUT_PASSWORD);
++        assertEquals(ISSUED_TOKEN, login.token());
++        assertEquals(TokenService.LIFETIME_SECONDS, login.expiresIn());
++        assertEquals(STORED_USER.username(), login.user().username());
++        assertEquals(1, scenario.emissions);
++    }
++
++    @Test
++    void serviceRejectsIncorrectCredentialsWithoutIssuingAToken() {
++        Scenario scenario = new Scenario();
++        scenario.passwordMatches = false;
++        assertNull(scenario.service.login(INPUT_USERNAME, INPUT_PASSWORD));
++        assertEquals(0, scenario.emissions);
++    }
++
++    @Test
++    void servicePropagatesInfrastructureFailuresForHttpTranslation() {
++        Scenario scenario = new Scenario();
++        scenario.lookupFailure = new CredentialStorageException(new SQLException("isolated-error"));
++        assertSame(scenario.lookupFailure, assertThrows(CredentialStorageException.class,
++                () -> scenario.service.login(INPUT_USERNAME, INPUT_PASSWORD)));
++        assertEquals(0, scenario.emissions);
++    }
++
++    private static void assertRejected(Scenario scenario) {
++        try (var response = scenario.resource.login(validRequest())) {
++            assertEquals(401, response.getStatus());
++            assertEquals(Map.of("message", "Invalid user " + INPUT_USERNAME + " or password"), response.getEntity());
++        }
++    }
++
++    private static void assertServerError(Scenario scenario) {
++        try (var response = scenario.resource.login(validRequest())) {
++            assertEquals(500, response.getStatus());
++            assertEquals(Map.of("message", "Internal server error"), response.getEntity());
++        }
++    }
++
++    private static LoginRequest validRequest() {
++        LoginRequest request = new LoginRequest();
++        request.username = INPUT_USERNAME;
++        request.password = INPUT_PASSWORD;
++        return request;
++    }
++
++    private static class Scenario {
++        StoredCredentials credentials = new StoredCredentials(STORED_USER, STORED_HASH);
++        boolean passwordMatches = true;
++        RuntimeException lookupFailure;
++        RuntimeException signingFailure;
++        int lookups;
++        int verifications;
++        int emissions;
++        final AuthService service;
++        final AuthResource resource = new AuthResource();
++
++        Scenario() {
++            LegacyDatabase repository = new LegacyDatabase("unused", null, Optional.empty(), Optional.empty()) {
++                @Override
++                public StoredCredentials findByUsername(String username) {
++                    lookups++;
++                    assertEquals(INPUT_USERNAME, username);
++                    if (lookupFailure != null) {
++                        throw lookupFailure;
++                    }
++                    return credentials;
++                }
++            };
++            PasswordHasher hasher = new PasswordHasher(4) {
++                @Override
++                public boolean matches(String password, String storedHash) {
++                    verifications++;
++                    assertEquals(INPUT_PASSWORD, password);
++                    assertEquals(STORED_HASH, storedHash);
++                    return passwordMatches;
++                }
++            };
++            TokenService tokens = new TokenService(signingKey, Clock.systemUTC(), "test-issuer", "test-audience") {
++                @Override
++                public String create(UserRecord user) {
++                    emissions++;
++                    assertSame(STORED_USER, user);
++                    if (signingFailure != null) {
++                        throw signingFailure;
++                    }
++                    return ISSUED_TOKEN;
++                }
++            };
++            service = new AuthService(repository, hasher, tokens);
++            resource.service = service;
++            resource.errors = new AuthExceptionMapper();
++        }
++    }
++}

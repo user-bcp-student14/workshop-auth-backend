@@ -1,0 +1,13 @@
+Pruebas de arranque: cada variable obligatoria ausente debe impedir el inicio.
+Sin AUTH_CORS_ORIGINS : exit=1
+Failed to load config value of type class java.lang.String for: auth.cors.origins
+
+Sin AUTH_TOKEN_PRIVATE_KEY_PATH : exit=1
+Failed to load config value of type class java.lang.String for: auth.token.private-key-path
+
+Sin AUTH_TOKEN_ISSUER : exit=1
+Failed to load config value of type class java.lang.String for: auth.token.issuer
+
+Sin AUTH_TOKEN_AUDIENCE : exit=1
+Failed to load config value of type class java.lang.String for: auth.token.audience
+

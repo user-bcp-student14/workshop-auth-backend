@@ -1,0 +1,157 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24142 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] 
+[INFO] ---------------< com.bcp.workshop:workshop-auth-backend >---------------
+[INFO] Building workshop-auth-backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ workshop-auth-backend ---
+[INFO] argLine set to -javaagent:C:\\Users\\Usuario\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\Usuario\\Documents\\T67269-edinson-remigio\\reqflow-workspace\\workshop-auth-backend\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ workshop-auth-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 11 source files with javac [debug release 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ workshop-auth-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 10 source files with javac [debug release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ workshop-auth-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 15:56:56,029 INFO  [io.quarkus] (main) workshop-auth-backend 0.1.0 on JVM (powered by Quarkus 3.27.4) started in 12.707s. Listening on: http://127.0.0.1:8081
+2026-10-19 15:56:56,035 INFO  [io.quarkus] (main) Profile test activated. 
+2026-10-19 15:56:56,036 INFO  [io.quarkus] (main) Installed features: [cdi, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.56 s -- in com.bcp.workshop.auth.AuthResourceTest
+[INFO] Running com.bcp.workshop.auth.CorsTest
+Request method:	OPTIONS
+Request URI:	http://127.0.0.1:8081/auth/login
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Origin=https://client.example.test
+				Access-Control-Request-Method=DELETE
+				Accept=*/*
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+HTTP/1.1 200 OK
+access-control-allow-credentials: true
+access-control-allow-origin: https://client.example.test
+access-control-allow-methods: POST,OPTIONS
+content-length: 0
+[ERROR] Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.294 s <<< FAILURE! -- in com.bcp.workshop.auth.CorsTest
+[ERROR] com.bcp.workshop.auth.CorsTest.doesNotPermitDeleteFromAllowedOrigin -- Time elapsed: 0.079 s <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+Expected header "Access-Control-Allow-Methods" was not null, was "POST,OPTIONS". Headers are:
+access-control-allow-credentials=true
+access-control-allow-origin=https://client.example.test
+access-control-allow-methods=POST,OPTIONS
+content-length=0
+
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:73)
+	at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrapNoCoerce.callConstructor(ConstructorSite.java:108)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallConstructor(CallSiteArray.java:57)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:263)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:277)
+	at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure.validate(ResponseSpecificationImpl.groovy:512)
+	at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure$validate$1.call(Unknown Source)
+	at io.restassured.internal.ResponseSpecificationImpl.validateResponseIfRequired(ResponseSpecificationImpl.groovy:696)
+	at io.restassured.internal.ResponseSpecificationImpl.this$2$validateResponseIfRequired(ResponseSpecificationImpl.groovy)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:198)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:62)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:185)
+	at io.restassured.internal.ResponseSpecificationImpl.header(ResponseSpecificationImpl.groovy:191)
+	at io.restassured.internal.ValidatableResponseOptionsImpl.header(ValidatableResponseOptionsImpl.java:114)
+	at com.bcp.workshop.auth.CorsTest.doesNotPermitDeleteFromAllowedOrigin(CorsTest.java:39)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptTestMethod(QuarkusTestExtension.java:849)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] Running com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.144 s -- in com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Running com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s -- in com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Running com.bcp.workshop.auth.CorsConfigurationTest
+2026-10-19 15:57:05,739 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,739 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,741 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,741 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,742 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,742 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,742 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,743 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,743 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,743 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,744 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,744 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,745 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,745 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,746 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,747 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.024 s -- in com.bcp.workshop.auth.CorsConfigurationTest
+[INFO] Running com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.485 s -- in com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Running com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.107 s -- in com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Running com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 15:57:08,404 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+2026-10-19 15:57:08,410 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.312 s -- in com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 15:57:08,857 INFO  [io.quarkus] (main) workshop-auth-backend stopped in 0.141s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   CorsTest.doesNotPermitDeleteFromAllowedOrigin:39 1 expectation failed.
+Expected header "Access-Control-Allow-Methods" was not null, was "POST,OPTIONS". Headers are:
+access-control-allow-credentials=true
+access-control-allow-origin=https://client.example.test
+access-control-allow-methods=POST,OPTIONS
+content-length=0
+
+[INFO] 
+[ERROR] Tests run: 19, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  50.302 s
+[INFO] Finished at: 2026-10-19T15:57:09-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project workshop-auth-backend: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

@@ -1,0 +1,296 @@
+[
+  {
+    "package": "io.netty:netty-handler",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-3qp7-7mw8-wx86"
+  },
+  {
+    "package": "io.netty:netty-handler",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-c4c3-7fpv-j4q5"
+  },
+  {
+    "package": "io.netty:netty-handler",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-c653-97m9-rcg9"
+  },
+  {
+    "package": "io.netty:netty-handler",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-fccg-mwvh-qqg4"
+  },
+  {
+    "package": "io.netty:netty-handler",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-x4gw-5cx5-pgmh"
+  },
+  {
+    "package": "io.netty:netty-codec-http",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-4mp9-239f-g9hg"
+  },
+  {
+    "package": "io.netty:netty-codec-http",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-6cqp-g7gg-8hr5"
+  },
+  {
+    "package": "io.netty:netty-codec-http",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-6jqx-86gh-f27w"
+  },
+  {
+    "package": "io.netty:netty-codec-http",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-8c42-7qj2-3j46"
+  },
+  {
+    "package": "io.netty:netty-codec-http",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-gcjf-9mgh-3p7g"
+  },
+  {
+    "package": "io.netty:netty-codec-http",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-hvcg-qmg6-jm4c"
+  },
+  {
+    "package": "io.netty:netty-codec-http",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-jppx-w49h-x2qq"
+  },
+  {
+    "package": "io.netty:netty-codec-http",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-mvh2-crg5-v77c"
+  },
+  {
+    "package": "io.netty:netty-codec-http",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-q4f6-jm68-57ww"
+  },
+  {
+    "package": "io.netty:netty-codec-http2",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-563q-j3cm-6jxm"
+  },
+  {
+    "package": "io.netty:netty-codec-http2",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-5x3r-wrvg-rp6q"
+  },
+  {
+    "package": "io.netty:netty-codec-http2",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-93wv-jw9v-4972"
+  },
+  {
+    "package": "io.netty:netty-codec-http2",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-c2gf-v879-257j"
+  },
+  {
+    "package": "io.netty:netty-codec-http2",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-c69g-56f8-xwqj"
+  },
+  {
+    "package": "io.netty:netty-resolver-dns",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-5pvg-856g-cp85"
+  },
+  {
+    "package": "io.netty:netty-resolver-dns",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-676x-f7gg-47vc"
+  },
+  {
+    "package": "io.netty:netty-resolver-dns",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-xmv7-r254-6q78"
+  },
+  {
+    "package": "io.netty:netty-codec-dns",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-mfg7-5gfp-c4w3"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-core",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-7hhh-6rmp-j9qf"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-core",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-p6pp-m3f8-5c89"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-core",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-r7wm-3cxj-wff9"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-3pjw-73gf-8qr5"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-5gvw-p9qm-jgwh"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-5hh8-q8hv-fr38"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-5jmj-h7xm-6q6v"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-9fxm-vc8v-hj55"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-cxp5-3px4-pw24"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-gx83-3vf8-gh7j"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-hgj6-7826-r7m5"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-j3rv-43j4-c7qm"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-mhm7-754m-9p8w"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-q4xh-88c3-wmh7"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-rcqc-6cw3-h962"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-rmj7-2vxq-3g9f"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-vvgp-rfg2-7rr6"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-wjgm-6hv5-3cvf"
+  },
+  {
+    "package": "com.fasterxml.jackson.core:jackson-databind",
+    "version": "2.21.2",
+    "scope": "compile",
+    "id": "GHSA-wv8q-qhhj-9h54"
+  },
+  {
+    "package": "io.quarkus:quarkus-vertx-http",
+    "version": "3.27.4",
+    "scope": "compile",
+    "id": "GHSA-qcxp-gm7m-4j5v"
+  },
+  {
+    "package": "io.netty:netty-codec",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-558v-64gr-wgg4"
+  },
+  {
+    "package": "io.netty:netty-codec-haproxy",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-cc37-9q2j-3hfv"
+  },
+  {
+    "package": "io.netty:netty-codec-haproxy",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-h2qv-fj59-j46j"
+  },
+  {
+    "package": "io.netty:netty-codec-haproxy",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-q6cq-mhr2-jmr5"
+  },
+  {
+    "package": "io.netty:netty-codec-haproxy",
+    "version": "4.1.133.Final",
+    "scope": "compile",
+    "id": "GHSA-wh89-7897-x99h"
+  },
+  {
+    "package": "org.apache.commons:commons-text",
+    "version": "1.9",
+    "scope": "compile",
+    "id": "GHSA-599f-7c49-w659"
+  }
+]

@@ -1,0 +1,8 @@
+Invoke-WebRequest: C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\powershell\EndpointProdTest.ps1:62
+Line |
+  62 |  …   $health = Invoke-WebRequest "$base/q/health" -TimeoutSec 1 -SkipHtt …
+     |                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | The request was canceled due to the configured HttpClient.Timeout of 1 seconds elapsing.
+
+
+Codigo de salida: 1
