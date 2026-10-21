@@ -1,0 +1,4 @@
+COMPROBACION=alertas OSV por version resuelta (no prueba de explotabilidad)
+ALERTAS=49
+EXPECTATIVA=0
+EXIT_CODE=1 (regresion esperada antes de actualizar)

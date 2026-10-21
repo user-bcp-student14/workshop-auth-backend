@@ -1,0 +1,13 @@
+AuthResource.java: 16/16
+AuthService.java: 8/8
+CredentialMigration.java: 49/51
+LegacyDatabase.java: 36/36
+StoredCredentials.java: 1/1
+PasswordHasher.java: 11/13
+CorsConfiguration.java: 19/19
+LoginResponse.java: 4/4
+TokenService.java: 26/26
+MODIFICADO frente a main + nuevos: 170/174 = 97.70%
+GLOBAL BRANCH: 86/96 = 89.58%
+GLOBAL LINE: 182/186 = 97.85%
+Cambios de esta tarea: solo src/test y docs; sin cambio nuevo de produccion. JaCoCo no mide cobertura del propio codigo de tests.

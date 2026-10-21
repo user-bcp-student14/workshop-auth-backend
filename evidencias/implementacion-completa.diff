@@ -1,0 +1,1478 @@
+diff --git a/README.md b/README.md
+index 72f8712..356a3b6 100644
+--- a/README.md
++++ b/README.md
+@@ -9,15 +9,73 @@ Backend Quarkus que autentica usuarios de laboratorio almacenados en SQLite y en
+ Requisitos: JDK 21 y Maven 3.9+.
+ 
+ ```bash
+-mvn quarkus:dev
++mvn quarkus:dev -Dquarkus.enforceBuildGoal=false
+ ```
+ 
+ Servicio: `http://localhost:8080`
+ 
+-Credenciales locales:
++### Configuracion obligatoria antes de arrancar
+ 
+-- `student` / `Workshop123!`
+-- `trainer` / `Trainer123!`
++Definir en el entorno del proceso (sin guardar secretos en Git):
++
++| Variable | Uso |
++|---|---|
++| `AUTH_TOKEN_PRIVATE_KEY_PATH` | Archivo PEM PKCS#8 de clave privada RSA, minimo 2048 bits; proteger permisos. |
++| `AUTH_TOKEN_ISSUER` | Identificador acordado del emisor. |
++| `AUTH_TOKEN_AUDIENCE` | Identificador acordado del consumidor. |
++| `AUTH_CORS_ORIGINS` | Origenes HTTP(S) exactos separados por coma, sin rutas ni wildcard. |
++
++No hay valores de produccion por defecto para estos cuatro parametros. Una
++configuracion ausente o invalida impide el arranque. CORS permite POST/OPTIONS
++y mantiene los headers accept, authorization, content-type, x-requested-with.
++
++`AUTH_DB_URL` conserva su valor por defecto `jdbc:sqlite:./data/workshop.db`.
++`AUTH_PASSWORD_COST` usa 12 por defecto. La calibracion local de BCrypt
++hash+verificacion dio medianas de 315/499/941 ms para costes 10/11/12;
++se eligio 12 priorizando resistencia al cracking. Son mediciones de desarrollo,
++no un SLA de produccion. Las pruebas usan coste 4 para velocidad y no configuran
++credenciales reales.
++
++Para una base vacia, aprovisionar explicitamente una cuenta STUDENT con
++`AUTH_BOOTSTRAP_USERNAME` y `AUTH_BOOTSTRAP_PASSWORD`. Deben configurarse juntas.
++No se crean cuentas conocidas automaticamente y no se cambia la contrasena de
++una cuenta existente. Quitar ambas variables despues del aprovisionamiento.
++Las cuentas legadas existentes conservan identidad, rol y contrasena tras migrar.
++
++### Migracion y coordinacion antes del despliegue
++
++1. Detener todas las instancias que escriben la base; no ejecutar dos
++   migraciones concurrentes. Realizar un respaldo consistente de SQLite (por
++   ejemplo con su API de backup) y verificar una restauracion en un archivo
++   aislado. Custodiar el respaldo: contiene contrasenas antiguas.
++2. Configurar las variables anteriores y arrancar. La migracion transaccional
++   usa `PRAGMA user_version=1`, sustituye password por password_hash y conserva
++   cuentas e ids; un fallo revierte la transaccion e impide el arranque.
++   No hay fallback a texto plano. Reiniciar no vuelve a hashear.
++3. Para restaurar, detener el servicio, preservar la base fallida para analisis
++   controlado y restaurar el respaldo con la version de aplicacion compatible.
++   No arrancar la version antigua sobre la base migrada.
++4. La migracion elimina el texto plano del esquema activo, pero no garantiza
++   borrado forense de paginas SQLite, journals ni respaldos. Acordar su
++   retencion y saneamiento seguro con el operador; no se borran automaticamente.
++5. Coordinar consumidores antes de activar JWT: verificar RS256 con la clave
++   publica distribuida por un canal confiable, issuer, audience y expiracion.
++   Los tokens legados no son JWT; no hay fallback inseguro. Planificar
++   reautenticacion y rotacion. Este repositorio no modifica otros componentes.
++
++### Pruebas y cobertura
++
++```bash
++mvn -B -ntp clean verify
++```
++
++La suite genera sus propias bases temporales y claves RSA dentro de target,
++las elimina al terminar y no necesita secretos ni cuentas del desarrollador.
++JaCoCo combina pruebas JUnit y Quarkus sin doble instrumentacion y exige al
++menos 85% de lineas cubiertas. El reporte esta en target/site/jacoco/index.html.
++Las evidencias de esta implementacion estan en
++[evidencias_test_post.txt](evidencias_test_post.txt) y [evidencias/](evidencias/).
++El contrato y los cambios autorizados se detallan en [ENDPOINTS.md](docs/ENDPOINTS.md).
+ 
+ ## Endpoints
+ 
+@@ -26,4 +84,6 @@ Credenciales locales:
+ 
+ ## Propósito de la rama `main`
+ 
+-La rama contiene deuda técnica y de seguridad deliberada: SQL concatenado, contraseñas en texto plano, token reversible, secreto hardcodeado, CORS permisivo, método largo, manejo genérico de excepciones y dependencias con CVEs.
++La rama partio con deuda tecnica deliberada. El estado vigente y su evidencia
++se mantienen exclusivamente en [HALLAZGOS.md](HALLAZGOS.md); no debe considerarse
++un servicio apto para produccion por haber corregido cuatro hallazgos.
+diff --git a/pom.xml b/pom.xml
+index 2da9177..a279547 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -27,6 +27,14 @@
+     </dependencyManagement>
+ 
+     <dependencies>
++        <dependency>
++            <groupId>io.quarkus</groupId>
++            <artifactId>quarkus-elytron-security-common</artifactId>
++        </dependency>
++        <dependency>
++            <groupId>io.quarkus</groupId>
++            <artifactId>quarkus-smallrye-jwt-build</artifactId>
++        </dependency>
+         <dependency>
+             <groupId>io.quarkus</groupId>
+             <artifactId>quarkus-arc</artifactId>
+@@ -54,6 +62,11 @@
+             <artifactId>quarkus-junit5</artifactId>
+             <scope>test</scope>
+         </dependency>
++        <dependency>
++            <groupId>io.quarkus</groupId>
++            <artifactId>quarkus-jacoco</artifactId>
++            <scope>test</scope>
++        </dependency>
+         <dependency>
+             <groupId>io.rest-assured</groupId>
+             <artifactId>rest-assured</artifactId>
+@@ -75,6 +88,9 @@
+                 <configuration>
+                     <systemPropertyVariables>
+                         <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
++                        <quarkus.jacoco.data-file>${project.build.directory}/jacoco.exec</quarkus.jacoco.data-file>
++                        <quarkus.jacoco.reuse-data-file>true</quarkus.jacoco.reuse-data-file>
++                        <quarkus.jacoco.report>false</quarkus.jacoco.report>
+                     </systemPropertyVariables>
+                 </configuration>
+             </plugin>
+@@ -82,6 +98,9 @@
+                 <groupId>org.jacoco</groupId>
+                 <artifactId>jacoco-maven-plugin</artifactId>
+                 <version>0.8.12</version>
++                <configuration>
++                    <exclClassLoaders>*QuarkusClassLoader</exclClassLoaders>
++                </configuration>
+                 <executions>
+                     <execution>
+                         <id>prepare-agent</id>
+@@ -96,6 +115,27 @@
+                             <goal>report</goal>
+                         </goals>
+                     </execution>
++                    <execution>
++                        <id>check</id>
++                        <phase>verify</phase>
++                        <goals>
++                            <goal>check</goal>
++                        </goals>
++                        <configuration>
++                            <rules>
++                                <rule>
++                                    <element>BUNDLE</element>
++                                    <limits>
++                                        <limit>
++                                            <counter>LINE</counter>
++                                            <value>COVEREDRATIO</value>
++                                            <minimum>0.85</minimum>
++                                        </limit>
++                                    </limits>
++                                </rule>
++                            </rules>
++                        </configuration>
++                    </execution>
+                 </executions>
+             </plugin>
+         </plugins>
+diff --git a/src/main/java/com/bcp/workshop/auth/AuthResource.java b/src/main/java/com/bcp/workshop/auth/AuthResource.java
+index 0d19cf9..f8fff72 100644
+--- a/src/main/java/com/bcp/workshop/auth/AuthResource.java
++++ b/src/main/java/com/bcp/workshop/auth/AuthResource.java
+@@ -7,9 +7,6 @@ import jakarta.ws.rs.Path;
+ import jakarta.ws.rs.Produces;
+ import jakarta.ws.rs.core.MediaType;
+ import jakarta.ws.rs.core.Response;
+-import org.apache.commons.text.StringEscapeUtils;
+-
+-import java.util.HashMap;
+ import java.util.Map;
+ 
+ @Path("/auth")
+@@ -17,45 +14,42 @@ import java.util.Map;
+ @Produces(MediaType.APPLICATION_JSON)
+ public class AuthResource {
+     @Inject
+-    LegacyDatabase database;
++    AuthService service;
++    @Inject
++    TokenService tokens;
+ 
+     @POST
+     @Path("/login")
+     public Response login(LoginRequest request) {
+         try {
+-            if (request == null) {
+-                return Response.status(400).entity(Map.of("message", "Request is null")).build();
+-            } else {
+-                if (request.username == null || request.username.trim().isEmpty()) {
+-                    return Response.status(400).entity(Map.of("message", "Username is required")).build();
+-                } else {
+-                    if (request.password == null || request.password.trim().isEmpty()) {
+-                        return Response.status(400).entity(Map.of("message", "Password is required")).build();
+-                    } else {
+-                        UserRecord user = database.findByCredentials(request.username, request.password);
+-                        if (user == null) {
+-                            return Response.status(401).entity(Map.of("message", "Invalid user " + request.username + " or password")).build();
+-                        } else {
+-                            String token = LegacyTokenUtil.create(user.username(), user.role());
+-                            Map<String, Object> response = new HashMap<>();
+-                            response.put("token", token);
+-                            response.put("expiresIn", 3600);
+-                            response.put("user", Map.of(
+-                                    "username", user.username(),
+-                                    "displayName", StringEscapeUtils.escapeHtml4(user.displayName()),
+-                                    "role", user.role()
+-                            ));
+-                            response.put("debug", "authenticated-with-legacy-flow");
+-                            return Response.ok(response).build();
+-                        }
+-                    }
+-                }
++            String validationMessage = validate(request);
++            if (validationMessage != null) {
++                return Response.status(Response.Status.BAD_REQUEST).entity(Map.of("message", validationMessage)).build();
+             }
++            UserRecord user = service.authenticate(request.username, request.password);
++            if (user == null) {
++                return Response.status(Response.Status.UNAUTHORIZED)
++                        .entity(Map.of("message", "Invalid user " + request.username + " or password")).build();
++            }
++            return Response.ok(LoginResponse.from(user, tokens.create(user), TokenService.LIFETIME_SECONDS)).build();
+         } catch (Exception error) {
+-            return Response.status(500).entity(Map.of(
++            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(Map.of(
+                     "message", error.getMessage() == null ? "Unknown error" : error.getMessage(),
+                     "exception", error.getClass().getName()
+             )).build();
+         }
+     }
++
++    private String validate(LoginRequest request) {
++        if (request == null) {
++            return "Request is null";
++        }
++        if (request.username == null || request.username.trim().isEmpty()) {
++            return "Username is required";
++        }
++        if (request.password == null || request.password.trim().isEmpty()) {
++            return "Password is required";
++        }
++        return null;
++    }
+ }
+diff --git a/src/main/java/com/bcp/workshop/auth/LegacyDatabase.java b/src/main/java/com/bcp/workshop/auth/LegacyDatabase.java
+index 747ca6d..96e7eba 100644
+--- a/src/main/java/com/bcp/workshop/auth/LegacyDatabase.java
++++ b/src/main/java/com/bcp/workshop/auth/LegacyDatabase.java
+@@ -1,44 +1,91 @@
+ package com.bcp.workshop.auth;
+ 
++import io.quarkus.runtime.Startup;
+ import jakarta.annotation.PostConstruct;
+ import jakarta.enterprise.context.ApplicationScoped;
++import jakarta.inject.Inject;
++import org.eclipse.microprofile.config.inject.ConfigProperty;
++import org.jboss.logging.Logger;
+ 
+ import java.nio.file.Files;
+ import java.nio.file.Path;
++import java.io.IOException;
+ import java.sql.Connection;
+ import java.sql.DriverManager;
+-import java.sql.ResultSet;
+-import java.sql.Statement;
++import java.sql.SQLException;
++import java.util.Optional;
+ 
++@Startup
+ @ApplicationScoped
+ public class LegacyDatabase {
+-    private static final String DB_URL = System.getenv().getOrDefault("AUTH_DB_URL", "jdbc:sqlite:./data/workshop.db");
++    private static final Logger LOG = Logger.getLogger(LegacyDatabase.class);
++    private static final String FIND_BY_USERNAME =
++            "SELECT id,username,password_hash,display_name,role FROM legacy_users WHERE username=?";
++    private final String databaseUrl;
++    private final PasswordHasher hasher;
++    private final Optional<String> initialUsername;
++    private final Optional<String> initialPassword;
++
++    @Inject
++    public LegacyDatabase(@ConfigProperty(name = "auth.database.url") String databaseUrl,
++                          PasswordHasher hasher,
++                          @ConfigProperty(name = "auth.bootstrap.username") Optional<String> initialUsername,
++                          @ConfigProperty(name = "auth.bootstrap.password") Optional<String> initialPassword) {
++        this.databaseUrl = databaseUrl;
++        this.hasher = hasher;
++        this.initialUsername = initialUsername;
++        this.initialPassword = initialPassword;
++    }
+ 
+     @PostConstruct
+     void initialize() {
+         try {
+             Files.createDirectories(Path.of("data"));
+-            try (Connection connection = DriverManager.getConnection(DB_URL); Statement statement = connection.createStatement()) {
+-                statement.executeUpdate("CREATE TABLE IF NOT EXISTS legacy_users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, password TEXT NOT NULL, display_name TEXT NOT NULL, role TEXT NOT NULL)");
+-                statement.executeUpdate("INSERT OR IGNORE INTO legacy_users(username,password,display_name,role) VALUES ('student','Workshop123!','Workshop Student','STUDENT')");
+-                statement.executeUpdate("INSERT OR IGNORE INTO legacy_users(username,password,display_name,role) VALUES ('trainer','Trainer123!','Workshop Trainer','TRAINER')");
++            try (Connection connection = DriverManager.getConnection(databaseUrl)) {
++                new CredentialMigration(hasher).migrate(connection);
++                provisionAccount(connection);
+             }
+-        } catch (Exception error) {
+-            error.printStackTrace();
++        } catch (SQLException | IOException error) {
++            LOG.error("Credential storage initialization failed", error);
++            throw new IllegalStateException("Credential storage initialization failed", error);
+         }
+     }
+ 
+-    public UserRecord findByCredentials(String username, String password) {
+-        String sql = "SELECT id, username, display_name, role FROM legacy_users WHERE username='" + username + "' AND password='" + password + "'";
+-        try (Connection connection = DriverManager.getConnection(DB_URL);
+-             Statement statement = connection.createStatement();
+-             ResultSet result = statement.executeQuery(sql)) {
+-            if (result.next()) {
+-                return new UserRecord(result.getLong("id"), result.getString("username"), result.getString("display_name"), result.getString("role"));
++    public StoredCredentials findByUsername(String username) {
++        try (Connection connection = DriverManager.getConnection(databaseUrl);
++             var statement = connection.prepareStatement(FIND_BY_USERNAME)) {
++            statement.setString(1, username);
++            try (var result = statement.executeQuery()) {
++                if (!result.next()) {
++                    return null;
++                }
++                UserRecord user = new UserRecord(result.getLong("id"), result.getString("username"),
++                        result.getString("display_name"), result.getString("role"));
++                return new StoredCredentials(user, result.getString("password_hash"));
+             }
+-        } catch (Exception error) {
+-            error.printStackTrace();
++        } catch (SQLException error) {
++            // Preserve the documented legacy 401 mapping until H-05 is addressed.
++            LOG.error("Credential lookup failed", error);
++            return null;
++        }
++    }
++
++    private void provisionAccount(Connection connection) throws SQLException {
++        if (initialUsername.isEmpty() && initialPassword.isEmpty()) {
++            return;
++        }
++        if (initialUsername.isEmpty() || initialPassword.isEmpty()
++                || initialUsername.get().isBlank() || initialPassword.get().isBlank()) {
++            throw new IllegalStateException("Bootstrap username and password must both be configured");
++        }
++        try (var statement = connection.prepareStatement("""
++                INSERT OR IGNORE INTO legacy_users(username,password_hash,display_name,role) VALUES (?,?,?,?)
++                """)) {
++            statement.setString(1, initialUsername.get());
++            statement.setString(2, hasher.hash(initialPassword.get()));
++            statement.setString(3, initialUsername.get());
++            statement.setString(4, "STUDENT");
++            statement.executeUpdate();
+         }
+-        return null;
+     }
+ }
+diff --git a/src/main/java/com/bcp/workshop/auth/LegacyTokenUtil.java b/src/main/java/com/bcp/workshop/auth/LegacyTokenUtil.java
+deleted file mode 100644
+index 0854ea5..0000000
+--- a/src/main/java/com/bcp/workshop/auth/LegacyTokenUtil.java
++++ /dev/null
+@@ -1,17 +0,0 @@
+-package com.bcp.workshop.auth;
+-
+-import java.nio.charset.StandardCharsets;
+-import java.time.Instant;
+-import java.util.Base64;
+-
+-public final class LegacyTokenUtil {
+-    private static final String SECRET = "WORKSHOP_SECRET_2026";
+-
+-    private LegacyTokenUtil() {}
+-
+-    public static String create(String username, String role) {
+-        long expiry = Instant.now().plusSeconds(3600).getEpochSecond();
+-        String value = username + "|" + role + "|" + expiry + "|" + SECRET;
+-        return Base64.getEncoder().encodeToString(value.getBytes(StandardCharsets.UTF_8));
+-    }
+-}
+diff --git a/src/main/resources/application.properties b/src/main/resources/application.properties
+index fb9e87a..7d28e18 100644
+--- a/src/main/resources/application.properties
++++ b/src/main/resources/application.properties
+@@ -2,7 +2,15 @@ quarkus.http.port=8080
+ quarkus.http.host=127.0.0.1
+ %prod.quarkus.http.host=0.0.0.0
+ quarkus.http.cors.enabled=true
+-quarkus.http.cors.origins=/.*/
+-quarkus.http.cors.methods=GET,POST,PUT,DELETE,OPTIONS
++quarkus.http.cors.origins=${auth.cors.origins}
++quarkus.http.cors.methods=POST,OPTIONS
+ quarkus.http.cors.headers=accept,authorization,content-type,x-requested-with
+ quarkus.jackson.fail-on-unknown-properties=false
++auth.database.url=${AUTH_DB_URL:jdbc:sqlite:./data/workshop.db}
++auth.password.cost=${AUTH_PASSWORD_COST:12}
++auth.bootstrap.username=${AUTH_BOOTSTRAP_USERNAME:}
++auth.bootstrap.password=${AUTH_BOOTSTRAP_PASSWORD:}
++auth.token.issuer=${AUTH_TOKEN_ISSUER}
++auth.token.audience=${AUTH_TOKEN_AUDIENCE}
++auth.token.private-key-path=${AUTH_TOKEN_PRIVATE_KEY_PATH}
++auth.cors.origins=${AUTH_CORS_ORIGINS}
+diff --git a/src/test/java/com/bcp/workshop/auth/AuthResourceTest.java b/src/test/java/com/bcp/workshop/auth/AuthResourceTest.java
+index ee958bc..928e767 100644
+--- a/src/test/java/com/bcp/workshop/auth/AuthResourceTest.java
++++ b/src/test/java/com/bcp/workshop/auth/AuthResourceTest.java
+@@ -1,23 +1,99 @@
+ package com.bcp.workshop.auth;
+ 
+ import io.quarkus.test.junit.QuarkusTest;
++import io.quarkus.test.common.QuarkusTestResource;
++import org.junit.jupiter.api.BeforeEach;
+ import org.junit.jupiter.api.Test;
+ 
+ import static io.restassured.RestAssured.given;
+ import static org.hamcrest.CoreMatchers.is;
+ import static org.hamcrest.Matchers.notNullValue;
++import static org.junit.jupiter.api.Assertions.assertEquals;
++
++import java.util.Map;
+ 
+ @QuarkusTest
++@QuarkusTestResource(AuthTestResource.class)
+ class AuthResourceTest {
++    @BeforeEach
++    void isolateAccounts() throws Exception {
++        DatabaseFixture.reset();
++    }
++
+     @Test
+     void logsInWithWorkshopUser() {
+         given()
+                 .contentType("application/json")
+-                .body("{\"username\":\"student\",\"password\":\"Workshop123!\",\"client\":\"angular-workshop\"}")
++                .body(Map.of("username", DatabaseFixture.STUDENT, "password", DatabaseFixture.PASSWORD,
++                        "client", "test-client", "unknownField", true))
+                 .when().post("/auth/login")
+                 .then()
+                 .statusCode(200)
+-                .body("user.username", is("student"))
++                .body("user.username", is(DatabaseFixture.STUDENT))
++                .body("user.displayName", is("&lt;Test &amp; Student&gt;"))
++                .body("user.role", is("STUDENT"))
++                .body("expiresIn", is(3600))
++                .body("debug", is("authenticated-with-legacy-flow"))
++                .body("size()", is(4))
++                .body("user.size()", is(3))
+                 .body("token", notNullValue());
+     }
++
++    @Test
++    void logsInTrainerWithoutClient() {
++        given().contentType("application/json")
++                .body(Map.of("username", DatabaseFixture.TRAINER, "password", DatabaseFixture.PASSWORD))
++                .post("/auth/login").then().statusCode(200).body("user.role", is("TRAINER"));
++    }
++
++    @Test
++    void preservesValidationMessagesAndPrecedence() {
++        assertInvalid(Map.of(), "Username is required");
++        assertInvalid(Map.of("username", " "), "Username is required");
++        assertInvalid(Map.of("username", DatabaseFixture.STUDENT), "Password is required");
++        assertInvalid(Map.of("username", DatabaseFixture.STUDENT, "password", " "), "Password is required");
++        assertInvalid(Map.of("username", "", "password", ""), "Username is required");
++    }
++
++    @Test
++    void rejectsIncorrectAndUntrimmedCredentials() {
++        assertRejected(DatabaseFixture.STUDENT, "incorrect");
++        assertRejected("missing-user", DatabaseFixture.PASSWORD);
++        assertRejected(" " + DatabaseFixture.STUDENT, DatabaseFixture.PASSWORD);
++        assertRejected(DatabaseFixture.STUDENT, DatabaseFixture.PASSWORD + " ");
++    }
++
++    @Test
++    void preservesNullRequestAndExceptionResponse() {
++        AuthResource resource = new AuthResource();
++        try (var response = resource.login(null)) {
++            assertEquals(400, response.getStatus());
++            assertEquals(Map.of("message", "Request is null"), response.getEntity());
++        }
++        resource.service = new AuthService(null, null) {
++            @Override
++            public UserRecord authenticate(String username, String password) {
++                throw new IllegalStateException("Synthetic failure");
++            }
++        };
++        LoginRequest request = new LoginRequest();
++        request.username = DatabaseFixture.STUDENT;
++        request.password = DatabaseFixture.PASSWORD;
++        try (var response = resource.login(request)) {
++            assertEquals(500, response.getStatus());
++            assertEquals(Map.of("message", "Synthetic failure", "exception", "java.lang.IllegalStateException"),
++                    response.getEntity());
++        }
++    }
++
++    private void assertInvalid(Map<String, String> request, String message) {
++        given().contentType("application/json").body(request).post("/auth/login")
++                .then().statusCode(400).body("message", is(message)).body("size()", is(1));
++    }
++
++    private void assertRejected(String username, String password) {
++        given().contentType("application/json").body(Map.of("username", username, "password", password))
++                .post("/auth/login").then().statusCode(401)
++                .body("message", is("Invalid user " + username + " or password"));
++    }
+ }
+diff --git "a/src\\main\\java\\com\\bcp\\workshop\\auth\\AuthService.java" "b/src\\main\\java\\com\\bcp\\workshop\\auth\\AuthService.java"
+new file mode 100644
+index 0000000..a558b63
+--- /dev/null
++++ "b/src\\main\\java\\com\\bcp\\workshop\\auth\\AuthService.java"
+@@ -0,0 +1,24 @@
++package com.bcp.workshop.auth;
++
++import jakarta.enterprise.context.ApplicationScoped;
++import jakarta.inject.Inject;
++
++@ApplicationScoped
++public class AuthService {
++    private final LegacyDatabase repository;
++    private final PasswordHasher hasher;
++
++    @Inject
++    public AuthService(LegacyDatabase repository, PasswordHasher hasher) {
++        this.repository = repository;
++        this.hasher = hasher;
++    }
++
++    public UserRecord authenticate(String username, String password) {
++        StoredCredentials credentials = repository.findByUsername(username);
++        if (credentials == null || !hasher.matches(password, credentials.passwordHash())) {
++            return null;
++        }
++        return credentials.user();
++    }
++}
+diff --git "a/src\\main\\java\\com\\bcp\\workshop\\auth\\CorsConfiguration.java" "b/src\\main\\java\\com\\bcp\\workshop\\auth\\CorsConfiguration.java"
+new file mode 100644
+index 0000000..196410a
+--- /dev/null
++++ "b/src\\main\\java\\com\\bcp\\workshop\\auth\\CorsConfiguration.java"
+@@ -0,0 +1,46 @@
++package com.bcp.workshop.auth;
++
++import io.quarkus.runtime.Startup;
++import jakarta.enterprise.context.ApplicationScoped;
++import jakarta.inject.Inject;
++import org.eclipse.microprofile.config.inject.ConfigProperty;
++import org.jboss.logging.Logger;
++
++import java.net.URI;
++import java.net.URISyntaxException;
++
++@Startup
++@ApplicationScoped
++public class CorsConfiguration {
++    private static final int MAX_PORT = 65535;
++    private static final Logger LOG = Logger.getLogger(CorsConfiguration.class);
++
++    @Inject
++    public CorsConfiguration(@ConfigProperty(name = "auth.cors.origins") String origins) {
++        if (origins == null || origins.isBlank()) {
++            throw invalidOrigins();
++        }
++        for (String origin : origins.split(",", -1)) {
++            validateOrigin(origin.trim());
++        }
++    }
++
++    private void validateOrigin(String value) {
++        try {
++            URI origin = new URI(value);
++            if (!("https".equals(origin.getScheme()) || "http".equals(origin.getScheme()))
++                    || origin.getHost() == null || origin.getUserInfo() != null
++                    || !origin.getRawPath().isEmpty() || origin.getQuery() != null || origin.getFragment() != null
++                    || origin.getPort() == 0 || origin.getPort() > MAX_PORT) {
++                throw invalidOrigins();
++            }
++        } catch (URISyntaxException error) {
++            throw invalidOrigins();
++        }
++    }
++
++    private IllegalArgumentException invalidOrigins() {
++        LOG.error("AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards");
++        return new IllegalArgumentException("Invalid CORS origins configuration");
++    }
++}
+diff --git "a/src\\main\\java\\com\\bcp\\workshop\\auth\\CredentialMigration.java" "b/src\\main\\java\\com\\bcp\\workshop\\auth\\CredentialMigration.java"
+new file mode 100644
+index 0000000..21a253c
+--- /dev/null
++++ "b/src\\main\\java\\com\\bcp\\workshop\\auth\\CredentialMigration.java"
+@@ -0,0 +1,102 @@
++package com.bcp.workshop.auth;
++
++import java.sql.Connection;
++import java.sql.SQLException;
++import java.util.HashSet;
++import java.util.Set;
++
++final class CredentialMigration {
++    private static final int HASHED_SCHEMA_VERSION = 1;
++    private static final String CREATE_HASHED_TABLE = """
++            CREATE TABLE legacy_users_hashed (
++                id INTEGER PRIMARY KEY AUTOINCREMENT,
++                username TEXT UNIQUE,
++                password_hash TEXT NOT NULL,
++                display_name TEXT NOT NULL,
++                role TEXT NOT NULL)
++            """;
++    private static final String INSERT_MIGRATED = """
++            INSERT INTO legacy_users_hashed(id,username,password_hash,display_name,role)
++            VALUES (?,?,?,?,?)
++            """;
++    private final PasswordHasher hasher;
++
++    CredentialMigration(PasswordHasher hasher) {
++        this.hasher = hasher;
++    }
++
++    void migrate(Connection connection) throws SQLException {
++        connection.setAutoCommit(false);
++        try {
++            migrateSchema(connection);
++            connection.commit();
++        } catch (SQLException | RuntimeException error) {
++            try {
++                connection.rollback();
++            } catch (SQLException rollbackError) {
++                error.addSuppressed(rollbackError);
++            }
++            throw error;
++        } finally {
++            connection.setAutoCommit(true);
++        }
++    }
++
++    private void migrateSchema(Connection connection) throws SQLException {
++        int version = schemaVersion(connection);
++        Set<String> columns = columns(connection);
++        if (version == HASHED_SCHEMA_VERSION && columns.contains("password_hash") && !columns.contains("password")) {
++            return;
++        }
++        if (version != 0) {
++            throw new SQLException("Unsupported credential schema version");
++        }
++        if (!columns.isEmpty() && !columns.contains("password")) {
++            throw new SQLException("Unsupported legacy credential schema");
++        }
++        try (var statement = connection.createStatement()) {
++            statement.executeUpdate(CREATE_HASHED_TABLE);
++        }
++        if (!columns.isEmpty()) {
++            copyCredentials(connection);
++        }
++        try (var statement = connection.createStatement()) {
++            statement.executeUpdate("DROP TABLE IF EXISTS legacy_users");
++            statement.executeUpdate("ALTER TABLE legacy_users_hashed RENAME TO legacy_users");
++            statement.executeUpdate("PRAGMA user_version = " + HASHED_SCHEMA_VERSION);
++        }
++    }
++
++    private void copyCredentials(Connection connection) throws SQLException {
++        try (var select = connection.createStatement();
++             var rows = select.executeQuery("SELECT id,username,password,display_name,role FROM legacy_users");
++             var insert = connection.prepareStatement(INSERT_MIGRATED)) {
++            while (rows.next()) {
++                insert.setLong(1, rows.getLong("id"));
++                insert.setString(2, rows.getString("username"));
++                insert.setString(3, hasher.hash(rows.getString("password")));
++                insert.setString(4, rows.getString("display_name"));
++                insert.setString(5, rows.getString("role"));
++                insert.executeUpdate();
++            }
++        }
++    }
++
++    private int schemaVersion(Connection connection) throws SQLException {
++        try (var statement = connection.createStatement();
++             var result = statement.executeQuery("PRAGMA user_version")) {
++            return result.getInt(1);
++        }
++    }
++
++    private Set<String> columns(Connection connection) throws SQLException {
++        Set<String> names = new HashSet<>();
++        try (var statement = connection.createStatement();
++             var result = statement.executeQuery("PRAGMA table_info(legacy_users)")) {
++            while (result.next()) {
++                names.add(result.getString("name"));
++            }
++        }
++        return names;
++    }
++}
+diff --git "a/src\\main\\java\\com\\bcp\\workshop\\auth\\LoginResponse.java" "b/src\\main\\java\\com\\bcp\\workshop\\auth\\LoginResponse.java"
+new file mode 100644
+index 0000000..d153b25
+--- /dev/null
++++ "b/src\\main\\java\\com\\bcp\\workshop\\auth\\LoginResponse.java"
+@@ -0,0 +1,14 @@
++package com.bcp.workshop.auth;
++
++import org.apache.commons.text.StringEscapeUtils;
++
++public record LoginResponse(String token, long expiresIn, UserResponse user, String debug) {
++    private static final String DEBUG_FLOW = "authenticated-with-legacy-flow";
++
++    static LoginResponse from(UserRecord user, String token, long expiresIn) {
++        return new LoginResponse(token, expiresIn, new UserResponse(user.username(),
++                StringEscapeUtils.escapeHtml4(user.displayName()), user.role()), DEBUG_FLOW);
++    }
++
++    public record UserResponse(String username, String displayName, String role) {}
++}
+diff --git "a/src\\main\\java\\com\\bcp\\workshop\\auth\\PasswordHasher.java" "b/src\\main\\java\\com\\bcp\\workshop\\auth\\PasswordHasher.java"
+new file mode 100644
+index 0000000..c5fb371
+--- /dev/null
++++ "b/src\\main\\java\\com\\bcp\\workshop\\auth\\PasswordHasher.java"
+@@ -0,0 +1,48 @@
++package com.bcp.workshop.auth;
++
++import io.quarkus.elytron.security.common.BcryptUtil;
++import jakarta.enterprise.context.ApplicationScoped;
++import jakarta.inject.Inject;
++import org.eclipse.microprofile.config.inject.ConfigProperty;
++
++import java.nio.charset.StandardCharsets;
++import java.security.MessageDigest;
++import java.security.NoSuchAlgorithmException;
++import java.util.Base64;
++
++@ApplicationScoped
++public class PasswordHasher {
++    private static final String SCHEME = "{bcrypt-sha256}";
++    private static final int MIN_COST = 4;
++    private static final int MAX_COST = 16;
++    private final int cost;
++
++    @Inject
++    public PasswordHasher(@ConfigProperty(name = "auth.password.cost") int cost) {
++        if (cost < MIN_COST || cost > MAX_COST) {
++            throw new IllegalArgumentException("BCrypt cost must be between 4 and 16");
++        }
++        this.cost = cost;
++    }
++
++    public String hash(String password) {
++        return SCHEME + BcryptUtil.bcryptHash(prepare(password), cost);
++    }
++
++    public boolean matches(String password, String storedHash) {
++        if (!storedHash.startsWith(SCHEME)) {
++            throw new IllegalArgumentException("Unsupported password hash scheme");
++        }
++        return BcryptUtil.matches(prepare(password), storedHash.substring(SCHEME.length()));
++    }
++
++    private String prepare(String password) {
++        try {
++            // Base64(SHA-256) preserves all input bytes before BCrypt's 72-byte limit.
++            byte[] digest = MessageDigest.getInstance("SHA-256").digest(password.getBytes(StandardCharsets.UTF_8));
++            return Base64.getEncoder().encodeToString(digest);
++        } catch (NoSuchAlgorithmException error) {
++            throw new IllegalStateException("SHA-256 is required by the JVM", error);
++        }
++    }
++}
+diff --git "a/src\\main\\java\\com\\bcp\\workshop\\auth\\StoredCredentials.java" "b/src\\main\\java\\com\\bcp\\workshop\\auth\\StoredCredentials.java"
+new file mode 100644
+index 0000000..ed4e825
+--- /dev/null
++++ "b/src\\main\\java\\com\\bcp\\workshop\\auth\\StoredCredentials.java"
+@@ -0,0 +1,3 @@
++package com.bcp.workshop.auth;
++
++record StoredCredentials(UserRecord user, String passwordHash) {}
+diff --git "a/src\\main\\java\\com\\bcp\\workshop\\auth\\TokenService.java" "b/src\\main\\java\\com\\bcp\\workshop\\auth\\TokenService.java"
+new file mode 100644
+index 0000000..177afb5
+--- /dev/null
++++ "b/src\\main\\java\\com\\bcp\\workshop\\auth\\TokenService.java"
+@@ -0,0 +1,76 @@
++package com.bcp.workshop.auth;
++
++import io.quarkus.runtime.Startup;
++import io.smallrye.jwt.algorithm.SignatureAlgorithm;
++import io.smallrye.jwt.build.Jwt;
++import jakarta.enterprise.context.ApplicationScoped;
++import jakarta.inject.Inject;
++import org.eclipse.microprofile.config.inject.ConfigProperty;
++import org.jboss.logging.Logger;
++
++import java.io.IOException;
++import java.nio.file.Files;
++import java.nio.file.Path;
++import java.security.GeneralSecurityException;
++import java.security.KeyFactory;
++import java.security.PrivateKey;
++import java.security.interfaces.RSAPrivateKey;
++import java.security.spec.PKCS8EncodedKeySpec;
++import java.time.Clock;
++import java.util.Base64;
++
++@Startup
++@ApplicationScoped
++public class TokenService {
++    public static final long LIFETIME_SECONDS = 3600;
++    private static final int MIN_RSA_BITS = 2048;
++    private static final Logger LOG = Logger.getLogger(TokenService.class);
++    private final PrivateKey privateKey;
++    private final Clock clock;
++    private final String issuer;
++    private final String audience;
++
++    @Inject
++    public TokenService(@ConfigProperty(name = "auth.token.private-key-path") String keyPath,
++                        @ConfigProperty(name = "auth.token.issuer") String issuer,
++                        @ConfigProperty(name = "auth.token.audience") String audience) {
++        this(loadKey(keyPath), Clock.systemUTC(), issuer, audience);
++    }
++
++    TokenService(PrivateKey privateKey, Clock clock, String issuer, String audience) {
++        if (!(privateKey instanceof RSAPrivateKey rsaKey) || rsaKey.getModulus().bitLength() < MIN_RSA_BITS) {
++            throw new IllegalArgumentException("JWT signing requires an RSA private key of at least 2048 bits");
++        }
++        this.privateKey = privateKey;
++        this.clock = clock;
++        this.issuer = requireValue(issuer, "JWT issuer");
++        this.audience = requireValue(audience, "JWT audience");
++    }
++
++    public String create(UserRecord user) {
++        long issuedAt = clock.instant().getEpochSecond();
++        return Jwt.issuer(issuer).audience(audience).subject(user.username())
++                .claim("role", user.role()).issuedAt(issuedAt).expiresAt(issuedAt + LIFETIME_SECONDS)
++                .jws().algorithm(SignatureAlgorithm.RS256).sign(privateKey);
++    }
++
++    private static String requireValue(String value, String name) {
++        if (value == null || value.isBlank()) {
++            throw new IllegalArgumentException(name + " must be configured");
++        }
++        return value;
++    }
++
++    private static PrivateKey loadKey(String keyPath) {
++        requireValue(keyPath, "JWT private key path");
++        try {
++            String pem = Files.readString(Path.of(keyPath));
++            byte[] encoded = Base64.getDecoder().decode(pem.replace("-----BEGIN PRIVATE KEY-----", "")
++                    .replace("-----END PRIVATE KEY-----", "").replaceAll("\\s", ""));
++            return KeyFactory.getInstance("RSA").generatePrivate(new PKCS8EncodedKeySpec(encoded));
++        } catch (IOException | GeneralSecurityException | IllegalArgumentException error) {
++            LOG.error("Unable to load JWT signing key");
++            throw new IllegalStateException("Unable to load JWT signing key", error);
++        }
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\AuthTestResource.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\AuthTestResource.java"
+new file mode 100644
+index 0000000..19ce452
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\AuthTestResource.java"
+@@ -0,0 +1,49 @@
++package com.bcp.workshop.auth;
++
++import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
++
++import java.nio.file.Files;
++import java.nio.file.Path;
++import java.util.Map;
++import java.security.KeyPairGenerator;
++import java.security.GeneralSecurityException;
++import java.util.Base64;
++
++public class AuthTestResource implements QuarkusTestResourceLifecycleManager {
++    private Path directory;
++
++    @Override
++    public Map<String, String> start() {
++        try {
++            directory = Files.createTempDirectory(Path.of("target"), "auth-test-").toAbsolutePath();
++            var generator = KeyPairGenerator.getInstance("RSA");
++            generator.initialize(2048);
++            Path key = directory.resolve("test-key.pem");
++            Files.writeString(key, "-----BEGIN PRIVATE KEY-----\n"
++                    + Base64.getMimeEncoder().encodeToString(generator.generateKeyPair().getPrivate().getEncoded())
++                    + "\n-----END PRIVATE KEY-----");
++            return Map.of("auth.database.url", "jdbc:sqlite:" + directory.resolve("test.db"),
++                    "auth.password.cost", "4",
++                    "auth.bootstrap.username", "",
++                    "auth.bootstrap.password", "",
++                    "auth.token.issuer", "test-issuer",
++                    "auth.token.audience", "test-audience",
++                    "auth.token.private-key-path", key.toString(),
++                    "auth.cors.origins", CorsTest.ALLOWED_ORIGIN);
++        } catch (java.io.IOException | GeneralSecurityException error) {
++            throw new IllegalStateException("Unable to create isolated test storage", error);
++        }
++    }
++
++    @Override
++    public void stop() {
++        try (var files = Files.list(directory)) {
++            for (Path file : files.toList()) {
++                Files.delete(file);
++            }
++            Files.delete(directory);
++        } catch (java.io.IOException error) {
++            throw new IllegalStateException("Unable to remove isolated test storage", error);
++        }
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\CorsConfigurationTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\CorsConfigurationTest.java"
+new file mode 100644
+index 0000000..2454319
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\CorsConfigurationTest.java"
+@@ -0,0 +1,19 @@
++package com.bcp.workshop.auth;
++
++import org.junit.jupiter.api.Test;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++class CorsConfigurationTest {
++    @Test
++    void requiresAnExplicitAllowlist() {
++        assertDoesNotThrow(() -> new CorsConfiguration("https://client.example.test,http://localhost:4200"));
++        for (String invalid : new String[]{"", " ", "*", "/.*/", "null", "ftp://example.test",
++                "https://example.test/path", "https://example.test/", "https://user@example.test",
++                "https://example.test?q=test", "https://example.test#fragment", "https://example.test:0",
++                "https://example.test:99999", "https://example.test,", "https://bad host"}) {
++            assertThrows(IllegalArgumentException.class, () -> new CorsConfiguration(invalid));
++        }
++        assertThrows(IllegalArgumentException.class, () -> new CorsConfiguration(null));
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\CorsTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\CorsTest.java"
+new file mode 100644
+index 0000000..4001b2f
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\CorsTest.java"
+@@ -0,0 +1,42 @@
++package com.bcp.workshop.auth;
++
++import io.quarkus.test.junit.QuarkusTest;
++import org.junit.jupiter.api.Test;
++
++import static io.restassured.RestAssured.given;
++import static org.hamcrest.Matchers.nullValue;
++import static org.hamcrest.Matchers.is;
++import static org.hamcrest.Matchers.containsString;
++import static org.hamcrest.Matchers.not;
++
++@QuarkusTest
++class CorsTest {
++    static final String ALLOWED_ORIGIN = "https://client.example.test";
++    static final String DENIED_ORIGIN = "https://untrusted.example.test";
++
++    @Test
++    void characterizesPreflight() {
++        given().header("Origin", ALLOWED_ORIGIN)
++                .header("Access-Control-Request-Method", "POST")
++                .header("Access-Control-Request-Headers", "content-type")
++                .options("/auth/login").then().statusCode(200)
++                .header("Access-Control-Allow-Origin", is(ALLOWED_ORIGIN))
++                .header("Access-Control-Allow-Methods", containsString("POST"));
++    }
++
++    @Test
++    void deniesUnknownOrigin() {
++        given().header("Origin", DENIED_ORIGIN)
++                .header("Access-Control-Request-Method", "POST")
++                .options("/auth/login").then()
++                .header("Access-Control-Allow-Origin", nullValue());
++    }
++
++    @Test
++    void doesNotPermitDeleteFromAllowedOrigin() {
++        given().header("Origin", ALLOWED_ORIGIN)
++                .header("Access-Control-Request-Method", "DELETE")
++                .options("/auth/login").then()
++                .header("Access-Control-Allow-Methods", not(containsString("DELETE")));
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\CredentialMigrationTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\CredentialMigrationTest.java"
+new file mode 100644
+index 0000000..7f8768c
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\CredentialMigrationTest.java"
+@@ -0,0 +1,122 @@
++package com.bcp.workshop.auth;
++
++import org.junit.jupiter.api.Test;
++import org.junit.jupiter.api.io.TempDir;
++
++import java.nio.file.Path;
++import java.sql.Connection;
++import java.sql.SQLException;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++class CredentialMigrationTest {
++    @TempDir(factory = DatabaseFixture.DirectoryFactory.class)
++    Path directory;
++
++    private final PasswordHasher hasher = new PasswordHasher(4);
++
++    @Test
++    void migratesLegacyAccountsAndIsIdempotentAcrossRestarts() throws Exception {
++        String url = "jdbc:sqlite:" + directory.resolve("migration.db");
++        try (var connection = open(url)) {
++            createLegacyAccount(connection);
++            new CredentialMigration(hasher).migrate(connection);
++            assertMigrated(connection);
++        }
++        try (var connection = open(url)) {
++            String before = storedHash(connection);
++            new CredentialMigration(hasher).migrate(connection);
++            assertEquals(before, storedHash(connection));
++            assertMigrated(connection);
++        }
++    }
++
++    @Test
++    void rollsBackOnHashFailureWithoutLosingLegacyAccount() throws Exception {
++        try (var connection = open("jdbc:sqlite::memory:")) {
++            createLegacyAccount(connection);
++            PasswordHasher failingHasher = new PasswordHasher(4) {
++                @Override
++                public String hash(String password) {
++                    throw new IllegalStateException("Synthetic migration failure");
++                }
++            };
++            assertThrows(IllegalStateException.class,
++                    () -> new CredentialMigration(failingHasher).migrate(connection));
++            try (var statement = connection.createStatement();
++                 var result = statement.executeQuery("SELECT password FROM legacy_users")) {
++                assertEquals(DatabaseFixture.PASSWORD, result.getString(1));
++            }
++            try (var statement = connection.createStatement();
++                 var result = statement.executeQuery(
++                         "SELECT count(*) FROM sqlite_master WHERE name='legacy_users_hashed'")) {
++                assertEquals(0, result.getInt(1));
++            }
++            new CredentialMigration(hasher).migrate(connection);
++            assertMigrated(connection);
++        }
++    }
++
++    @Test
++    void initializesEmptyDatabaseAndRejectsUnknownSchemas() throws Exception {
++        try (var connection = open("jdbc:sqlite::memory:")) {
++            new CredentialMigration(hasher).migrate(connection);
++            new CredentialMigration(hasher).migrate(connection);
++            try (var statement = connection.createStatement()) {
++                statement.executeUpdate("PRAGMA user_version=2");
++            }
++            assertThrows(SQLException.class, () -> new CredentialMigration(hasher).migrate(connection));
++        }
++        try (var connection = open("jdbc:sqlite::memory:")) {
++            try (var statement = connection.createStatement()) {
++                statement.executeUpdate("CREATE TABLE legacy_users(unexpected TEXT)");
++            }
++            assertThrows(SQLException.class, () -> new CredentialMigration(hasher).migrate(connection));
++        }
++    }
++
++    private Connection open(String url) throws SQLException {
++        var source = new org.sqlite.SQLiteDataSource();
++        source.setUrl(url);
++        return source.getConnection();
++    }
++
++    private void createLegacyAccount(Connection connection) throws SQLException {
++        try (var statement = connection.createStatement()) {
++            statement.executeUpdate("CREATE TABLE legacy_users(id INTEGER PRIMARY KEY AUTOINCREMENT,"
++                    + "username TEXT UNIQUE, password TEXT NOT NULL, display_name TEXT NOT NULL, role TEXT NOT NULL)");
++        }
++        try (var statement = connection.prepareStatement(
++                "INSERT INTO legacy_users VALUES (1,?,?,?,?)")) {
++            statement.setString(1, DatabaseFixture.STUDENT);
++            statement.setString(2, DatabaseFixture.PASSWORD);
++            statement.setString(3, DatabaseFixture.DISPLAY_NAME);
++            statement.setString(4, "STUDENT");
++            statement.executeUpdate();
++        }
++    }
++
++    private String storedHash(Connection connection) throws SQLException {
++        try (var statement = connection.createStatement();
++             var result = statement.executeQuery("SELECT password_hash FROM legacy_users")) {
++            return result.getString(1);
++        }
++    }
++
++    private void assertMigrated(Connection connection) throws SQLException {
++        assertTrue(hasher.matches(DatabaseFixture.PASSWORD, storedHash(connection)));
++        try (var statement = connection.createStatement();
++             var result = statement.executeQuery("SELECT id,username,display_name,role FROM legacy_users")) {
++            assertEquals(1, result.getInt("id"));
++            assertEquals(DatabaseFixture.STUDENT, result.getString("username"));
++            assertEquals(DatabaseFixture.DISPLAY_NAME, result.getString("display_name"));
++            assertEquals("STUDENT", result.getString("role"));
++        }
++        try (var statement = connection.createStatement();
++             var result = statement.executeQuery("PRAGMA table_info(legacy_users)")) {
++            while (result.next()) {
++                assertNotEquals("password", result.getString("name"));
++            }
++        }
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\DatabaseFixture.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\DatabaseFixture.java"
+new file mode 100644
+index 0000000..3d98e2c
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\DatabaseFixture.java"
+@@ -0,0 +1,53 @@
++package com.bcp.workshop.auth;
++
++import java.sql.Connection;
++import java.sql.DriverManager;
++import java.sql.SQLException;
++import org.eclipse.microprofile.config.ConfigProvider;
++
++final class DatabaseFixture {
++    static final String STUDENT = "test-student";
++    static final String TRAINER = "test-trainer";
++    static final String PASSWORD = "Test-only-password!";
++    static final String DISPLAY_NAME = "<Test & Student>";
++
++    private DatabaseFixture() {}
++
++    static Connection connection() throws SQLException {
++        String url = ConfigProvider.getConfig().getValue("auth.database.url", String.class);
++        if (url == null || !url.contains("target")) {
++            throw new IllegalStateException("Tests require an isolated AUTH_DB_URL under target");
++        }
++        return DriverManager.getConnection(url);
++    }
++
++    static void reset() throws SQLException {
++        try (Connection connection = connection();
++             var delete = connection.createStatement()) {
++            delete.executeUpdate("DELETE FROM legacy_users");
++            insert(connection, STUDENT, PASSWORD, DISPLAY_NAME, "STUDENT");
++            insert(connection, TRAINER, PASSWORD, "Test Trainer", "TRAINER");
++        }
++    }
++
++    private static void insert(Connection connection, String username, String password,
++                               String displayName, String role) throws SQLException {
++        try (var statement = connection.prepareStatement(
++                "INSERT INTO legacy_users(username,password_hash,display_name,role) VALUES (?,?,?,?)")) {
++            statement.setString(1, username);
++            statement.setString(2, new PasswordHasher(4).hash(password));
++            statement.setString(3, displayName);
++            statement.setString(4, role);
++            statement.executeUpdate();
++        }
++    }
++
++    public static class DirectoryFactory implements org.junit.jupiter.api.io.TempDirFactory {
++        @Override
++        public java.nio.file.Path createTempDirectory(
++                org.junit.jupiter.api.extension.AnnotatedElementContext context,
++                org.junit.jupiter.api.extension.ExtensionContext extension) throws java.io.IOException {
++            return java.nio.file.Files.createTempDirectory(java.nio.file.Path.of("target"), "auth-unit-");
++        }
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\LegacyDatabaseTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\LegacyDatabaseTest.java"
+new file mode 100644
+index 0000000..9a6bc36
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\LegacyDatabaseTest.java"
+@@ -0,0 +1,39 @@
++package com.bcp.workshop.auth;
++
++import io.quarkus.test.junit.QuarkusTest;
++import jakarta.inject.Inject;
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.api.Test;
++
++import static org.junit.jupiter.api.Assertions.assertEquals;
++import static org.junit.jupiter.api.Assertions.assertNull;
++
++@QuarkusTest
++class LegacyDatabaseTest {
++    @Inject
++    AuthService service;
++
++
++    @BeforeEach
++    void isolateAccounts() throws Exception {
++        DatabaseFixture.reset();
++    }
++
++    @Test
++    void findsOnlyExactCredentials() {
++        UserRecord user = service.authenticate(DatabaseFixture.STUDENT, DatabaseFixture.PASSWORD);
++        assertEquals(DatabaseFixture.STUDENT, user.username());
++        assertEquals(DatabaseFixture.DISPLAY_NAME, user.displayName());
++        assertEquals("STUDENT", user.role());
++        assertNull(service.authenticate(DatabaseFixture.STUDENT, "incorrect"));
++        assertNull(service.authenticate("missing", DatabaseFixture.PASSWORD));
++        assertNull(service.authenticate(" " + DatabaseFixture.STUDENT, DatabaseFixture.PASSWORD));
++    }
++
++    @Test
++    void rejectsSqlSyntaxAsCredentials() {
++        assertNull(service.authenticate(DatabaseFixture.STUDENT + "' --", "incorrect"));
++        assertNull(service.authenticate("missing", "' OR '1'='1"));
++    }
++
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\PasswordHasherTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\PasswordHasherTest.java"
+new file mode 100644
+index 0000000..72aeba0
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\PasswordHasherTest.java"
+@@ -0,0 +1,29 @@
++package com.bcp.workshop.auth;
++
++import org.junit.jupiter.api.Test;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++class PasswordHasherTest {
++    private final PasswordHasher hasher = new PasswordHasher(4);
++
++    @Test
++    void saltsEachCredentialAndChecksFullPassword() {
++        String hash = hasher.hash(DatabaseFixture.PASSWORD);
++        assertNotEquals(hash, hasher.hash(DatabaseFixture.PASSWORD));
++        assertFalse(hash.contains(DatabaseFixture.PASSWORD));
++        assertTrue(hasher.matches(DatabaseFixture.PASSWORD, hash));
++        assertFalse(hasher.matches("incorrect", hash));
++        String longPassword = "x".repeat(100);
++        assertFalse(hasher.matches(longPassword + "different", hasher.hash(longPassword)));
++        assertFalse(hasher.matches("a\u0000c", hasher.hash("a\u0000b")));
++        assertTrue(hasher.matches("clave-\u00f1", hasher.hash("clave-\u00f1")));
++    }
++
++    @Test
++    void rejectsInvalidCostAndUnsupportedHashes() {
++        assertThrows(IllegalArgumentException.class, () -> new PasswordHasher(3));
++        assertThrows(IllegalArgumentException.class, () -> new PasswordHasher(17));
++        assertThrows(IllegalArgumentException.class, () -> hasher.matches("test", "plaintext"));
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\PasswordStorageTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\PasswordStorageTest.java"
+new file mode 100644
+index 0000000..849d579
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\PasswordStorageTest.java"
+@@ -0,0 +1,26 @@
++package com.bcp.workshop.auth;
++
++import io.quarkus.test.junit.QuarkusTest;
++import org.junit.jupiter.api.Test;
++
++import java.util.HashSet;
++
++import static org.junit.jupiter.api.Assertions.assertFalse;
++import static org.junit.jupiter.api.Assertions.assertTrue;
++
++@QuarkusTest
++class PasswordStorageTest {
++    @Test
++    void storesHashesInsteadOfPlaintextColumn() throws Exception {
++        var columns = new HashSet<String>();
++        try (var connection = DatabaseFixture.connection();
++             var statement = connection.createStatement();
++             var result = statement.executeQuery("PRAGMA table_info(legacy_users)")) {
++            while (result.next()) {
++                columns.add(result.getString("name"));
++            }
++        }
++        assertTrue(columns.contains("password_hash"), "The active schema must contain password_hash");
++        assertFalse(columns.contains("password"), "The plaintext password column must be removed");
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\RepositoryLifecycleTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\RepositoryLifecycleTest.java"
+new file mode 100644
+index 0000000..6120e37
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\RepositoryLifecycleTest.java"
+@@ -0,0 +1,58 @@
++package com.bcp.workshop.auth;
++
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.api.AfterEach;
++import org.junit.jupiter.api.Test;
++import org.junit.jupiter.api.io.TempDir;
++
++import java.nio.file.Path;
++import java.sql.DriverManager;
++import java.sql.SQLException;
++import java.util.Optional;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++class RepositoryLifecycleTest {
++    @TempDir(factory = DatabaseFixture.DirectoryFactory.class)
++    Path directory;
++    private final org.sqlite.JDBC driver = new org.sqlite.JDBC();
++
++    @BeforeEach
++    void registerDriverForUnitTestClassLoader() throws SQLException {
++        DriverManager.registerDriver(driver);
++    }
++
++    @AfterEach
++    void unregisterDriver() throws SQLException {
++        DriverManager.deregisterDriver(driver);
++    }
++
++    @Test
++    void provisionsOnlyExplicitAccountsAndDoesNotResetExistingCredentials() {
++        String url = "jdbc:sqlite:" + directory.resolve("provision.db");
++        PasswordHasher hasher = new PasswordHasher(4);
++        LegacyDatabase repository = new LegacyDatabase(url, hasher, Optional.of("bootstrap-test"),
++                Optional.of(DatabaseFixture.PASSWORD));
++        repository.initialize();
++        repository.initialize();
++        StoredCredentials credentials = repository.findByUsername("bootstrap-test");
++        assertTrue(hasher.matches(DatabaseFixture.PASSWORD, credentials.passwordHash()));
++        assertEquals("STUDENT", credentials.user().role());
++        LegacyDatabase restarted = new LegacyDatabase(url, hasher, Optional.of("bootstrap-test"), Optional.of("different"));
++        restarted.initialize();
++        assertTrue(hasher.matches(DatabaseFixture.PASSWORD, restarted.findByUsername("bootstrap-test").passwordHash()));
++    }
++
++    @Test
++    void failsInitializationExplicitlyAndPreservesDocumentedLookupFailure() {
++        PasswordHasher hasher = new PasswordHasher(4);
++        LegacyDatabase unavailable = new LegacyDatabase("jdbc:unavailable:test", hasher, Optional.empty(), Optional.empty());
++        assertThrows(IllegalStateException.class, unavailable::initialize);
++        assertNull(unavailable.findByUsername("test"));
++        String url = "jdbc:sqlite:" + directory.resolve("invalid-bootstrap.db");
++        LegacyDatabase incomplete = new LegacyDatabase(url, hasher, Optional.of("test"), Optional.empty());
++        assertThrows(IllegalStateException.class, incomplete::initialize);
++        LegacyDatabase blank = new LegacyDatabase(url, hasher, Optional.of(" "), Optional.of(" "));
++        assertThrows(IllegalStateException.class, blank::initialize);
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\TokenServiceTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\TokenServiceTest.java"
+new file mode 100644
+index 0000000..6a4f9e7
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\TokenServiceTest.java"
+@@ -0,0 +1,105 @@
++package com.bcp.workshop.auth;
++
++import com.fasterxml.jackson.databind.JsonNode;
++import com.fasterxml.jackson.databind.ObjectMapper;
++import org.junit.jupiter.api.Test;
++import org.junit.jupiter.api.io.TempDir;
++
++import java.nio.charset.StandardCharsets;
++import java.nio.file.Files;
++import java.nio.file.Path;
++import java.security.KeyPairGenerator;
++import java.security.PublicKey;
++import java.security.Signature;
++import java.time.Clock;
++import java.time.Instant;
++import java.time.ZoneOffset;
++import java.util.Base64;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++class TokenServiceTest {
++    @TempDir(factory = DatabaseFixture.DirectoryFactory.class)
++    Path directory;
++    private final ObjectMapper mapper = new ObjectMapper();
++    private final Instant instant = Instant.parse("2026-10-19T12:00:00Z");
++    private final UserRecord user = new UserRecord(1, DatabaseFixture.STUDENT, "Test", "STUDENT");
++
++    @Test
++    void signsClaimsWithExactLifetimeAndIndependentVerifier() throws Exception {
++        var keys = keys(2048);
++        var service = new TokenService(keys.getPrivate(), Clock.fixed(instant, ZoneOffset.UTC), "test-issuer", "test-audience");
++        String token = service.create(user);
++        String[] segments = token.split("\\.");
++        assertEquals(3, segments.length);
++        assertTrue(verifies(token, keys.getPublic()));
++        JsonNode header = decode(segments[0]);
++        JsonNode claims = decode(segments[1]);
++        assertEquals("RS256", header.get("alg").asText());
++        assertEquals(user.username(), claims.get("sub").asText());
++        assertEquals(user.role(), claims.get("role").asText());
++        assertEquals("test-issuer", claims.get("iss").asText());
++        assertTrue(claims.get("aud").toString().contains("test-audience"));
++        assertEquals(instant.getEpochSecond(), claims.get("iat").asLong());
++        assertEquals(TokenService.LIFETIME_SECONDS, claims.get("exp").asLong() - claims.get("iat").asLong());
++        assertFalse(claims.has("secret"));
++        assertFalse(claims.has("password"));
++        assertFalse(claims.has("password_hash"));
++        assertTrue(validAt(token, instant, "test-issuer", "test-audience"));
++        assertFalse(validAt(token, instant.plusSeconds(TokenService.LIFETIME_SECONDS), "test-issuer", "test-audience"));
++        assertFalse(validAt(token, instant, "wrong", "test-audience"));
++        assertFalse(validAt(token, instant, "test-issuer", "wrong"));
++        assertFalse(verifies(token, keys(2048).getPublic()));
++        String alteredClaims = new String(Base64.getUrlDecoder().decode(segments[1]), StandardCharsets.UTF_8)
++                .replace("STUDENT", "TRAINER");
++        String altered = segments[0] + "." + Base64.getUrlEncoder().withoutPadding()
++                .encodeToString(alteredClaims.getBytes(StandardCharsets.UTF_8)) + "." + segments[2];
++        assertFalse(verifies(altered, keys.getPublic()));
++    }
++
++    @Test
++    void loadsExternalKeyAndRejectsMissingMalformedOrWeakConfiguration() throws Exception {
++        Path key = directory.resolve("key.pem");
++        Files.writeString(key, "-----BEGIN PRIVATE KEY-----\n"
++                + Base64.getEncoder().encodeToString(keys(2048).getPrivate().getEncoded())
++                + "\n-----END PRIVATE KEY-----");
++        assertEquals(3, new TokenService(key.toString(), "test-issuer", "test-audience").create(user).split("\\.").length);
++        assertThrows(IllegalStateException.class,
++                () -> new TokenService(directory.resolve("missing").toString(), "test-issuer", "test-audience"));
++        Files.writeString(key, "invalid-key");
++        assertThrows(IllegalStateException.class, () -> new TokenService(key.toString(), "test-issuer", "test-audience"));
++        assertThrows(IllegalArgumentException.class, () -> new TokenService("", "test-issuer", "test-audience"));
++        var weak = keys(1024);
++        assertThrows(IllegalArgumentException.class,
++                () -> new TokenService(weak.getPrivate(), Clock.systemUTC(), "test-issuer", "test-audience"));
++        var strong = keys(2048);
++        assertThrows(IllegalArgumentException.class,
++                () -> new TokenService(strong.getPrivate(), Clock.systemUTC(), " ", "test-audience"));
++        assertThrows(IllegalArgumentException.class,
++                () -> new TokenService(strong.getPrivate(), Clock.systemUTC(), "test-issuer", null));
++    }
++
++    private java.security.KeyPair keys(int bits) throws Exception {
++        var generator = KeyPairGenerator.getInstance("RSA");
++        generator.initialize(bits);
++        return generator.generateKeyPair();
++    }
++
++    private JsonNode decode(String segment) throws Exception {
++        return mapper.readTree(Base64.getUrlDecoder().decode(segment));
++    }
++
++    private boolean verifies(String token, PublicKey key) throws Exception {
++        String[] segments = token.split("\\.");
++        Signature signature = Signature.getInstance("SHA256withRSA");
++        signature.initVerify(key);
++        signature.update((segments[0] + "." + segments[1]).getBytes(StandardCharsets.US_ASCII));
++        return signature.verify(Base64.getUrlDecoder().decode(segments[2]));
++    }
++
++    private boolean validAt(String token, Instant now, String issuer, String audience) throws Exception {
++        JsonNode claims = decode(token.split("\\.")[1]);
++        return claims.get("exp").asLong() > now.getEpochSecond()
++                && claims.get("iss").asText().equals(issuer) && claims.get("aud").toString().contains(audience);
++    }
++}

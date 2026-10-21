@@ -1,0 +1,90 @@
+EVIDENCIA H-01 A H-04 - 2026-10-19
+
+Todos los comandos se ejecutaron dentro de workshop-auth-backend con JDK 21.
+No se uso la base local ni claves reales. La suite final incluye pruebas
+unitarias y pruebas HTTP con @QuarkusTest.
+
+ANTES DE CAMBIAR PRODUCCION
+Comando: mvn -B -ntp test
+Archivo: 02-antes.log
+Resultado: 12 pruebas, 4 fallos de regresion esperados, 0 errores.
+El intento inicial 01-antes.log fallo por una tabla ausente en el fixture.
+Se corrigio solo el fixture y se repitio antes de modificar produccion.
+
+H-01
+Caracterizacion antes: AuthResourceTest (5/5) y findsOnlyExactCredentials pasan.
+Correccion antes: rejectsSqlSyntaxAsCredentials FALLA; devuelve otra identidad.
+Cambio: SQL preparado, despues busqueda por username y verificacion en servicio.
+Diff inicial: H-01.diff. Refinamiento para hashes incluido en H-02.diff.
+Comando despues: mvn -B -ntp test -Dtest=AuthResourceTest,LegacyDatabaseTest
+Resultado despues: 7/7; caracterizacion y regresion pasan.
+Archivo: 03-h01-despues.log.
+
+H-02
+Caracterizacion antes: login sintetico de estudiante y entrenador, forma de
+respuesta, errores y claves incorrectas/espacios pasan en AuthResourceTest.
+Correccion antes: storesHashesInsteadOfPlaintextColumn FALLA por columna ausente.
+Cambio: BCrypt con salt sobre Base64(SHA-256), migracion transaccional versionada,
+repositorio/servicio/seguridad/DTO separados y aprovisionamiento explicito.
+Diff: H-02.diff. Calibracion: 05-bcrypt-calibracion.log.
+Comando despues: mvn -B -ntp test -Dtest=AuthResourceTest,LegacyDatabaseTest,PasswordStorageTest,PasswordHasherTest,CredentialMigrationTest
+Resultado despues: 13/13; conserva caracterizacion HTTP, verifica hash, esquema,
+idempotencia de migracion, reinicio y rollback sin perdida de cuenta.
+Archivo: 07-h02-despues.log.
+06-h02-despues.log conserva un intento fallido por registro JDBC del classloader;
+se corrigio el fixture unitario, no se desactivo ninguna prueba.
+
+H-03
+Caracterizacion antes: characterizesLegacyFormatWithoutRecordingSecret pasa.
+Correccion antes: signedTokenMustNotContainEmbeddedSecret FALLA (1 segmento, no 3).
+Cambio autorizado: JWT RS256 con claims, clave externa y expiracion comun.
+El formato legado se caracterizo antes de retirarlo; no se conserva como
+expectativa posterior porque el usuario autorizo sustituirlo por JWT.
+Diff: H-03.diff.
+Comando despues: mvn -B -ntp test -Dtest=AuthResourceTest,TokenServiceTest
+Resultado despues: 7/7. Misma respuesta HTTP y validacion; nueva caracterizacion
+JWT con firma independiente JCA, claims, alteracion de rol, clave incorrecta,
+limite de expiracion, issuer/audience y configuracion invalida.
+Archivo: 08-h03-despues.log.
+
+H-04
+Caracterizacion antes: characterizesPreflight pasa para un origen sintetico.
+Correccion antes: deniesUnknownOrigin FALLA (el origen ajeno recibe permiso).
+Cambio autorizado: allowlist externa obligatoria, POST/OPTIONS y sin secreto
+en Java; validacion de origenes, claves, issuer y audience al arrancar.
+Diff: H-04.diff.
+Resultado despues: CorsTest 3/3 y CorsConfigurationTest 1/1 pasan en la suite.
+Cuatro arranques separados, cada uno sin una variable obligatoria, terminan
+con codigo 1. Archivo: 12-startup-missing.log.
+No se presupone un codigo 403: se verifica ausencia de permiso CORS para
+origen ajeno y que DELETE no aparece entre los metodos permitidos.
+
+RESULTADO FINAL
+Comando: mvn -B -ntp clean verify
+Archivo: ..\evidencias_test_post.txt (la ultima ejecucion es la definitiva).
+21 pruebas, 0 fallos, 0 errores, 0 omitidas. BUILD SUCCESS, exit 0.
+Pruebas adicionales: bootstrap idempotente, ausencia de credenciales automaticas,
+rechazo de configuracion incompleta y fallo de almacenamiento con logging.
+Los mensajes ERROR de estos casos negativos son intencionales.
+El archivo tambien conserva una ejecucion fallida por TempDir nulo en
+QuarkusTest; se separaron los casos unitarios y se repitio sin omitir pruebas.
+JaCoCo: gate LINE >= 85%, sin clases excluidas del reporte.
+Codigo agregado/modificado: 170/174 lineas ejecutables, 97.70%.
+Global: 182/186 lineas, 97.85%; ramas 85/96, 88.54%.
+Medicion: cobertura-modificada.txt, contrastada con git diff y archivos nuevos.
+
+LECTURA DE DIFFS
+Los diffs H-02/H-03/H-04 son cortes por archivos respecto al Git inicial y
+contienen contexto compartido cuando dos hallazgos afectan el mismo archivo;
+no son parches independientes para aplicar uno encima de otro.
+H-01.diff conserva el cambio exacto del primer paso.
+pruebas.diff contiene la suite final; implementacion-completa.diff contiene
+todos los cambios Java, propiedades, Maven y README, incluidos archivos nuevos.
+
+LIMITES
+No se ejecutaron workflows remotos CodeQL/Dependency Review ni auditoria SCA
+completa. Sus configuraciones no cambiaron.
+No se verificaron consumidores externos ni se migraron datos del desarrollador.
+La activacion requiere claves/origenes reales aportados por el operador,
+coordinacion de consumidores y respaldo/restauracion de SQLite.
+Los estados se mantienen exclusivamente en ..\HALLAZGOS.md.

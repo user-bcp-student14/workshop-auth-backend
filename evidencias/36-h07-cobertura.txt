@@ -1,0 +1,7 @@
+H-07: cobertura incremental de lineas modificadas respecto al snapshot previo.
+Metodo: diff --no-index --unified=0; cruce sourcefile/line XML JaCoCo (mi+ci>0, cubierta ci>0).
+src\main\java\com\bcp\workshop\auth\AuthService.java 7/7
+src\main\java\com\bcp\workshop\auth\AuthResource.java 9/9
+MODIFICADAS=16/16 (100.00%)
+GLOBAL=191/195 (97.95%)
+COMANDO=mvn -B -ntp clean verify quarkus:build; EXIT_CODE=0; GATE=0.85 intacto

@@ -1,0 +1,6 @@
+H-06: no modifica codigo de produccion; no hay denominador incremental de lineas Java.
+Prueba de escape exacto: LoginResponseTest (2 metodos, 8 variantes de escape).
+GLOBAL=186/190 (97.89%)
+SUITE=41; FAILURES=0; ERRORS=0; SKIPPED=0
+GATE JaCoCo 0.85 intacto; clean verify EXIT_CODE=0
+Reporte XML preservado: h06-jacoco.xml

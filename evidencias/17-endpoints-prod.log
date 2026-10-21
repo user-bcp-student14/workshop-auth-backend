@@ -1,0 +1,7 @@
+PASS malformed JSON HTTP 400
+PASS object username HTTP 400
+PASS unsupported method HTTP 405
+PASS unacceptable response HTTP 406
+PASS unsupported content HTTP 415
+RESULT: 5 passed, 0 failed (production HTTP bodies)
+Codigo de salida: 0

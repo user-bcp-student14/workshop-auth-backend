@@ -1,0 +1,708 @@
+diff --git a/src/test/java/com/bcp/workshop/auth/AuthResourceTest.java b/src/test/java/com/bcp/workshop/auth/AuthResourceTest.java
+index ee958bc..928e767 100644
+--- a/src/test/java/com/bcp/workshop/auth/AuthResourceTest.java
++++ b/src/test/java/com/bcp/workshop/auth/AuthResourceTest.java
+@@ -1,23 +1,99 @@
+ package com.bcp.workshop.auth;
+ 
+ import io.quarkus.test.junit.QuarkusTest;
++import io.quarkus.test.common.QuarkusTestResource;
++import org.junit.jupiter.api.BeforeEach;
+ import org.junit.jupiter.api.Test;
+ 
+ import static io.restassured.RestAssured.given;
+ import static org.hamcrest.CoreMatchers.is;
+ import static org.hamcrest.Matchers.notNullValue;
++import static org.junit.jupiter.api.Assertions.assertEquals;
++
++import java.util.Map;
+ 
+ @QuarkusTest
++@QuarkusTestResource(AuthTestResource.class)
+ class AuthResourceTest {
++    @BeforeEach
++    void isolateAccounts() throws Exception {
++        DatabaseFixture.reset();
++    }
++
+     @Test
+     void logsInWithWorkshopUser() {
+         given()
+                 .contentType("application/json")
+-                .body("{\"username\":\"student\",\"password\":\"Workshop123!\",\"client\":\"angular-workshop\"}")
++                .body(Map.of("username", DatabaseFixture.STUDENT, "password", DatabaseFixture.PASSWORD,
++                        "client", "test-client", "unknownField", true))
+                 .when().post("/auth/login")
+                 .then()
+                 .statusCode(200)
+-                .body("user.username", is("student"))
++                .body("user.username", is(DatabaseFixture.STUDENT))
++                .body("user.displayName", is("&lt;Test &amp; Student&gt;"))
++                .body("user.role", is("STUDENT"))
++                .body("expiresIn", is(3600))
++                .body("debug", is("authenticated-with-legacy-flow"))
++                .body("size()", is(4))
++                .body("user.size()", is(3))
+                 .body("token", notNullValue());
+     }
++
++    @Test
++    void logsInTrainerWithoutClient() {
++        given().contentType("application/json")
++                .body(Map.of("username", DatabaseFixture.TRAINER, "password", DatabaseFixture.PASSWORD))
++                .post("/auth/login").then().statusCode(200).body("user.role", is("TRAINER"));
++    }
++
++    @Test
++    void preservesValidationMessagesAndPrecedence() {
++        assertInvalid(Map.of(), "Username is required");
++        assertInvalid(Map.of("username", " "), "Username is required");
++        assertInvalid(Map.of("username", DatabaseFixture.STUDENT), "Password is required");
++        assertInvalid(Map.of("username", DatabaseFixture.STUDENT, "password", " "), "Password is required");
++        assertInvalid(Map.of("username", "", "password", ""), "Username is required");
++    }
++
++    @Test
++    void rejectsIncorrectAndUntrimmedCredentials() {
++        assertRejected(DatabaseFixture.STUDENT, "incorrect");
++        assertRejected("missing-user", DatabaseFixture.PASSWORD);
++        assertRejected(" " + DatabaseFixture.STUDENT, DatabaseFixture.PASSWORD);
++        assertRejected(DatabaseFixture.STUDENT, DatabaseFixture.PASSWORD + " ");
++    }
++
++    @Test
++    void preservesNullRequestAndExceptionResponse() {
++        AuthResource resource = new AuthResource();
++        try (var response = resource.login(null)) {
++            assertEquals(400, response.getStatus());
++            assertEquals(Map.of("message", "Request is null"), response.getEntity());
++        }
++        resource.service = new AuthService(null, null) {
++            @Override
++            public UserRecord authenticate(String username, String password) {
++                throw new IllegalStateException("Synthetic failure");
++            }
++        };
++        LoginRequest request = new LoginRequest();
++        request.username = DatabaseFixture.STUDENT;
++        request.password = DatabaseFixture.PASSWORD;
++        try (var response = resource.login(request)) {
++            assertEquals(500, response.getStatus());
++            assertEquals(Map.of("message", "Synthetic failure", "exception", "java.lang.IllegalStateException"),
++                    response.getEntity());
++        }
++    }
++
++    private void assertInvalid(Map<String, String> request, String message) {
++        given().contentType("application/json").body(request).post("/auth/login")
++                .then().statusCode(400).body("message", is(message)).body("size()", is(1));
++    }
++
++    private void assertRejected(String username, String password) {
++        given().contentType("application/json").body(Map.of("username", username, "password", password))
++                .post("/auth/login").then().statusCode(401)
++                .body("message", is("Invalid user " + username + " or password"));
++    }
+ }
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\AuthTestResource.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\AuthTestResource.java"
+new file mode 100644
+index 0000000..19ce452
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\AuthTestResource.java"
+@@ -0,0 +1,49 @@
++package com.bcp.workshop.auth;
++
++import io.quarkus.test.common.QuarkusTestResourceLifecycleManager;
++
++import java.nio.file.Files;
++import java.nio.file.Path;
++import java.util.Map;
++import java.security.KeyPairGenerator;
++import java.security.GeneralSecurityException;
++import java.util.Base64;
++
++public class AuthTestResource implements QuarkusTestResourceLifecycleManager {
++    private Path directory;
++
++    @Override
++    public Map<String, String> start() {
++        try {
++            directory = Files.createTempDirectory(Path.of("target"), "auth-test-").toAbsolutePath();
++            var generator = KeyPairGenerator.getInstance("RSA");
++            generator.initialize(2048);
++            Path key = directory.resolve("test-key.pem");
++            Files.writeString(key, "-----BEGIN PRIVATE KEY-----\n"
++                    + Base64.getMimeEncoder().encodeToString(generator.generateKeyPair().getPrivate().getEncoded())
++                    + "\n-----END PRIVATE KEY-----");
++            return Map.of("auth.database.url", "jdbc:sqlite:" + directory.resolve("test.db"),
++                    "auth.password.cost", "4",
++                    "auth.bootstrap.username", "",
++                    "auth.bootstrap.password", "",
++                    "auth.token.issuer", "test-issuer",
++                    "auth.token.audience", "test-audience",
++                    "auth.token.private-key-path", key.toString(),
++                    "auth.cors.origins", CorsTest.ALLOWED_ORIGIN);
++        } catch (java.io.IOException | GeneralSecurityException error) {
++            throw new IllegalStateException("Unable to create isolated test storage", error);
++        }
++    }
++
++    @Override
++    public void stop() {
++        try (var files = Files.list(directory)) {
++            for (Path file : files.toList()) {
++                Files.delete(file);
++            }
++            Files.delete(directory);
++        } catch (java.io.IOException error) {
++            throw new IllegalStateException("Unable to remove isolated test storage", error);
++        }
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\CorsConfigurationTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\CorsConfigurationTest.java"
+new file mode 100644
+index 0000000..2454319
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\CorsConfigurationTest.java"
+@@ -0,0 +1,19 @@
++package com.bcp.workshop.auth;
++
++import org.junit.jupiter.api.Test;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++class CorsConfigurationTest {
++    @Test
++    void requiresAnExplicitAllowlist() {
++        assertDoesNotThrow(() -> new CorsConfiguration("https://client.example.test,http://localhost:4200"));
++        for (String invalid : new String[]{"", " ", "*", "/.*/", "null", "ftp://example.test",
++                "https://example.test/path", "https://example.test/", "https://user@example.test",
++                "https://example.test?q=test", "https://example.test#fragment", "https://example.test:0",
++                "https://example.test:99999", "https://example.test,", "https://bad host"}) {
++            assertThrows(IllegalArgumentException.class, () -> new CorsConfiguration(invalid));
++        }
++        assertThrows(IllegalArgumentException.class, () -> new CorsConfiguration(null));
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\CorsTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\CorsTest.java"
+new file mode 100644
+index 0000000..4001b2f
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\CorsTest.java"
+@@ -0,0 +1,42 @@
++package com.bcp.workshop.auth;
++
++import io.quarkus.test.junit.QuarkusTest;
++import org.junit.jupiter.api.Test;
++
++import static io.restassured.RestAssured.given;
++import static org.hamcrest.Matchers.nullValue;
++import static org.hamcrest.Matchers.is;
++import static org.hamcrest.Matchers.containsString;
++import static org.hamcrest.Matchers.not;
++
++@QuarkusTest
++class CorsTest {
++    static final String ALLOWED_ORIGIN = "https://client.example.test";
++    static final String DENIED_ORIGIN = "https://untrusted.example.test";
++
++    @Test
++    void characterizesPreflight() {
++        given().header("Origin", ALLOWED_ORIGIN)
++                .header("Access-Control-Request-Method", "POST")
++                .header("Access-Control-Request-Headers", "content-type")
++                .options("/auth/login").then().statusCode(200)
++                .header("Access-Control-Allow-Origin", is(ALLOWED_ORIGIN))
++                .header("Access-Control-Allow-Methods", containsString("POST"));
++    }
++
++    @Test
++    void deniesUnknownOrigin() {
++        given().header("Origin", DENIED_ORIGIN)
++                .header("Access-Control-Request-Method", "POST")
++                .options("/auth/login").then()
++                .header("Access-Control-Allow-Origin", nullValue());
++    }
++
++    @Test
++    void doesNotPermitDeleteFromAllowedOrigin() {
++        given().header("Origin", ALLOWED_ORIGIN)
++                .header("Access-Control-Request-Method", "DELETE")
++                .options("/auth/login").then()
++                .header("Access-Control-Allow-Methods", not(containsString("DELETE")));
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\CredentialMigrationTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\CredentialMigrationTest.java"
+new file mode 100644
+index 0000000..7f8768c
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\CredentialMigrationTest.java"
+@@ -0,0 +1,122 @@
++package com.bcp.workshop.auth;
++
++import org.junit.jupiter.api.Test;
++import org.junit.jupiter.api.io.TempDir;
++
++import java.nio.file.Path;
++import java.sql.Connection;
++import java.sql.SQLException;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++class CredentialMigrationTest {
++    @TempDir(factory = DatabaseFixture.DirectoryFactory.class)
++    Path directory;
++
++    private final PasswordHasher hasher = new PasswordHasher(4);
++
++    @Test
++    void migratesLegacyAccountsAndIsIdempotentAcrossRestarts() throws Exception {
++        String url = "jdbc:sqlite:" + directory.resolve("migration.db");
++        try (var connection = open(url)) {
++            createLegacyAccount(connection);
++            new CredentialMigration(hasher).migrate(connection);
++            assertMigrated(connection);
++        }
++        try (var connection = open(url)) {
++            String before = storedHash(connection);
++            new CredentialMigration(hasher).migrate(connection);
++            assertEquals(before, storedHash(connection));
++            assertMigrated(connection);
++        }
++    }
++
++    @Test
++    void rollsBackOnHashFailureWithoutLosingLegacyAccount() throws Exception {
++        try (var connection = open("jdbc:sqlite::memory:")) {
++            createLegacyAccount(connection);
++            PasswordHasher failingHasher = new PasswordHasher(4) {
++                @Override
++                public String hash(String password) {
++                    throw new IllegalStateException("Synthetic migration failure");
++                }
++            };
++            assertThrows(IllegalStateException.class,
++                    () -> new CredentialMigration(failingHasher).migrate(connection));
++            try (var statement = connection.createStatement();
++                 var result = statement.executeQuery("SELECT password FROM legacy_users")) {
++                assertEquals(DatabaseFixture.PASSWORD, result.getString(1));
++            }
++            try (var statement = connection.createStatement();
++                 var result = statement.executeQuery(
++                         "SELECT count(*) FROM sqlite_master WHERE name='legacy_users_hashed'")) {
++                assertEquals(0, result.getInt(1));
++            }
++            new CredentialMigration(hasher).migrate(connection);
++            assertMigrated(connection);
++        }
++    }
++
++    @Test
++    void initializesEmptyDatabaseAndRejectsUnknownSchemas() throws Exception {
++        try (var connection = open("jdbc:sqlite::memory:")) {
++            new CredentialMigration(hasher).migrate(connection);
++            new CredentialMigration(hasher).migrate(connection);
++            try (var statement = connection.createStatement()) {
++                statement.executeUpdate("PRAGMA user_version=2");
++            }
++            assertThrows(SQLException.class, () -> new CredentialMigration(hasher).migrate(connection));
++        }
++        try (var connection = open("jdbc:sqlite::memory:")) {
++            try (var statement = connection.createStatement()) {
++                statement.executeUpdate("CREATE TABLE legacy_users(unexpected TEXT)");
++            }
++            assertThrows(SQLException.class, () -> new CredentialMigration(hasher).migrate(connection));
++        }
++    }
++
++    private Connection open(String url) throws SQLException {
++        var source = new org.sqlite.SQLiteDataSource();
++        source.setUrl(url);
++        return source.getConnection();
++    }
++
++    private void createLegacyAccount(Connection connection) throws SQLException {
++        try (var statement = connection.createStatement()) {
++            statement.executeUpdate("CREATE TABLE legacy_users(id INTEGER PRIMARY KEY AUTOINCREMENT,"
++                    + "username TEXT UNIQUE, password TEXT NOT NULL, display_name TEXT NOT NULL, role TEXT NOT NULL)");
++        }
++        try (var statement = connection.prepareStatement(
++                "INSERT INTO legacy_users VALUES (1,?,?,?,?)")) {
++            statement.setString(1, DatabaseFixture.STUDENT);
++            statement.setString(2, DatabaseFixture.PASSWORD);
++            statement.setString(3, DatabaseFixture.DISPLAY_NAME);
++            statement.setString(4, "STUDENT");
++            statement.executeUpdate();
++        }
++    }
++
++    private String storedHash(Connection connection) throws SQLException {
++        try (var statement = connection.createStatement();
++             var result = statement.executeQuery("SELECT password_hash FROM legacy_users")) {
++            return result.getString(1);
++        }
++    }
++
++    private void assertMigrated(Connection connection) throws SQLException {
++        assertTrue(hasher.matches(DatabaseFixture.PASSWORD, storedHash(connection)));
++        try (var statement = connection.createStatement();
++             var result = statement.executeQuery("SELECT id,username,display_name,role FROM legacy_users")) {
++            assertEquals(1, result.getInt("id"));
++            assertEquals(DatabaseFixture.STUDENT, result.getString("username"));
++            assertEquals(DatabaseFixture.DISPLAY_NAME, result.getString("display_name"));
++            assertEquals("STUDENT", result.getString("role"));
++        }
++        try (var statement = connection.createStatement();
++             var result = statement.executeQuery("PRAGMA table_info(legacy_users)")) {
++            while (result.next()) {
++                assertNotEquals("password", result.getString("name"));
++            }
++        }
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\DatabaseFixture.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\DatabaseFixture.java"
+new file mode 100644
+index 0000000..3d98e2c
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\DatabaseFixture.java"
+@@ -0,0 +1,53 @@
++package com.bcp.workshop.auth;
++
++import java.sql.Connection;
++import java.sql.DriverManager;
++import java.sql.SQLException;
++import org.eclipse.microprofile.config.ConfigProvider;
++
++final class DatabaseFixture {
++    static final String STUDENT = "test-student";
++    static final String TRAINER = "test-trainer";
++    static final String PASSWORD = "Test-only-password!";
++    static final String DISPLAY_NAME = "<Test & Student>";
++
++    private DatabaseFixture() {}
++
++    static Connection connection() throws SQLException {
++        String url = ConfigProvider.getConfig().getValue("auth.database.url", String.class);
++        if (url == null || !url.contains("target")) {
++            throw new IllegalStateException("Tests require an isolated AUTH_DB_URL under target");
++        }
++        return DriverManager.getConnection(url);
++    }
++
++    static void reset() throws SQLException {
++        try (Connection connection = connection();
++             var delete = connection.createStatement()) {
++            delete.executeUpdate("DELETE FROM legacy_users");
++            insert(connection, STUDENT, PASSWORD, DISPLAY_NAME, "STUDENT");
++            insert(connection, TRAINER, PASSWORD, "Test Trainer", "TRAINER");
++        }
++    }
++
++    private static void insert(Connection connection, String username, String password,
++                               String displayName, String role) throws SQLException {
++        try (var statement = connection.prepareStatement(
++                "INSERT INTO legacy_users(username,password_hash,display_name,role) VALUES (?,?,?,?)")) {
++            statement.setString(1, username);
++            statement.setString(2, new PasswordHasher(4).hash(password));
++            statement.setString(3, displayName);
++            statement.setString(4, role);
++            statement.executeUpdate();
++        }
++    }
++
++    public static class DirectoryFactory implements org.junit.jupiter.api.io.TempDirFactory {
++        @Override
++        public java.nio.file.Path createTempDirectory(
++                org.junit.jupiter.api.extension.AnnotatedElementContext context,
++                org.junit.jupiter.api.extension.ExtensionContext extension) throws java.io.IOException {
++            return java.nio.file.Files.createTempDirectory(java.nio.file.Path.of("target"), "auth-unit-");
++        }
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\LegacyDatabaseTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\LegacyDatabaseTest.java"
+new file mode 100644
+index 0000000..9a6bc36
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\LegacyDatabaseTest.java"
+@@ -0,0 +1,39 @@
++package com.bcp.workshop.auth;
++
++import io.quarkus.test.junit.QuarkusTest;
++import jakarta.inject.Inject;
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.api.Test;
++
++import static org.junit.jupiter.api.Assertions.assertEquals;
++import static org.junit.jupiter.api.Assertions.assertNull;
++
++@QuarkusTest
++class LegacyDatabaseTest {
++    @Inject
++    AuthService service;
++
++
++    @BeforeEach
++    void isolateAccounts() throws Exception {
++        DatabaseFixture.reset();
++    }
++
++    @Test
++    void findsOnlyExactCredentials() {
++        UserRecord user = service.authenticate(DatabaseFixture.STUDENT, DatabaseFixture.PASSWORD);
++        assertEquals(DatabaseFixture.STUDENT, user.username());
++        assertEquals(DatabaseFixture.DISPLAY_NAME, user.displayName());
++        assertEquals("STUDENT", user.role());
++        assertNull(service.authenticate(DatabaseFixture.STUDENT, "incorrect"));
++        assertNull(service.authenticate("missing", DatabaseFixture.PASSWORD));
++        assertNull(service.authenticate(" " + DatabaseFixture.STUDENT, DatabaseFixture.PASSWORD));
++    }
++
++    @Test
++    void rejectsSqlSyntaxAsCredentials() {
++        assertNull(service.authenticate(DatabaseFixture.STUDENT + "' --", "incorrect"));
++        assertNull(service.authenticate("missing", "' OR '1'='1"));
++    }
++
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\PasswordHasherTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\PasswordHasherTest.java"
+new file mode 100644
+index 0000000..72aeba0
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\PasswordHasherTest.java"
+@@ -0,0 +1,29 @@
++package com.bcp.workshop.auth;
++
++import org.junit.jupiter.api.Test;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++class PasswordHasherTest {
++    private final PasswordHasher hasher = new PasswordHasher(4);
++
++    @Test
++    void saltsEachCredentialAndChecksFullPassword() {
++        String hash = hasher.hash(DatabaseFixture.PASSWORD);
++        assertNotEquals(hash, hasher.hash(DatabaseFixture.PASSWORD));
++        assertFalse(hash.contains(DatabaseFixture.PASSWORD));
++        assertTrue(hasher.matches(DatabaseFixture.PASSWORD, hash));
++        assertFalse(hasher.matches("incorrect", hash));
++        String longPassword = "x".repeat(100);
++        assertFalse(hasher.matches(longPassword + "different", hasher.hash(longPassword)));
++        assertFalse(hasher.matches("a\u0000c", hasher.hash("a\u0000b")));
++        assertTrue(hasher.matches("clave-\u00f1", hasher.hash("clave-\u00f1")));
++    }
++
++    @Test
++    void rejectsInvalidCostAndUnsupportedHashes() {
++        assertThrows(IllegalArgumentException.class, () -> new PasswordHasher(3));
++        assertThrows(IllegalArgumentException.class, () -> new PasswordHasher(17));
++        assertThrows(IllegalArgumentException.class, () -> hasher.matches("test", "plaintext"));
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\PasswordStorageTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\PasswordStorageTest.java"
+new file mode 100644
+index 0000000..849d579
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\PasswordStorageTest.java"
+@@ -0,0 +1,26 @@
++package com.bcp.workshop.auth;
++
++import io.quarkus.test.junit.QuarkusTest;
++import org.junit.jupiter.api.Test;
++
++import java.util.HashSet;
++
++import static org.junit.jupiter.api.Assertions.assertFalse;
++import static org.junit.jupiter.api.Assertions.assertTrue;
++
++@QuarkusTest
++class PasswordStorageTest {
++    @Test
++    void storesHashesInsteadOfPlaintextColumn() throws Exception {
++        var columns = new HashSet<String>();
++        try (var connection = DatabaseFixture.connection();
++             var statement = connection.createStatement();
++             var result = statement.executeQuery("PRAGMA table_info(legacy_users)")) {
++            while (result.next()) {
++                columns.add(result.getString("name"));
++            }
++        }
++        assertTrue(columns.contains("password_hash"), "The active schema must contain password_hash");
++        assertFalse(columns.contains("password"), "The plaintext password column must be removed");
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\RepositoryLifecycleTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\RepositoryLifecycleTest.java"
+new file mode 100644
+index 0000000..6120e37
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\RepositoryLifecycleTest.java"
+@@ -0,0 +1,58 @@
++package com.bcp.workshop.auth;
++
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.api.AfterEach;
++import org.junit.jupiter.api.Test;
++import org.junit.jupiter.api.io.TempDir;
++
++import java.nio.file.Path;
++import java.sql.DriverManager;
++import java.sql.SQLException;
++import java.util.Optional;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++class RepositoryLifecycleTest {
++    @TempDir(factory = DatabaseFixture.DirectoryFactory.class)
++    Path directory;
++    private final org.sqlite.JDBC driver = new org.sqlite.JDBC();
++
++    @BeforeEach
++    void registerDriverForUnitTestClassLoader() throws SQLException {
++        DriverManager.registerDriver(driver);
++    }
++
++    @AfterEach
++    void unregisterDriver() throws SQLException {
++        DriverManager.deregisterDriver(driver);
++    }
++
++    @Test
++    void provisionsOnlyExplicitAccountsAndDoesNotResetExistingCredentials() {
++        String url = "jdbc:sqlite:" + directory.resolve("provision.db");
++        PasswordHasher hasher = new PasswordHasher(4);
++        LegacyDatabase repository = new LegacyDatabase(url, hasher, Optional.of("bootstrap-test"),
++                Optional.of(DatabaseFixture.PASSWORD));
++        repository.initialize();
++        repository.initialize();
++        StoredCredentials credentials = repository.findByUsername("bootstrap-test");
++        assertTrue(hasher.matches(DatabaseFixture.PASSWORD, credentials.passwordHash()));
++        assertEquals("STUDENT", credentials.user().role());
++        LegacyDatabase restarted = new LegacyDatabase(url, hasher, Optional.of("bootstrap-test"), Optional.of("different"));
++        restarted.initialize();
++        assertTrue(hasher.matches(DatabaseFixture.PASSWORD, restarted.findByUsername("bootstrap-test").passwordHash()));
++    }
++
++    @Test
++    void failsInitializationExplicitlyAndPreservesDocumentedLookupFailure() {
++        PasswordHasher hasher = new PasswordHasher(4);
++        LegacyDatabase unavailable = new LegacyDatabase("jdbc:unavailable:test", hasher, Optional.empty(), Optional.empty());
++        assertThrows(IllegalStateException.class, unavailable::initialize);
++        assertNull(unavailable.findByUsername("test"));
++        String url = "jdbc:sqlite:" + directory.resolve("invalid-bootstrap.db");
++        LegacyDatabase incomplete = new LegacyDatabase(url, hasher, Optional.of("test"), Optional.empty());
++        assertThrows(IllegalStateException.class, incomplete::initialize);
++        LegacyDatabase blank = new LegacyDatabase(url, hasher, Optional.of(" "), Optional.of(" "));
++        assertThrows(IllegalStateException.class, blank::initialize);
++    }
++}
+diff --git "a/src\\test\\java\\com\\bcp\\workshop\\auth\\TokenServiceTest.java" "b/src\\test\\java\\com\\bcp\\workshop\\auth\\TokenServiceTest.java"
+new file mode 100644
+index 0000000..6a4f9e7
+--- /dev/null
++++ "b/src\\test\\java\\com\\bcp\\workshop\\auth\\TokenServiceTest.java"
+@@ -0,0 +1,105 @@
++package com.bcp.workshop.auth;
++
++import com.fasterxml.jackson.databind.JsonNode;
++import com.fasterxml.jackson.databind.ObjectMapper;
++import org.junit.jupiter.api.Test;
++import org.junit.jupiter.api.io.TempDir;
++
++import java.nio.charset.StandardCharsets;
++import java.nio.file.Files;
++import java.nio.file.Path;
++import java.security.KeyPairGenerator;
++import java.security.PublicKey;
++import java.security.Signature;
++import java.time.Clock;
++import java.time.Instant;
++import java.time.ZoneOffset;
++import java.util.Base64;
++
++import static org.junit.jupiter.api.Assertions.*;
++
++class TokenServiceTest {
++    @TempDir(factory = DatabaseFixture.DirectoryFactory.class)
++    Path directory;
++    private final ObjectMapper mapper = new ObjectMapper();
++    private final Instant instant = Instant.parse("2026-10-19T12:00:00Z");
++    private final UserRecord user = new UserRecord(1, DatabaseFixture.STUDENT, "Test", "STUDENT");
++
++    @Test
++    void signsClaimsWithExactLifetimeAndIndependentVerifier() throws Exception {
++        var keys = keys(2048);
++        var service = new TokenService(keys.getPrivate(), Clock.fixed(instant, ZoneOffset.UTC), "test-issuer", "test-audience");
++        String token = service.create(user);
++        String[] segments = token.split("\\.");
++        assertEquals(3, segments.length);
++        assertTrue(verifies(token, keys.getPublic()));
++        JsonNode header = decode(segments[0]);
++        JsonNode claims = decode(segments[1]);
++        assertEquals("RS256", header.get("alg").asText());
++        assertEquals(user.username(), claims.get("sub").asText());
++        assertEquals(user.role(), claims.get("role").asText());
++        assertEquals("test-issuer", claims.get("iss").asText());
++        assertTrue(claims.get("aud").toString().contains("test-audience"));
++        assertEquals(instant.getEpochSecond(), claims.get("iat").asLong());
++        assertEquals(TokenService.LIFETIME_SECONDS, claims.get("exp").asLong() - claims.get("iat").asLong());
++        assertFalse(claims.has("secret"));
++        assertFalse(claims.has("password"));
++        assertFalse(claims.has("password_hash"));
++        assertTrue(validAt(token, instant, "test-issuer", "test-audience"));
++        assertFalse(validAt(token, instant.plusSeconds(TokenService.LIFETIME_SECONDS), "test-issuer", "test-audience"));
++        assertFalse(validAt(token, instant, "wrong", "test-audience"));
++        assertFalse(validAt(token, instant, "test-issuer", "wrong"));
++        assertFalse(verifies(token, keys(2048).getPublic()));
++        String alteredClaims = new String(Base64.getUrlDecoder().decode(segments[1]), StandardCharsets.UTF_8)
++                .replace("STUDENT", "TRAINER");
++        String altered = segments[0] + "." + Base64.getUrlEncoder().withoutPadding()
++                .encodeToString(alteredClaims.getBytes(StandardCharsets.UTF_8)) + "." + segments[2];
++        assertFalse(verifies(altered, keys.getPublic()));
++    }
++
++    @Test
++    void loadsExternalKeyAndRejectsMissingMalformedOrWeakConfiguration() throws Exception {
++        Path key = directory.resolve("key.pem");
++        Files.writeString(key, "-----BEGIN PRIVATE KEY-----\n"
++                + Base64.getEncoder().encodeToString(keys(2048).getPrivate().getEncoded())
++                + "\n-----END PRIVATE KEY-----");
++        assertEquals(3, new TokenService(key.toString(), "test-issuer", "test-audience").create(user).split("\\.").length);
++        assertThrows(IllegalStateException.class,
++                () -> new TokenService(directory.resolve("missing").toString(), "test-issuer", "test-audience"));
++        Files.writeString(key, "invalid-key");
++        assertThrows(IllegalStateException.class, () -> new TokenService(key.toString(), "test-issuer", "test-audience"));
++        assertThrows(IllegalArgumentException.class, () -> new TokenService("", "test-issuer", "test-audience"));
++        var weak = keys(1024);
++        assertThrows(IllegalArgumentException.class,
++                () -> new TokenService(weak.getPrivate(), Clock.systemUTC(), "test-issuer", "test-audience"));
++        var strong = keys(2048);
++        assertThrows(IllegalArgumentException.class,
++                () -> new TokenService(strong.getPrivate(), Clock.systemUTC(), " ", "test-audience"));
++        assertThrows(IllegalArgumentException.class,
++                () -> new TokenService(strong.getPrivate(), Clock.systemUTC(), "test-issuer", null));
++    }
++
++    private java.security.KeyPair keys(int bits) throws Exception {
++        var generator = KeyPairGenerator.getInstance("RSA");
++        generator.initialize(bits);
++        return generator.generateKeyPair();
++    }
++
++    private JsonNode decode(String segment) throws Exception {
++        return mapper.readTree(Base64.getUrlDecoder().decode(segment));
++    }
++
++    private boolean verifies(String token, PublicKey key) throws Exception {
++        String[] segments = token.split("\\.");
++        Signature signature = Signature.getInstance("SHA256withRSA");
++        signature.initVerify(key);
++        signature.update((segments[0] + "." + segments[1]).getBytes(StandardCharsets.US_ASCII));
++        return signature.verify(Base64.getUrlDecoder().decode(segments[2]));
++    }
++
++    private boolean validAt(String token, Instant now, String issuer, String audience) throws Exception {
++        JsonNode claims = decode(token.split("\\.")[1]);
++        return claims.get("exp").asLong() > now.getEpochSecond()
++                && claims.get("iss").asText().equals(issuer) && claims.get("aud").toString().contains(audience);
++    }
++}

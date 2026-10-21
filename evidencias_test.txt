@@ -1,0 +1,1114 @@
+Evidencias de ejecucion de pruebas
+Fecha: 2026-10-19T15:21:51.6686625-05:00
+Directorio: C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend
+Comando: mvn -B -ntp test
+Entorno: JDK 21; AUTH_DB_URL apunta a una base SQLite de prueba aislada.
+
+Apache Maven 3.10.0 (c43a36b8d67be7e0805a411bc0898af1a51f5472)
+Maven home: C:\ProgramData\chocolatey\lib\maven\apache-maven-3.10.0
+Java version: 21.0.12.1, vendor: Eclipse Adoptium, runtime: C:\Program Files\Eclipse Adoptium\jdk-21.0.12.101-hotspot
+Default locale: es_PE, platform encoding: UTF-8, time zone: America/Lima
+OS name: "windows 11", version: "10.0", arch: "amd64", family: "windows"
+[INFO] Scanning for projects...
+[INFO] Loaded 24142 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] 
+[INFO] ---------------< com.bcp.workshop:workshop-auth-backend >---------------
+[INFO] Building workshop-auth-backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ workshop-auth-backend ---
+[INFO] argLine set to -javaagent:C:\\Users\\Usuario\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\Usuario\\Documents\\T67269-edinson-remigio\\reqflow-workspace\\workshop-auth-backend\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ workshop-auth-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ workshop-auth-backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ workshop-auth-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ workshop-auth-backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ workshop-auth-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 15:22:05,114 INFO  [io.quarkus] (main) workshop-auth-backend 0.1.0 on JVM (powered by Quarkus 3.27.4) started in 4.596s. Listening on: http://127.0.0.1:8081
+2026-10-19 15:22:05,117 INFO  [io.quarkus] (main) Profile test activated. 
+2026-10-19 15:22:05,118 INFO  [io.quarkus] (main) Installed features: [cdi, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.166 s -- in com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 15:22:08,199 INFO  [io.quarkus] (main) workshop-auth-backend stopped in 0.056s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  14.679 s
+[INFO] Finished at: 2026-10-19T15:22:08-05:00
+[INFO] ------------------------------------------------------------------------
+
+Codigo de salida de Maven: 0
+[INFO] Scanning for projects...
+[INFO] Loaded 24142 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] 
+[INFO] ---------------< com.bcp.workshop:workshop-auth-backend >---------------
+[INFO] Building workshop-auth-backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ workshop-auth-backend ---
+[INFO] argLine set to -javaagent:C:\\Users\\Usuario\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\Usuario\\Documents\\T67269-edinson-remigio\\reqflow-workspace\\workshop-auth-backend\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ workshop-auth-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ workshop-auth-backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ workshop-auth-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 6 source files with javac [debug release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ workshop-auth-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 15:42:58,069 INFO  [io.quarkus] (main) workshop-auth-backend 0.1.0 on JVM (powered by Quarkus 3.27.4) started in 24.576s. Listening on: http://127.0.0.1:8081
+2026-10-19 15:42:58,088 INFO  [io.quarkus] (main) Profile test activated. 
+2026-10-19 15:42:58,089 INFO  [io.quarkus] (main) Installed features: [cdi, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+[ERROR] Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 8.722 s <<< FAILURE! -- in com.bcp.workshop.auth.AuthResourceTest
+[ERROR] com.bcp.workshop.auth.AuthResourceTest.logsInTrainerWithoutClient -- Time elapsed: 2.867 s <<< ERROR!
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: legacy_users)
+	at org.sqlite.core.DB.newSQLException(DB.java:1179)
+	at org.sqlite.core.DB.newSQLException(DB.java:1190)
+	at org.sqlite.core.DB.throwex(DB.java:1150)
+	at org.sqlite.core.NativeDB._exec_utf8(Native Method)
+	at org.sqlite.core.NativeDB._exec(NativeDB.java:99)
+	at org.sqlite.jdbc3.JDBC3Statement.lambda$executeLargeUpdate$2(JDBC3Statement.java:139)
+	at org.sqlite.jdbc3.JDBC3Statement.withConnectionTimeout(JDBC3Statement.java:458)
+	at org.sqlite.jdbc3.JDBC3Statement.executeLargeUpdate(JDBC3Statement.java:126)
+	at org.sqlite.jdbc3.JDBC3Statement.executeUpdate(JDBC3Statement.java:113)
+	at com.bcp.workshop.auth.DatabaseFixture.reset(DatabaseFixture.java:26)
+	at com.bcp.workshop.auth.AuthResourceTest.isolateAccounts(AuthResourceTest.java:18)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptBeforeEachMethod(QuarkusTestExtension.java:830)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] com.bcp.workshop.auth.AuthResourceTest.preservesValidationMessagesAndPrecedence -- Time elapsed: 0.031 s <<< ERROR!
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: legacy_users)
+	at org.sqlite.core.DB.newSQLException(DB.java:1179)
+	at org.sqlite.core.DB.newSQLException(DB.java:1190)
+	at org.sqlite.core.DB.throwex(DB.java:1150)
+	at org.sqlite.core.NativeDB._exec_utf8(Native Method)
+	at org.sqlite.core.NativeDB._exec(NativeDB.java:99)
+	at org.sqlite.jdbc3.JDBC3Statement.lambda$executeLargeUpdate$2(JDBC3Statement.java:139)
+	at org.sqlite.jdbc3.JDBC3Statement.withConnectionTimeout(JDBC3Statement.java:458)
+	at org.sqlite.jdbc3.JDBC3Statement.executeLargeUpdate(JDBC3Statement.java:126)
+	at org.sqlite.jdbc3.JDBC3Statement.executeUpdate(JDBC3Statement.java:113)
+	at com.bcp.workshop.auth.DatabaseFixture.reset(DatabaseFixture.java:26)
+	at com.bcp.workshop.auth.AuthResourceTest.isolateAccounts(AuthResourceTest.java:18)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptBeforeEachMethod(QuarkusTestExtension.java:830)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] com.bcp.workshop.auth.AuthResourceTest.preservesNullRequestAndExceptionResponse -- Time elapsed: 0.027 s <<< ERROR!
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: legacy_users)
+	at org.sqlite.core.DB.newSQLException(DB.java:1179)
+	at org.sqlite.core.DB.newSQLException(DB.java:1190)
+	at org.sqlite.core.DB.throwex(DB.java:1150)
+	at org.sqlite.core.NativeDB._exec_utf8(Native Method)
+	at org.sqlite.core.NativeDB._exec(NativeDB.java:99)
+	at org.sqlite.jdbc3.JDBC3Statement.lambda$executeLargeUpdate$2(JDBC3Statement.java:139)
+	at org.sqlite.jdbc3.JDBC3Statement.withConnectionTimeout(JDBC3Statement.java:458)
+	at org.sqlite.jdbc3.JDBC3Statement.executeLargeUpdate(JDBC3Statement.java:126)
+	at org.sqlite.jdbc3.JDBC3Statement.executeUpdate(JDBC3Statement.java:113)
+	at com.bcp.workshop.auth.DatabaseFixture.reset(DatabaseFixture.java:26)
+	at com.bcp.workshop.auth.AuthResourceTest.isolateAccounts(AuthResourceTest.java:18)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptBeforeEachMethod(QuarkusTestExtension.java:830)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] com.bcp.workshop.auth.AuthResourceTest.rejectsIncorrectAndUntrimmedCredentials -- Time elapsed: 0.042 s <<< ERROR!
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: legacy_users)
+	at org.sqlite.core.DB.newSQLException(DB.java:1179)
+	at org.sqlite.core.DB.newSQLException(DB.java:1190)
+	at org.sqlite.core.DB.throwex(DB.java:1150)
+	at org.sqlite.core.NativeDB._exec_utf8(Native Method)
+	at org.sqlite.core.NativeDB._exec(NativeDB.java:99)
+	at org.sqlite.jdbc3.JDBC3Statement.lambda$executeLargeUpdate$2(JDBC3Statement.java:139)
+	at org.sqlite.jdbc3.JDBC3Statement.withConnectionTimeout(JDBC3Statement.java:458)
+	at org.sqlite.jdbc3.JDBC3Statement.executeLargeUpdate(JDBC3Statement.java:126)
+	at org.sqlite.jdbc3.JDBC3Statement.executeUpdate(JDBC3Statement.java:113)
+	at com.bcp.workshop.auth.DatabaseFixture.reset(DatabaseFixture.java:26)
+	at com.bcp.workshop.auth.AuthResourceTest.isolateAccounts(AuthResourceTest.java:18)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptBeforeEachMethod(QuarkusTestExtension.java:830)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] com.bcp.workshop.auth.AuthResourceTest.logsInWithWorkshopUser -- Time elapsed: 0.025 s <<< ERROR!
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: legacy_users)
+	at org.sqlite.core.DB.newSQLException(DB.java:1179)
+	at org.sqlite.core.DB.newSQLException(DB.java:1190)
+	at org.sqlite.core.DB.throwex(DB.java:1150)
+	at org.sqlite.core.NativeDB._exec_utf8(Native Method)
+	at org.sqlite.core.NativeDB._exec(NativeDB.java:99)
+	at org.sqlite.jdbc3.JDBC3Statement.lambda$executeLargeUpdate$2(JDBC3Statement.java:139)
+	at org.sqlite.jdbc3.JDBC3Statement.withConnectionTimeout(JDBC3Statement.java:458)
+	at org.sqlite.jdbc3.JDBC3Statement.executeLargeUpdate(JDBC3Statement.java:126)
+	at org.sqlite.jdbc3.JDBC3Statement.executeUpdate(JDBC3Statement.java:113)
+	at com.bcp.workshop.auth.DatabaseFixture.reset(DatabaseFixture.java:26)
+	at com.bcp.workshop.auth.AuthResourceTest.isolateAccounts(AuthResourceTest.java:18)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptBeforeEachMethod(QuarkusTestExtension.java:830)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] Running com.bcp.workshop.auth.CorsTest
+Request method:	OPTIONS
+Request URI:	http://127.0.0.1:8081/auth/login
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Origin=https://untrusted.example.test
+				Access-Control-Request-Method=POST
+				Accept=*/*
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+HTTP/1.1 200 OK
+access-control-allow-credentials: false
+access-control-allow-origin: https://untrusted.example.test
+access-control-allow-methods: GET,POST,PUT,DELETE,OPTIONS
+content-length: 0
+[ERROR] Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 7.388 s <<< FAILURE! -- in com.bcp.workshop.auth.CorsTest
+[ERROR] com.bcp.workshop.auth.CorsTest.deniesUnknownOrigin -- Time elapsed: 7.069 s <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+Expected header "Access-Control-Allow-Origin" was not null, was "https://untrusted.example.test". Headers are:
+access-control-allow-credentials=false
+access-control-allow-origin=https://untrusted.example.test
+access-control-allow-methods=GET,POST,PUT,DELETE,OPTIONS
+content-length=0
+
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:73)
+	at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrapNoCoerce.callConstructor(ConstructorSite.java:108)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallConstructor(CallSiteArray.java:57)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:263)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:277)
+	at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure.validate(ResponseSpecificationImpl.groovy:512)
+	at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure$validate$1.call(Unknown Source)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCall(CallSiteArray.java:45)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:125)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.call(AbstractCallSite.java:139)
+	at io.restassured.internal.ResponseSpecificationImpl.validateResponseIfRequired(ResponseSpecificationImpl.groovy:696)
+	at io.restassured.internal.ResponseSpecificationImpl.this$2$validateResponseIfRequired(ResponseSpecificationImpl.groovy)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:198)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:62)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:49)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:171)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:185)
+	at io.restassured.internal.ResponseSpecificationImpl.header(ResponseSpecificationImpl.groovy:191)
+	at io.restassured.internal.ValidatableResponseOptionsImpl.header(ValidatableResponseOptionsImpl.java:114)
+	at com.bcp.workshop.auth.CorsTest.deniesUnknownOrigin(CorsTest.java:27)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptTestMethod(QuarkusTestExtension.java:849)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] Running com.bcp.workshop.auth.LegacyDatabaseTest
+[ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.418 s <<< FAILURE! -- in com.bcp.workshop.auth.LegacyDatabaseTest
+[ERROR] com.bcp.workshop.auth.LegacyDatabaseTest.findsOnlyExactCredentials -- Time elapsed: 0.232 s <<< ERROR!
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: legacy_users)
+	at org.sqlite.core.DB.newSQLException(DB.java:1179)
+	at org.sqlite.core.DB.newSQLException(DB.java:1190)
+	at org.sqlite.core.DB.throwex(DB.java:1150)
+	at org.sqlite.core.NativeDB._exec_utf8(Native Method)
+	at org.sqlite.core.NativeDB._exec(NativeDB.java:99)
+	at org.sqlite.jdbc3.JDBC3Statement.lambda$executeLargeUpdate$2(JDBC3Statement.java:139)
+	at org.sqlite.jdbc3.JDBC3Statement.withConnectionTimeout(JDBC3Statement.java:458)
+	at org.sqlite.jdbc3.JDBC3Statement.executeLargeUpdate(JDBC3Statement.java:126)
+	at org.sqlite.jdbc3.JDBC3Statement.executeUpdate(JDBC3Statement.java:113)
+	at com.bcp.workshop.auth.DatabaseFixture.reset(DatabaseFixture.java:26)
+	at com.bcp.workshop.auth.LegacyDatabaseTest.isolateAccounts(LegacyDatabaseTest.java:18)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptBeforeEachMethod(QuarkusTestExtension.java:830)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[ERROR] com.bcp.workshop.auth.LegacyDatabaseTest.rejectsSqlSyntaxAsCredentials -- Time elapsed: 0.069 s <<< ERROR!
+org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: legacy_users)
+	at org.sqlite.core.DB.newSQLException(DB.java:1179)
+	at org.sqlite.core.DB.newSQLException(DB.java:1190)
+	at org.sqlite.core.DB.throwex(DB.java:1150)
+	at org.sqlite.core.NativeDB._exec_utf8(Native Method)
+	at org.sqlite.core.NativeDB._exec(NativeDB.java:99)
+	at org.sqlite.jdbc3.JDBC3Statement.lambda$executeLargeUpdate$2(JDBC3Statement.java:139)
+	at org.sqlite.jdbc3.JDBC3Statement.withConnectionTimeout(JDBC3Statement.java:458)
+	at org.sqlite.jdbc3.JDBC3Statement.executeLargeUpdate(JDBC3Statement.java:126)
+	at org.sqlite.jdbc3.JDBC3Statement.executeUpdate(JDBC3Statement.java:113)
+	at com.bcp.workshop.auth.DatabaseFixture.reset(DatabaseFixture.java:26)
+	at com.bcp.workshop.auth.LegacyDatabaseTest.isolateAccounts(LegacyDatabaseTest.java:18)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptBeforeEachMethod(QuarkusTestExtension.java:830)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] Running com.bcp.workshop.auth.PasswordStorageTest
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.190 s <<< FAILURE! -- in com.bcp.workshop.auth.PasswordStorageTest
+[ERROR] com.bcp.workshop.auth.PasswordStorageTest.storesHashesInsteadOfPlaintextColumn -- Time elapsed: 0.149 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The active schema must contain password_hash ==> expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:214)
+	at com.bcp.workshop.auth.PasswordStorageTest.storesHashesInsteadOfPlaintextColumn(PasswordStorageTest.java:23)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptTestMethod(QuarkusTestExtension.java:849)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] Running com.bcp.workshop.auth.LegacyTokenUtilTest
+[ERROR] Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.232 s <<< FAILURE! -- in com.bcp.workshop.auth.LegacyTokenUtilTest
+[ERROR] com.bcp.workshop.auth.LegacyTokenUtilTest.signedTokenMustNotContainEmbeddedSecret -- Time elapsed: 0.029 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: A signed JWT must have three segments ==> expected: <3> but was: <1>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:563)
+	at com.bcp.workshop.auth.LegacyTokenUtilTest.signedTokenMustNotContainEmbeddedSecret(LegacyTokenUtilTest.java:31)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+2026-10-19 15:43:10,438 INFO  [io.quarkus] (main) workshop-auth-backend stopped in 0.604s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   CorsTest.deniesUnknownOrigin:27 1 expectation failed.
+Expected header "Access-Control-Allow-Origin" was not null, was "https://untrusted.example.test". Headers are:
+access-control-allow-credentials=false
+access-control-allow-origin=https://untrusted.example.test
+access-control-allow-methods=GET,POST,PUT,DELETE,OPTIONS
+content-length=0
+
+[ERROR]   LegacyTokenUtilTest.signedTokenMustNotContainEmbeddedSecret:31 A signed JWT must have three segments ==> expected: <3> but was: <1>
+[ERROR]   PasswordStorageTest.storesHashesInsteadOfPlaintextColumn:23 The active schema must contain password_hash ==> expected: <true> but was: <false>
+[ERROR] Errors: 
+[ERROR]   AuthResourceTest.isolateAccounts:18 � SQLite [SQLITE_ERROR] SQL error or missing database (no such table: legacy_users)
+[ERROR]   AuthResourceTest.isolateAccounts:18 � SQLite [SQLITE_ERROR] SQL error or missing database (no such table: legacy_users)
+[ERROR]   AuthResourceTest.isolateAccounts:18 � SQLite [SQLITE_ERROR] SQL error or missing database (no such table: legacy_users)
+[ERROR]   AuthResourceTest.isolateAccounts:18 � SQLite [SQLITE_ERROR] SQL error or missing database (no such table: legacy_users)
+[ERROR]   AuthResourceTest.isolateAccounts:18 � SQLite [SQLITE_ERROR] SQL error or missing database (no such table: legacy_users)
+[ERROR]   LegacyDatabaseTest.isolateAccounts:18 � SQLite [SQLITE_ERROR] SQL error or missing database (no such table: legacy_users)
+[ERROR]   LegacyDatabaseTest.isolateAccounts:18 � SQLite [SQLITE_ERROR] SQL error or missing database (no such table: legacy_users)
+[INFO] 
+[ERROR] Tests run: 12, Failures: 3, Errors: 7, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:07 min
+[INFO] Finished at: 2026-10-19T15:43:11-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project workshop-auth-backend: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[INFO] Scanning for projects...
+[INFO] Loaded 24142 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] 
+[INFO] ---------------< com.bcp.workshop:workshop-auth-backend >---------------
+[INFO] Building workshop-auth-backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ workshop-auth-backend ---
+[INFO] argLine set to -javaagent:C:\\Users\\Usuario\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\Usuario\\Documents\\T67269-edinson-remigio\\reqflow-workspace\\workshop-auth-backend\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ workshop-auth-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ workshop-auth-backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ workshop-auth-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 6 source files with javac [debug release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ workshop-auth-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 15:44:37,258 INFO  [io.quarkus] (main) workshop-auth-backend 0.1.0 on JVM (powered by Quarkus 3.27.4) started in 20.566s. Listening on: http://127.0.0.1:8081
+2026-10-19 15:44:37,264 INFO  [io.quarkus] (main) Profile test activated. 
+2026-10-19 15:44:37,265 INFO  [io.quarkus] (main) Installed features: [cdi, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.51 s -- in com.bcp.workshop.auth.AuthResourceTest
+[INFO] Running com.bcp.workshop.auth.CorsTest
+Request method:	OPTIONS
+Request URI:	http://127.0.0.1:8081/auth/login
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Origin=https://untrusted.example.test
+				Access-Control-Request-Method=POST
+				Accept=*/*
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+HTTP/1.1 200 OK
+access-control-allow-credentials: false
+access-control-allow-origin: https://untrusted.example.test
+access-control-allow-methods: GET,POST,PUT,DELETE,OPTIONS
+content-length: 0
+[ERROR] Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.594 s <<< FAILURE! -- in com.bcp.workshop.auth.CorsTest
+[ERROR] com.bcp.workshop.auth.CorsTest.deniesUnknownOrigin -- Time elapsed: 0.416 s <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+Expected header "Access-Control-Allow-Origin" was not null, was "https://untrusted.example.test". Headers are:
+access-control-allow-credentials=false
+access-control-allow-origin=https://untrusted.example.test
+access-control-allow-methods=GET,POST,PUT,DELETE,OPTIONS
+content-length=0
+
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:73)
+	at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrapNoCoerce.callConstructor(ConstructorSite.java:108)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallConstructor(CallSiteArray.java:57)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:263)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:277)
+	at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure.validate(ResponseSpecificationImpl.groovy:512)
+	at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure$validate$1.call(Unknown Source)
+	at io.restassured.internal.ResponseSpecificationImpl.validateResponseIfRequired(ResponseSpecificationImpl.groovy:696)
+	at io.restassured.internal.ResponseSpecificationImpl.this$2$validateResponseIfRequired(ResponseSpecificationImpl.groovy)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:198)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:62)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallCurrent(CallSiteArray.java:49)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:171)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:185)
+	at io.restassured.internal.ResponseSpecificationImpl.header(ResponseSpecificationImpl.groovy:191)
+	at io.restassured.internal.ValidatableResponseOptionsImpl.header(ValidatableResponseOptionsImpl.java:114)
+	at com.bcp.workshop.auth.CorsTest.deniesUnknownOrigin(CorsTest.java:27)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptTestMethod(QuarkusTestExtension.java:849)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] Running com.bcp.workshop.auth.LegacyDatabaseTest
+[ERROR] Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.354 s <<< FAILURE! -- in com.bcp.workshop.auth.LegacyDatabaseTest
+[ERROR] com.bcp.workshop.auth.LegacyDatabaseTest.rejectsSqlSyntaxAsCredentials -- Time elapsed: 0.129 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: expected: <null> but was: <UserRecord[id=15, username=test-student, displayName=<Test & Student>, role=STUDENT]>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertNull.failNotNull(AssertNull.java:50)
+	at org.junit.jupiter.api.AssertNull.assertNull(AssertNull.java:35)
+	at org.junit.jupiter.api.AssertNull.assertNull(AssertNull.java:30)
+	at org.junit.jupiter.api.Assertions.assertNull(Assertions.java:279)
+	at com.bcp.workshop.auth.LegacyDatabaseTest.rejectsSqlSyntaxAsCredentials(LegacyDatabaseTest.java:34)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptTestMethod(QuarkusTestExtension.java:849)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] Running com.bcp.workshop.auth.PasswordStorageTest
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.122 s <<< FAILURE! -- in com.bcp.workshop.auth.PasswordStorageTest
+[ERROR] com.bcp.workshop.auth.PasswordStorageTest.storesHashesInsteadOfPlaintextColumn -- Time elapsed: 0.074 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The active schema must contain password_hash ==> expected: <true> but was: <false>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertTrue.failNotTrue(AssertTrue.java:63)
+	at org.junit.jupiter.api.AssertTrue.assertTrue(AssertTrue.java:36)
+	at org.junit.jupiter.api.Assertions.assertTrue(Assertions.java:214)
+	at com.bcp.workshop.auth.PasswordStorageTest.storesHashesInsteadOfPlaintextColumn(PasswordStorageTest.java:23)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptTestMethod(QuarkusTestExtension.java:849)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] Running com.bcp.workshop.auth.LegacyTokenUtilTest
+[ERROR] Tests run: 2, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.097 s <<< FAILURE! -- in com.bcp.workshop.auth.LegacyTokenUtilTest
+[ERROR] com.bcp.workshop.auth.LegacyTokenUtilTest.signedTokenMustNotContainEmbeddedSecret -- Time elapsed: 0.020 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: A signed JWT must have three segments ==> expected: <3> but was: <1>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:150)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:563)
+	at com.bcp.workshop.auth.LegacyTokenUtilTest.signedTokenMustNotContainEmbeddedSecret(LegacyTokenUtilTest.java:31)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+2026-10-19 15:44:53,083 INFO  [io.quarkus] (main) workshop-auth-backend stopped in 0.247s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   CorsTest.deniesUnknownOrigin:27 1 expectation failed.
+Expected header "Access-Control-Allow-Origin" was not null, was "https://untrusted.example.test". Headers are:
+access-control-allow-credentials=false
+access-control-allow-origin=https://untrusted.example.test
+access-control-allow-methods=GET,POST,PUT,DELETE,OPTIONS
+content-length=0
+
+[ERROR]   LegacyDatabaseTest.rejectsSqlSyntaxAsCredentials:34 expected: <null> but was: <UserRecord[id=15, username=test-student, displayName=<Test & Student>, role=STUDENT]>
+[ERROR]   LegacyTokenUtilTest.signedTokenMustNotContainEmbeddedSecret:31 A signed JWT must have three segments ==> expected: <3> but was: <1>
+[ERROR]   PasswordStorageTest.storesHashesInsteadOfPlaintextColumn:23 The active schema must contain password_hash ==> expected: <true> but was: <false>
+[INFO] 
+[ERROR] Tests run: 12, Failures: 4, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:16 min
+[INFO] Finished at: 2026-10-19T15:44:54-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project workshop-auth-backend: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[INFO] Scanning for projects...
+[INFO] Loaded 24142 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] 
+[INFO] ---------------< com.bcp.workshop:workshop-auth-backend >---------------
+[INFO] Building workshop-auth-backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ workshop-auth-backend ---
+[INFO] argLine set to -javaagent:C:\\Users\\Usuario\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\Usuario\\Documents\\T67269-edinson-remigio\\reqflow-workspace\\workshop-auth-backend\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ workshop-auth-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 5 source files with javac [debug release 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ workshop-auth-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 6 source files with javac [debug release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ workshop-auth-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 15:46:17,035 INFO  [io.quarkus] (main) workshop-auth-backend 0.1.0 on JVM (powered by Quarkus 3.27.4) started in 19.998s. Listening on: http://127.0.0.1:8081
+2026-10-19 15:46:17,045 INFO  [io.quarkus] (main) Profile test activated. 
+2026-10-19 15:46:17,045 INFO  [io.quarkus] (main) Installed features: [cdi, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.75 s -- in com.bcp.workshop.auth.AuthResourceTest
+[INFO] Running com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.190 s -- in com.bcp.workshop.auth.LegacyDatabaseTest
+2026-10-19 15:46:31,943 INFO  [io.quarkus] (main) workshop-auth-backend stopped in 0.164s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:18 min
+[INFO] Finished at: 2026-10-19T15:46:32-05:00
+[INFO] ------------------------------------------------------------------------
+[INFO] Scanning for projects...
+[INFO] Loaded 24142 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] 
+[INFO] ---------------< com.bcp.workshop:workshop-auth-backend >---------------
+[INFO] Building workshop-auth-backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ workshop-auth-backend ---
+[INFO] argLine set to -javaagent:C:\\Users\\Usuario\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\Usuario\\Documents\\T67269-edinson-remigio\\reqflow-workspace\\workshop-auth-backend\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ workshop-auth-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 10 source files with javac [debug release 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ workshop-auth-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 9 source files with javac [debug release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ workshop-auth-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+2026-10-19 15:51:41,396 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.quarkus:quarkus-elytron-security-common:pom:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:41,410 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.quarkus:quarkus-elytron-security-common:pom:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:43,724 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.quarkus:quarkus-elytron-security-common-parent:pom:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:43,734 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.quarkus:quarkus-elytron-security-common-parent:pom:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:45,022 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-credential:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:45,034 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-credential:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:45,120 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-parent:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:45,127 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-parent:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:45,216 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.jboss:jboss-parent:pom:50 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,222 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.jboss:jboss-parent:pom:50 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,301 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-asn1:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,308 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-asn1:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,406 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-keystore:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,416 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-keystore:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,498 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-util:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,503 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-util:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,588 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-base:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,601 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-base:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,690 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-provider-util:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,700 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-provider-util:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,784 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-x500-cert:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,791 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-x500-cert:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,881 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-x500:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,886 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-x500:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,963 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-x500-cert-util:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:45,970 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-x500-cert-util:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:46,042 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-password-impl:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,049 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.wildfly.security:wildfly-elytron-password-impl:pom:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,135 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.quarkus:quarkus-smallrye-jwt-build:pom:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,138 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.quarkus:quarkus-smallrye-jwt-build:pom:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,286 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.quarkus:quarkus-smallrye-jwt-build-parent:pom:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,289 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.quarkus:quarkus-smallrye-jwt-build-parent:pom:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,431 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.smallrye:smallrye-jwt-build:pom:4.6.2 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,434 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.smallrye:smallrye-jwt-build:pom:4.6.2 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,507 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.smallrye:smallrye-jwt-implementation-parent:pom:4.6.2 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,512 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.smallrye:smallrye-jwt-implementation-parent:pom:4.6.2 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,586 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.smallrye:smallrye-jwt-parent:pom:4.6.2 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,588 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.smallrye:smallrye-jwt-parent:pom:4.6.2 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,663 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.eclipse.microprofile.jwt:microprofile-jwt-auth-api:pom:2.1 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,666 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.eclipse.microprofile.jwt:microprofile-jwt-auth-api:pom:2.1 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,739 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.eclipse.microprofile.jwt:microprofile-jwt-auth-parent:pom:2.1 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,741 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.eclipse.microprofile.jwt:microprofile-jwt-auth-parent:pom:2.1 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,819 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.bitbucket.b_c:jose4j:pom:0.9.6 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,822 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact org.bitbucket.b_c:jose4j:pom:0.9.6 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,905 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.smallrye:smallrye-jwt-common:pom:4.6.2 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:46,907 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (main) Artifact io.smallrye:smallrye-jwt-common:pom:4.6.2 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,346 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-7) Artifact io.quarkus:quarkus-elytron-security-common:jar:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,356 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-7) Artifact io.quarkus:quarkus-elytron-security-common:jar:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,575 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-7) Artifact org.wildfly.security:wildfly-elytron-credential:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,616 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-7) Artifact org.wildfly.security:wildfly-elytron-credential:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,633 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-8) Artifact org.wildfly.security:wildfly-elytron-util:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,638 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-10) Artifact org.wildfly.security:wildfly-elytron-x500-cert:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,639 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-6) Artifact org.wildfly.security:wildfly-elytron-base:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,648 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-1) Artifact org.wildfly.security:wildfly-elytron-asn1:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,657 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-11) Artifact org.wildfly.security:wildfly-elytron-keystore:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,657 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-6) Artifact org.wildfly.security:wildfly-elytron-base:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,663 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-9) Artifact org.wildfly.security:wildfly-elytron-provider-util:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,669 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-8) Artifact org.wildfly.security:wildfly-elytron-util:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,670 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-2) Artifact org.wildfly.security:wildfly-elytron-x500-cert-util:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,678 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-10) Artifact org.wildfly.security:wildfly-elytron-x500-cert:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,688 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-11) Artifact org.wildfly.security:wildfly-elytron-keystore:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,690 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-1) Artifact org.wildfly.security:wildfly-elytron-asn1:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,690 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-4) Artifact org.wildfly.security:wildfly-elytron-x500:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,701 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-2) Artifact org.wildfly.security:wildfly-elytron-x500-cert-util:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,735 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-9) Artifact org.wildfly.security:wildfly-elytron-provider-util:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,736 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-7) Artifact org.wildfly.security:wildfly-elytron-password-impl:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,751 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-7) Artifact org.wildfly.security:wildfly-elytron-password-impl:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,773 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-4) Artifact org.wildfly.security:wildfly-elytron-x500:jar:2.6.5.Final is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases), public-jboss (https://repository.jboss.org/nexus/content/groups/public-jboss/, default, releases+snapshots)]
+2026-10-19 15:51:49,774 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-3) Artifact io.smallrye:smallrye-jwt-build:jar:4.6.2 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,795 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-3) Artifact io.smallrye:smallrye-jwt-build:jar:4.6.2 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,856 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-9) Artifact org.eclipse.microprofile.jwt:microprofile-jwt-auth-api:jar:2.1 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,870 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-8) Artifact org.bitbucket.b_c:jose4j:jar:0.9.6 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,877 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-6) Artifact io.smallrye:smallrye-jwt-common:jar:4.6.2 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,881 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-8) Artifact org.bitbucket.b_c:jose4j:jar:0.9.6 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,887 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-6) Artifact io.smallrye:smallrye-jwt-common:jar:4.6.2 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,889 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-9) Artifact org.eclipse.microprofile.jwt:microprofile-jwt-auth-api:jar:2.1 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,916 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-5) Artifact io.quarkus:quarkus-smallrye-jwt-build:jar:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+2026-10-19 15:51:49,945 INFO  [org.ecl.aet.int.imp.DefaultArtifactResolver] (ForkJoinPool.commonPool-worker-5) Artifact io.quarkus:quarkus-smallrye-jwt-build:jar:3.27.4 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [central (https://repo.maven.apache.org/maven2, default, releases)]
+[INFO] Running com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 15:52:06,057 INFO  [io.quarkus] (main) workshop-auth-backend 0.1.0 on JVM (powered by Quarkus 3.27.4) started in 12.707s. Listening on: http://127.0.0.1:8081
+2026-10-19 15:52:06,058 INFO  [io.quarkus] (main) Profile test activated. 
+2026-10-19 15:52:06,058 INFO  [io.quarkus] (main) Installed features: [cdi, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.92 s -- in com.bcp.workshop.auth.AuthResourceTest
+[INFO] Running com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.199 s -- in com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Running com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.031 s -- in com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Running com.bcp.workshop.auth.CredentialMigrationTest
+[ERROR] Tests run: 3, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.477 s <<< FAILURE! -- in com.bcp.workshop.auth.CredentialMigrationTest
+[ERROR] com.bcp.workshop.auth.CredentialMigrationTest.initializesEmptyDatabaseAndRejectsUnknownSchemas -- Time elapsed: 0.107 s <<< ERROR!
+java.sql.SQLException: No suitable driver found for jdbc:sqlite::memory:
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:708)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:253)
+	at com.bcp.workshop.auth.CredentialMigrationTest.initializesEmptyDatabaseAndRejectsUnknownSchemas(CredentialMigrationTest.java:63)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] Running com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.042 s -- in com.bcp.workshop.auth.PasswordHasherTest
+2026-10-19 15:52:15,176 INFO  [io.quarkus] (main) workshop-auth-backend stopped in 0.060s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Errors: 
+[ERROR]   CredentialMigrationTest.initializesEmptyDatabaseAndRejectsUnknownSchemas:63 � SQL No suitable driver found for jdbc:sqlite::memory:
+[INFO] 
+[ERROR] Tests run: 13, Failures: 0, Errors: 1, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  58.263 s
+[INFO] Finished at: 2026-10-19T15:52:15-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project workshop-auth-backend: 
+[ERROR] 
+[ERROR] See C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[INFO] Scanning for projects...
+[INFO] Loaded 24142 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] 
+[INFO] ---------------< com.bcp.workshop:workshop-auth-backend >---------------
+[INFO] Building workshop-auth-backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ workshop-auth-backend ---
+[INFO] argLine set to -javaagent:C:\\Users\\Usuario\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\Usuario\\Documents\\T67269-edinson-remigio\\reqflow-workspace\\workshop-auth-backend\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ workshop-auth-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ workshop-auth-backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ workshop-auth-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 9 source files with javac [debug release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ workshop-auth-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 15:53:13,079 INFO  [io.quarkus] (main) workshop-auth-backend 0.1.0 on JVM (powered by Quarkus 3.27.4) started in 13.618s. Listening on: http://127.0.0.1:8081
+2026-10-19 15:53:13,088 INFO  [io.quarkus] (main) Profile test activated. 
+2026-10-19 15:53:13,089 INFO  [io.quarkus] (main) Installed features: [cdi, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.73 s -- in com.bcp.workshop.auth.AuthResourceTest
+[INFO] Running com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.188 s -- in com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Running com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.028 s -- in com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Running com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.587 s -- in com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Running com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.060 s -- in com.bcp.workshop.auth.PasswordHasherTest
+2026-10-19 15:53:24,657 INFO  [io.quarkus] (main) workshop-auth-backend stopped in 0.149s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 13, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  48.398 s
+[INFO] Finished at: 2026-10-19T15:53:25-05:00
+[INFO] ------------------------------------------------------------------------
+[INFO] Scanning for projects...
+[INFO] Loaded 24142 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] 
+[INFO] ---------------< com.bcp.workshop:workshop-auth-backend >---------------
+[INFO] Building workshop-auth-backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ workshop-auth-backend ---
+[INFO] argLine set to -javaagent:C:\\Users\\Usuario\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\Usuario\\Documents\\T67269-edinson-remigio\\reqflow-workspace\\workshop-auth-backend\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ workshop-auth-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 10 source files with javac [debug release 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ workshop-auth-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 9 source files with javac [debug release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ workshop-auth-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 15:55:20,054 INFO  [io.quarkus] (main) workshop-auth-backend 0.1.0 on JVM (powered by Quarkus 3.27.4) started in 13.735s. Listening on: http://127.0.0.1:8081
+2026-10-19 15:55:20,061 INFO  [io.quarkus] (main) Profile test activated. 
+2026-10-19 15:55:20,061 INFO  [io.quarkus] (main) Installed features: [cdi, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 15.15 s -- in com.bcp.workshop.auth.AuthResourceTest
+[INFO] Running com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 15:55:33,550 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+2026-10-19 15:55:33,554 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.286 s -- in com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 15:55:33,817 INFO  [io.quarkus] (main) workshop-auth-backend stopped in 0.068s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  51.421 s
+[INFO] Finished at: 2026-10-19T15:55:34-05:00
+[INFO] ------------------------------------------------------------------------
+[INFO] Scanning for projects...
+[INFO] Loaded 24142 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] 
+[INFO] ---------------< com.bcp.workshop:workshop-auth-backend >---------------
+[INFO] Building workshop-auth-backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ workshop-auth-backend ---
+[INFO] argLine set to -javaagent:C:\\Users\\Usuario\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\Usuario\\Documents\\T67269-edinson-remigio\\reqflow-workspace\\workshop-auth-backend\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ workshop-auth-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 11 source files with javac [debug release 21] to target\classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ workshop-auth-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 10 source files with javac [debug release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ workshop-auth-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 15:56:56,029 INFO  [io.quarkus] (main) workshop-auth-backend 0.1.0 on JVM (powered by Quarkus 3.27.4) started in 12.707s. Listening on: http://127.0.0.1:8081
+2026-10-19 15:56:56,035 INFO  [io.quarkus] (main) Profile test activated. 
+2026-10-19 15:56:56,036 INFO  [io.quarkus] (main) Installed features: [cdi, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 12.56 s -- in com.bcp.workshop.auth.AuthResourceTest
+[INFO] Running com.bcp.workshop.auth.CorsTest
+Request method:	OPTIONS
+Request URI:	http://127.0.0.1:8081/auth/login
+Proxy:			<none>
+Request params:	<none>
+Query params:	<none>
+Form params:	<none>
+Path params:	<none>
+Headers:		Origin=https://client.example.test
+				Access-Control-Request-Method=DELETE
+				Accept=*/*
+Cookies:		<none>
+Multiparts:		<none>
+Body:			<none>
+
+HTTP/1.1 200 OK
+access-control-allow-credentials: true
+access-control-allow-origin: https://client.example.test
+access-control-allow-methods: POST,OPTIONS
+content-length: 0
+[ERROR] Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.294 s <<< FAILURE! -- in com.bcp.workshop.auth.CorsTest
+[ERROR] com.bcp.workshop.auth.CorsTest.doesNotPermitDeleteFromAllowedOrigin -- Time elapsed: 0.079 s <<< FAILURE!
+java.lang.AssertionError: 
+1 expectation failed.
+Expected header "Access-Control-Allow-Methods" was not null, was "POST,OPTIONS". Headers are:
+access-control-allow-credentials=true
+access-control-allow-origin=https://client.example.test
+access-control-allow-methods=POST,OPTIONS
+content-length=0
+
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(DirectConstructorHandleAccessor.java:62)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:502)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:486)
+	at org.codehaus.groovy.reflection.CachedConstructor.invoke(CachedConstructor.java:73)
+	at org.codehaus.groovy.runtime.callsite.ConstructorSite$ConstructorSiteNoUnwrapNoCoerce.callConstructor(ConstructorSite.java:108)
+	at org.codehaus.groovy.runtime.callsite.CallSiteArray.defaultCallConstructor(CallSiteArray.java:57)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:263)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callConstructor(AbstractCallSite.java:277)
+	at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure.validate(ResponseSpecificationImpl.groovy:512)
+	at io.restassured.internal.ResponseSpecificationImpl$HamcrestAssertionClosure$validate$1.call(Unknown Source)
+	at io.restassured.internal.ResponseSpecificationImpl.validateResponseIfRequired(ResponseSpecificationImpl.groovy:696)
+	at io.restassured.internal.ResponseSpecificationImpl.this$2$validateResponseIfRequired(ResponseSpecificationImpl.groovy)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.codehaus.groovy.runtime.callsite.PlainObjectMetaMethodSite.doInvoke(PlainObjectMetaMethodSite.java:43)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite$PogoCachedMethodSiteNoUnwrapNoCoerce.invoke(PogoMetaMethodSite.java:198)
+	at org.codehaus.groovy.runtime.callsite.PogoMetaMethodSite.callCurrent(PogoMetaMethodSite.java:62)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callCurrent(AbstractCallSite.java:185)
+	at io.restassured.internal.ResponseSpecificationImpl.header(ResponseSpecificationImpl.groovy:191)
+	at io.restassured.internal.ValidatableResponseOptionsImpl.header(ValidatableResponseOptionsImpl.java:114)
+	at com.bcp.workshop.auth.CorsTest.doesNotPermitDeleteFromAllowedOrigin(CorsTest.java:39)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at io.quarkus.test.junit.QuarkusTestExtension.runExtensionMethod(QuarkusTestExtension.java:1001)
+	at io.quarkus.test.junit.QuarkusTestExtension.interceptTestMethod(QuarkusTestExtension.java:849)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] Running com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.144 s -- in com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Running com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.016 s -- in com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Running com.bcp.workshop.auth.CorsConfigurationTest
+2026-10-19 15:57:05,739 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,739 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,741 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,741 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,742 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,742 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,742 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,743 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,743 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,743 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,744 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,744 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,745 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,745 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,746 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:57:05,747 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.024 s -- in com.bcp.workshop.auth.CorsConfigurationTest
+[INFO] Running com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.485 s -- in com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Running com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.107 s -- in com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Running com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 15:57:08,404 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+2026-10-19 15:57:08,410 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.312 s -- in com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 15:57:08,857 INFO  [io.quarkus] (main) workshop-auth-backend stopped in 0.141s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   CorsTest.doesNotPermitDeleteFromAllowedOrigin:39 1 expectation failed.
+Expected header "Access-Control-Allow-Methods" was not null, was "POST,OPTIONS". Headers are:
+access-control-allow-credentials=true
+access-control-allow-origin=https://client.example.test
+access-control-allow-methods=POST,OPTIONS
+content-length=0
+
+[INFO] 
+[ERROR] Tests run: 19, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  50.302 s
+[INFO] Finished at: 2026-10-19T15:57:09-05:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.4:test (default-test) on project workshop-auth-backend: There are test failures.
+[ERROR] 
+[ERROR] See C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[INFO] Scanning for projects...
+[INFO] Loaded 24142 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] 
+[INFO] ---------------< com.bcp.workshop:workshop-auth-backend >---------------
+[INFO] Building workshop-auth-backend 0.1.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- jacoco:0.8.12:prepare-agent (prepare-agent) @ workshop-auth-backend ---
+[INFO] argLine set to -javaagent:C:\\Users\\Usuario\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.12\\org.jacoco.agent-0.8.12-runtime.jar=destfile=C:\\Users\\Usuario\\Documents\\T67269-edinson-remigio\\reqflow-workspace\\workshop-auth-backend\\target\\jacoco.exec
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ workshop-auth-backend ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.16.0:compile (default-compile) @ workshop-auth-backend ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ workshop-auth-backend ---
+[INFO] skip non existing resourceDirectory C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.16.0:testCompile (default-testCompile) @ workshop-auth-backend ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 10 source files with javac [debug release 21] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ workshop-auth-backend ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running com.bcp.workshop.auth.AuthResourceTest
+2026-10-19 15:58:14,602 INFO  [io.quarkus] (main) workshop-auth-backend 0.1.0 on JVM (powered by Quarkus 3.27.4) started in 15.549s. Listening on: http://127.0.0.1:8081
+2026-10-19 15:58:14,612 INFO  [io.quarkus] (main) Profile test activated. 
+2026-10-19 15:58:14,613 INFO  [io.quarkus] (main) Installed features: [cdi, rest, rest-jackson, smallrye-context-propagation, smallrye-health, vertx]
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 16.22 s -- in com.bcp.workshop.auth.AuthResourceTest
+[INFO] Running com.bcp.workshop.auth.CorsTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.354 s -- in com.bcp.workshop.auth.CorsTest
+[INFO] Running com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.148 s -- in com.bcp.workshop.auth.LegacyDatabaseTest
+[INFO] Running com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.024 s -- in com.bcp.workshop.auth.PasswordStorageTest
+[INFO] Running com.bcp.workshop.auth.CorsConfigurationTest
+2026-10-19 15:58:27,117 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,119 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,119 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,119 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,119 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,121 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,123 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,124 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,125 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,130 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,132 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,135 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,147 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,147 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,182 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+2026-10-19 15:58:27,183 ERROR [com.bcp.wor.aut.CorsConfiguration] (main) AUTH_CORS_ORIGINS must contain explicit HTTP(S) origins without paths or wildcards
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.084 s -- in com.bcp.workshop.auth.CorsConfigurationTest
+[INFO] Running com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.552 s -- in com.bcp.workshop.auth.CredentialMigrationTest
+[INFO] Running com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.064 s -- in com.bcp.workshop.auth.PasswordHasherTest
+[INFO] Running com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 15:58:29,968 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+2026-10-19 15:58:29,974 ERROR [com.bcp.wor.aut.TokenService] (main) Unable to load JWT signing key
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.252 s -- in com.bcp.workshop.auth.TokenServiceTest
+2026-10-19 15:58:30,178 INFO  [io.quarkus] (main) workshop-auth-backend stopped in 0.084s
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 19, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.5.1:jar (default-jar) @ workshop-auth-backend ---
+[INFO] Building jar: C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\workshop-auth-backend-0.1.0.jar
+[INFO] 
+[INFO] --- jacoco:0.8.12:report (report) @ workshop-auth-backend ---
+[INFO] Loading execution data file C:\Users\Usuario\Documents\T67269-edinson-remigio\reqflow-workspace\workshop-auth-backend\target\jacoco.exec
+[INFO] Analyzed bundle 'workshop-auth-backend' with 13 classes
+[WARNING] Classes in bundle 'workshop-auth-backend' do not match with execution data. For report generation the same class files must be used as at runtime.
+[WARNING] Execution data for class com/bcp/workshop/auth/LegacyDatabase does not match.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  01:06 min
+[INFO] Finished at: 2026-10-19T15:58:35-05:00
+[INFO] ------------------------------------------------------------------------
